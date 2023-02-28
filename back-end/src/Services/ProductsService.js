@@ -1,5 +1,5 @@
 module.export = class ProductsService {
   constructor(model) {
-    this.model = model
+    this.model = model;
   }
-}
+};

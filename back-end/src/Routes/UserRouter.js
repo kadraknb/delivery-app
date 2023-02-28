@@ -1,10 +1,10 @@
 const { Router } = require('express');
-const factory = require('../Factory/UserFactory');
+const UserFactory = require('../Factory/UserFactory');
 
 const UserRouter = Router();
-const UserFactory = new factory();
+const Factory = new UserFactory();
 
-UserRouter.post('/login', UserFactory);
-UserRouter.post('/register', UserFactory);
+UserRouter.post('/login', Factory);
+UserRouter.post('/register', Factory);
 
 module.exports = UserRouter;
