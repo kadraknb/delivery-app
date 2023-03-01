@@ -3,7 +3,7 @@ const SchemaJoi = require('./schemaJoi');
 const NotFound = require('../errors/NotFound');
 const BadRequest = require('../errors/BadRequest');
 
-module.exports = class validate {
+module.exports = class Validate {
   static verifyLogin(email, password, verifyUserExist) {
     const { error } = SchemaJoi.loiginSchema.validate({ email, password });
     if (error) {

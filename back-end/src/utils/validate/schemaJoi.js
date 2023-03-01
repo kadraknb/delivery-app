@@ -1,6 +1,6 @@
 const joi = require('joi');
 
-const loiginSchema = joi.object({
+const loginSchema = joi.object({
   email: joi.string().email().required(),
   password: joi.string().min(6).required(),
 }).messages({
@@ -10,4 +10,4 @@ const loiginSchema = joi.object({
   'string.min': 'password length must be at least {#limit} characters long',
 });
 
-module.exports = { loiginSchema };
+module.exports = { loginSchema };
