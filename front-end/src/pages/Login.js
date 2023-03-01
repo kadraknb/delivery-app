@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
+import api from '../services/api';
 
 function Login() {
   const { email, password, setEmail, setPassword } = useContext(DeliveryContext);
-  const [error] = useState(false);
+  const [errorMsg, setErrorMsg] = useState([false, '']);
   const [isDisabled, setIsDisabled] = useState(true);
   const navigate = useNavigate();
 
@@ -19,14 +20,28 @@ function Login() {
     }
   }, [email, password]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await api.post('/login', {
+        email,
+        password,
+      });
+      navigate('/customer/products');
+    } catch (error) {
+      setErrorMsg([true, `${error}`]);
+    }
+  };
+
   return (
     <div>
-      <form>
+      <form onSubmit={ handleSubmit }>
         <h1>Delivery</h1>
         <section>
           <label htmlFor="input-email">
             E-mail
             <input
+              className="form-input"
               type="email"
               name="email"
               onChange={ (e) => setEmail(e.target.value) }
@@ -36,6 +51,7 @@ function Login() {
           <label htmlFor="label-password">
             Password
             <input
+              className="form-input"
               type="password"
               name="password"
               onChange={ (e) => setPassword(e.target.value) }
@@ -45,7 +61,7 @@ function Login() {
         </section>
         <div>
           <button
-            type="button"
+            type="submit"
             name="login"
             className="login-button"
             data-testid="common_login__button-login"
@@ -63,7 +79,8 @@ function Login() {
           </button>
         </div>
       </form>
-      { error ? <p data-testid="common_login__element-invalid-email">Mensagem de erro</p>
+      { errorMsg[0]
+        ? <p data-testid="common_login__element-invalid-email">{errorMsg[1]}</p>
         : undefined }
 
     </div>
