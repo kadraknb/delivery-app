@@ -5,7 +5,7 @@ const BadRequest = require('../errors/BadRequest');
 
 module.exports = class Validate {
   static verifyLogin(email, password, verifyUserExist) {
-    const { error } = SchemaJoi.loiginSchema.validate({ email, password });
+    const { error } = SchemaJoi.loginSchema.validate({ email, password });
     if (error) {
       throw new NotFound(error.details[0].message);
     }
