@@ -12,4 +12,13 @@ module.exports = class UserController {
       next(error);
     }
   }
+
+  async createUser(req, res, next) {
+    try {
+      await this.service.createUser(req.body);
+      return res.status(201).json('Register successful');
+    } catch (error) {
+      next(error);
+    }
+  }
 };
