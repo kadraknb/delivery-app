@@ -1,4 +1,4 @@
-module.export = class ProductsService {
+module.exports = class ProductsService {
   constructor(model) {
     this.model = model;
   }
