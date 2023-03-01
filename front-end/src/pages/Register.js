@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 
 function Register() {
   const { setEmail, setPassword } = useContext(DeliveryContext);
-  // const [error, setError] = useState(false);
+  const [error] = useState(false);
   // const [isDisabled, setIsDisabled] = useState(true);
   // const navigate = useNavigate();
 

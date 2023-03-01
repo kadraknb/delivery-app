@@ -4,7 +4,7 @@ import DeliveryContext from '../context/DeliveryContext';
 
 function Login() {
   const { email, password, setEmail, setPassword } = useContext(DeliveryContext);
-  // const [error, setError] = useState(false);
+  const [error] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const navigate = useNavigate();
 

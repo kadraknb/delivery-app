@@ -1,21 +1,18 @@
 import { shape } from 'prop-types';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import DeliveryContext from './DeliveryContext';
 
 function DeliveryProvider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const contextValue = {
-    email,
-    password,
-    setEmail,
-    setPassword,
-  };
+  const foo = useMemo(
+    () => ({ email, password, setEmail, setPassword }),
+    [email, setEmail, password, setPassword],
+  );
 
   return (
-    <DeliveryContext.Provider value={ contextValue }>
+    <DeliveryContext.Provider value={ foo }>
       { children }
     </DeliveryContext.Provider>
   );
