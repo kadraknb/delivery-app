@@ -6,8 +6,8 @@ module.exports = class UserController {
   async login(req, res, next) {
     try {
       const { email, password } = req.body;
-      await this.service.login(email, password);
-      return res.status(200).json('login successful');
+      const user = await this.service.login(email, password);
+      return res.status(200).json(user);
     } catch (error) {
       next(error);
     }
