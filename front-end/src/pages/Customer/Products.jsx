@@ -34,7 +34,7 @@ function Products() {
   return (
     <div>
       <NavBar />
-      {itsLoading
+      {!itsLoading
         && dataProducts.map((product) => (
           <CardProduct
             key={ product.id }

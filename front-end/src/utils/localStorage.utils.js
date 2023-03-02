@@ -1,9 +1,9 @@
 export default class LocalStorage {
-  static setLogin = async ({ name, email, role, token }) => {
+  static setLogin = async ({ name, email, role, token, id }) => {
     // Saves the user data fetched on LOGIN into the LocalStorage;
     localStorage.setItem('user', JSON.stringify({ name, email, role, token }));
 
-    localStorage.setItem('userId', JSON.stringify(params.id));
+    localStorage.setItem('userId', JSON.stringify(id));
   };
 
   static logOut = async () => {
