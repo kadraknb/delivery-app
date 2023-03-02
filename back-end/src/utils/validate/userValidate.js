@@ -21,14 +21,15 @@ module.exports = class Validate {
 
   static validCreateUser(verifyUserExist, user) {
     const { error } = SchemaJoi.createUserSchema.validate(user);
-    console.log(error.details);
     if (error) {
       throw new BadRequest(error.details[0].message);
     }
 
-    const { email, name } = verifyUserExist;
-    if (email === user.email || name === user.name) {
-      throw new Conflict('user exist');
+    if (verifyUserExist) {
+      const { email, name } = verifyUserExist;
+      if (email === user.email || name === user.name) {
+        throw new Conflict('user exist');
+      }
     }
   }
 };

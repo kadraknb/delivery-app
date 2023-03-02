@@ -23,6 +23,9 @@ module.exports = class UserService {
     const hashMD5 = md5(user.password);
     
     const { password: _, ...data } = user;
+    
+    if (!data.role) data.role = 'customer';
+
     const newUser = await this.model.create({ ...data, password: hashMD5 });
     return newUser;
    }

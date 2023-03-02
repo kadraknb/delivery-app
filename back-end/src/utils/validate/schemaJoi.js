@@ -11,15 +11,15 @@ const loginSchema = joi.object({
 });
 
 const createUserSchema = joi.object({
-  name: joi.string().required(),
+  name: joi.string().min(12).required(),
   email: joi.string().email().required(),
   password: joi.string().min(6).required(),
-  role: joi.string().required(),
+  role: joi.any(),
 }).messages({
   'string.empty': '{#label} is required',
   'string.base': '{#label} needs to be a string',
   'string.email': 'email incorrect',
-  'string.min': 'password length must be at least {#limit} characters long',
+  'string.min': '{#label} length must be at least {#limit} characters long',
 });
 
 module.exports = { loginSchema, createUserSchema };
