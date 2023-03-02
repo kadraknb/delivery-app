@@ -36,7 +36,7 @@ module.exports = class UserService {
     return {
       name: newUser.name,
       email: newUser.email,
-      tole: newUser.role,
+      role: newUser.role,
       token: TokenGenerator.generateToken(newUser),
     };
    }
