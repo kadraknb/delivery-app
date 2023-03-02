@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import api from '../services/api';
+import LocalStorage from '../utils/localStorage.utils';
 
 function Login() {
   const { email, password, setEmail, setPassword } = useContext(DeliveryContext);
@@ -23,10 +24,12 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/login', {
+      const { data } = await api.post('/login', {
         email,
         password,
       });
+
+      LocalStorage.setLogin(data);
       navigate('/customer/products');
     } catch (error) {
       setErrorMsg([true, `${error}`]);
