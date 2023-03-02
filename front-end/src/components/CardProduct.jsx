@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 function CardProduct({ urlImage, name, price, id }) {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity] = useState(0);
 
   return (
     <div>
@@ -25,7 +25,7 @@ function CardProduct({ urlImage, name, price, id }) {
       <button
         type="button"
         data-testid={ `customer_products__button-card-rm-item-${id}` }
-        onClick={ () => 'add função' }
+        onClick={ () => 'função' }
       >
         -
       </button>
