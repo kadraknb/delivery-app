@@ -1,5 +1,6 @@
 const md5 = require('md5');
 const Validate = require('../utils/validate/userValidate');
+const TokenGenerator = require('../utils/auth/TokenGenerator');
 
 module.exports = class UserService {
   constructor(model) {
@@ -12,8 +13,15 @@ module.exports = class UserService {
   }
 
   async login(email, password) {
-    const verifyUserExist = await this.getUserByEmail(email);
-    Validate.verifyLogin(email, password, verifyUserExist);
+    const user = await this.getUserByEmail(email);
+    Validate.verifyLogin(email, password, user);
+
+    return {
+      name: user.name,
+      email,
+      role: user.role,
+      token: TokenGenerator.generateToken(user),
+    };
   }
 
  async createUser(user) {
@@ -27,6 +35,12 @@ module.exports = class UserService {
     if (!data.role) data.role = 'customer';
 
     const newUser = await this.model.create({ ...data, password: hashMD5 });
-    return newUser;
+
+    return {
+      name: newUser.name,
+      email: newUser.email,
+      role: newUser.role,
+      token: TokenGenerator.generateToken(newUser),
+    };
    }
 };

@@ -6,8 +6,8 @@ module.exports = class UserController {
   async login(req, res, next) {
     try {
       const { email, password } = req.body;
-      await this.service.login(email, password);
-      return res.status(200).json('login successful');
+      const user = await this.service.login(email, password);
+      return res.status(200).json(user);
     } catch (error) {
       next(error);
     }
@@ -15,8 +15,8 @@ module.exports = class UserController {
 
   async createUser(req, res, next) {
     try {
-      await this.service.createUser(req.body);
-      return res.status(201).json('Register successful');
+      const newUser = await this.service.createUser(req.body);
+      return res.status(201).json(newUser);
     } catch (error) {
       next(error);
     }
