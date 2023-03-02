@@ -32,6 +32,12 @@ module.exports = class UserService {
     
     const { password: _, ...data } = user;
     const newUser = await this.model.create({ ...data, password: hashMD5 });
-    return newUser;
+
+    return {
+      name: newUser.name,
+      email: newUser.email,
+      tole: newUser.role,
+      token: TokenGenerator.generateToken(newUser),
+    };
    }
 };
