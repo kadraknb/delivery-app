@@ -1,4 +1,4 @@
-const { Sales } = require('../database/models/Sales');
+const { Sales } = require('../database/models');
 const SalesService = require('../Services/SalesService');
 const SalesController = require('../Controllers/SalesController');
 
