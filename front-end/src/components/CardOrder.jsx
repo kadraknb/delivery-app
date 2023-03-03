@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function CardOrder({ id, status, saleDate, totalPrice }) {
   return (
@@ -29,5 +30,12 @@ function CardOrder({ id, status, saleDate, totalPrice }) {
     </div>
   );
 }
+
+CardOrder.propTypes = {
+  id: PropTypes.number,
+  status: PropTypes.string,
+  saleDate: PropTypes.instanceOf(Date),
+  totalPrice: PropTypes.number,
+}.isRequired;
 
 export default CardOrder;
