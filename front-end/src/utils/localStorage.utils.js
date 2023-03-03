@@ -7,7 +7,7 @@ export default class LocalStorage {
   };
 
   static logOut = async () => {
-    localStorage.removeItem('user');
+    localStorage.clear();
   };
 
   static getUser = () => {
