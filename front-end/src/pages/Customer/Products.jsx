@@ -9,6 +9,8 @@ import LocalStorage from '../../utils/localStorage.utils';
 function Products() {
   const [dataProducts, setDataProducts] = useState([]);
   const [itsLoading, setLoading] = useState(true);
+  const [cart, setCart] = useState(0);
+  const [card, setCard] = useState([]);
   const nav = useNavigate();
 
   const getProductsOnDB = async () => {
@@ -28,9 +30,19 @@ function Products() {
     }
   };
 
+  const getCartLocalStorage = () => {
+    const soma = 0;
+    const items = JSON.parse(localStorage.getItem('card'));
+    if (items) {
+      const totalPrice = items.reduce((acc, cur) => acc + Number(cur.totalPrice), soma);
+      setCart(totalPrice.toFixed(2));
+    }
+  };
+
   useEffect(() => {
     getProductsOnDB();
-  }, []);
+    getCartLocalStorage();
+  }, [card]);
 
   return (
     <div>
@@ -43,8 +55,23 @@ function Products() {
             id={ product.id }
             name={ product.name }
             price={ product.price }
+            card={ card }
+            setCard={ setCard }
           />
         ))}
+      <button
+        type="button"
+        data-testid="customer_products__button-cart"
+        disabled={ cart === 0 }
+        onClick={ () => nav('/customer/checkout') }
+      >
+        Ver Carrinho: R$
+        <span
+          data-testid="customer_products__checkout-bottom-value"
+        >
+          {String(cart).replace('.', ',')}
+        </span>
+      </button>
     </div>
   );
 }

@@ -1,26 +1,23 @@
-import { useState } from 'react';
-import NavBar from '../components/NavBar';
+import { useEffect, useState } from 'react';
+import NavBar from '../../components/NavBar';
 
 function Checkout() {
-  const [tableData, setTableData] = useState([
-    {
-      item: 'Widget A',
-      description: 'A sample widget',
-      quantity: 2,
-      unitPrice: 10.0,
-      subtotal: 20.0 },
-    {
-      item: 'Widget B',
-      description: 'Another widget',
-      quantity: 1,
-      unitPrice: 15.0,
-      subtotal: 15.0 },
-  ]);
+  const [tableData, setTableData] = useState(JSON.parse(localStorage.getItem('card')));
+  const [address, setAddress] = useState('');
+  const [seller, setSeller] = useState('');
+  const [number, setNumber] = useState('');
+
   const handleRemoveRow = (index) => {
     const newData = [...tableData];
     newData.splice(index, 1);
     setTableData(newData);
+    localStorage.setItem('card', JSON.stringify(newData));
   };
+  useEffect(() => {
+    const storedItems = JSON.parse(localStorage.getItem('card')) || [];
+    setTableData(storedItems);
+    console.log(tableData);
+  }, []);
 
   return (
     <div>
@@ -38,49 +35,40 @@ function Checkout() {
           </tr>
         </thead>
         <tbody>
-          {tableData.map((row, index) => (
+          {tableData && tableData.map((row, index) => (
             <tr key={ index }>
-              <td>
-                <input
-                  data-testid={ `customer_checkout__element-order-table-item-number-
+              <td
+                data-testid={ `customer_checkout__element-order-table-item-number-
                 ${index}` }
-                  type="text"
-                  value={ row.item }
-                />
+              >
+                {index}
 
               </td>
-              <td>
-                <input
-                  data-testid={ `customer_checkout__element-order-table-name-
+              <td
+                data-testid={ `customer_checkout__element-order-table-name-
               ${index}` }
-                  type="text"
-                  value={ row.description }
-                />
-
+              >
+                {row.name}
               </td>
-              <td>
-                <input
-                  data-testid={ `customer_checkout__element-order-table-quantity-
+              <td
+                data-testid={ `customer_checkout__element-order-table-quantity-
               ${index}` }
-                  type="number"
-                  value={ row.quantity }
-                />
+              >
 
+                {row.quantity}
               </td>
-              <td>
-                <input
-                  data-testid={ `customer_checkout__element-order-table-unit-price-
+              <td
+                data-testid={ `customer_checkout__element-order-table-unit-price-
                 ${index}` }
-                  type="number"
-                  value={ row.unitPrice }
-                />
+              >
 
+                {row.price}
               </td>
               <td
                 data-testid={ `customer_checkout__element-order-table-sub-total-
                 ${index}` }
               >
-                {row.subtotal.toFixed(2)}
+                {row.totalPrice}
 
               </td>
               <td>
@@ -100,7 +88,8 @@ function Checkout() {
           <tr>
             <td colSpan="4" style={ { textAlign: 'right' } }>Total:</td>
             <td data-testid="customer_checkout__element-order-total-price">
-              {tableData.reduce((total, row) => total + row.subtotal, 0).toFixed(2)}
+              {tableData
+                .reduce((total, row) => total + Number(row.totalPrice), 0).toFixed(2)}
             </td>
           </tr>
         </tfoot>
@@ -108,14 +97,23 @@ function Checkout() {
       P. Vendedora Responsável:
       <input
         type="text"
+        name="seller"
+        value={ seller }
+        onChange={ (e) => setSeller(e.target.value) }
       />
       Endereço
       <input
         type="text"
+        name="address"
+        value={ address }
+        onChange={ (e) => setAddress(e.target.value) }
       />
       Número
       <input
         type="text"
+        name="number"
+        value={ number }
+        onChange={ (e) => setNumber(e.target.value) }
       />
       <button type="button">FINALIZAR PEDIDO</button>
     </div>

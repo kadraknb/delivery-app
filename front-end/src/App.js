@@ -6,7 +6,7 @@ import DeliveryProvider from './context/DeliveryProvider';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Customer/Products';
-import Checkout from './pages/Checkout';
+import Checkout from './pages/Customer/Checkout';
 
 function App() {
   return (
