@@ -35,8 +35,15 @@ function Login() {
         password,
       });
 
-      LocalStorage.setLogin(data);
-      navigate('/customer/products');
+      if (data.role === 'customer') {
+        LocalStorage.setLogin(data);
+        navigate('/customer/products');
+      }
+
+      if (data.role === 'administrator') {
+        LocalStorage.setLogin(data);
+        navigate('/admin/manage');
+      }
     } catch (error) {
       setErrorMsg([true, `${error}`]);
     }
