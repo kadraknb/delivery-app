@@ -11,9 +11,10 @@ function Register() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const emailRegEx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
     const passwordMinLength = 6;
     const nameMinLenght = 12;
-    const emailIsValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{3})$/i);
+    const emailIsValid = email.match(emailRegEx);
 
     if (password.length >= passwordMinLength && emailIsValid
       && name.length >= nameMinLenght) {

@@ -1,23 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { setObjCartInLocalStorage } from '../utils/createObjetoCart';
 
 function CardProduct({ urlImage, name, price, id, card, setCard }) {
   const [quantity, setQuantity] = useState(0);
+  const values = { setQuantity, name, price, card, setCard, id };
 
-  const createObjCard = (qty) => {
-    const totalPrice = (price * qty).toFixed(2);
-    const obj = { name, price, quantity: qty, totalPrice, id };
-    if (qty > 0) {
-      const existItem = card.find((item) => item.name === name);
-      if (existItem) {
-        const index = card.findIndex((item) => item.name === name);
-        card.splice(index, 1);
-      }
-      return [...card, obj];
-    }
-  };
-
-  const quantityLocalStorage = () => {
+  const getQuantityLocalStorage = () => {
     const items = JSON.parse(localStorage.getItem('card'));
     if (items) {
       setCard(items);
@@ -27,42 +16,23 @@ function CardProduct({ urlImage, name, price, id, card, setCard }) {
 
   const incrementItems = () => {
     const newQty = quantity + 1;
-    setQuantity(newQty);
-    const data = createObjCard(newQty);
-    setCard(data);
-    localStorage.setItem('card', JSON.stringify(data));
+    setObjCartInLocalStorage(values, newQty);
   };
 
   const decrementItems = () => {
     if (quantity > 0) {
       const newQty = quantity - 1;
-      setQuantity(newQty);
-      const data = createObjCard(newQty);
-      if (data === undefined) {
-        const removItem = card.filter((item) => item.name !== name);
-        setCard(removItem);
-        return localStorage.setItem('card', JSON.stringify(removItem));
-      }
-      setCard(data);
-      localStorage.setItem('card', JSON.stringify(data));
+      setObjCartInLocalStorage(values, newQty);
     }
   };
 
   const handleChange = (e) => {
     const newQty = e.target.value;
-    setQuantity(newQty);
-    const data = createObjCard(newQty);
-    if (data === undefined) {
-      const removItem = card.filter((item) => item.name !== name);
-      setCard(removItem);
-      return localStorage.setItem('card', JSON.stringify(removItem));
-    }
-    setCard(data);
-    localStorage.setItem('card', JSON.stringify(data));
+    setObjCartInLocalStorage(values, newQty);
   };
 
   useEffect(() => {
-    quantityLocalStorage();
+    getQuantityLocalStorage();
   }, []);
 
   return (

@@ -19,6 +19,34 @@ function Checkout() {
     console.log(tableData);
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const productsFilter = tableData.map((element) => {
+      const acc = {
+        id: element.id,
+        name: element.name,
+        quantity: element.quantity,
+      };
+      return acc;
+    });
+    const totalPriceCalculate = tableData
+      .reduce((total, row) => total + Number(row.totalPrice), 0).toFixed(2);
+
+    try {
+      const { data } = await api.post('/sales', {
+        userId: 1,
+        sellerId: 2,
+        totalPrice: totalPriceCalculate,
+        deliveryAddress: address,
+        deliveryNumber: number,
+        products: productsFilter,
+      });
+      navigate(`/customer/orders/${data.id}`);
+    } catch (error) {
+      setErrorMsg([true, `${error}`]);
+    }
+  };
+
   return (
     <div>
       <NavBar />
@@ -115,7 +143,7 @@ function Checkout() {
         value={ number }
         onChange={ (e) => setNumber(e.target.value) }
       />
-      <button type="button">FINALIZAR PEDIDO</button>
+      <button type="button" onClick={ handleSubmit }>FINALIZAR PEDIDO</button>
     </div>
   );
 }
