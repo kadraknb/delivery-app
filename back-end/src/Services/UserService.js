@@ -12,6 +12,11 @@ module.exports = class UserService {
     return user;
   }
 
+  async getUserByRoleSaller() {
+    const seller = await this.model.findAll({ where: { role: 'seller' } });
+    return seller;
+  }
+
   async login(email, password) {
     const user = await this.getUserByEmail(email);
     Validate.verifyLogin(email, password, user);
