@@ -22,6 +22,7 @@ module.exports = class UserService {
     Validate.verifyLogin(email, password, user);
 
     return {
+      id: user.id,
       name: user.name,
       email,
       role: user.role,
@@ -42,6 +43,7 @@ module.exports = class UserService {
     const newUser = await this.model.create({ ...data, password: hashMD5 });
 
     return {
+      id: newUser.id,
       name: newUser.name,
       email: newUser.email,
       role: newUser.role,
