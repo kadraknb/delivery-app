@@ -1,8 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { setObjCartInLocalStorage } from '../utils/createObjetoCart';
 
-function CardProduct({ urlImage, name, price, id }) {
-  const [quantity] = useState(0);
+function CardProduct({ urlImage, name, price, id, card, setCard }) {
+  const [quantity, setQuantity] = useState(0);
+  const values = { setQuantity, name, price, card, setCard };
+
+  const getQuantityLocalStorage = () => {
+    const items = JSON.parse(localStorage.getItem('card'));
+    if (items) {
+      setCard(items);
+      items.filter((obj) => obj.name === name).map((item) => setQuantity(item.quantity));
+    }
+  };
+
+  const incrementItems = () => {
+    const newQty = quantity + 1;
+    setObjCartInLocalStorage(values, newQty);
+  };
+
+  const decrementItems = () => {
+    if (quantity > 0) {
+      const newQty = quantity - 1;
+      setObjCartInLocalStorage(values, newQty);
+    }
+  };
+
+  const handleChange = (e) => {
+    const newQty = e.target.value;
+    setObjCartInLocalStorage(values, newQty);
+  };
+
+  useEffect(() => {
+    getQuantityLocalStorage();
+  }, []);
 
   return (
     <div>
@@ -25,21 +56,21 @@ function CardProduct({ urlImage, name, price, id }) {
       <button
         type="button"
         data-testid={ `customer_products__button-card-rm-item-${id}` }
-        onClick={ () => 'função' }
+        onClick={ decrementItems }
       >
         -
       </button>
       <input
         type="number"
         data-testid={ `customer_products__input-card-quantity-${id}` }
-        onChange={ () => 'add função' }
+        onChange={ handleChange }
         min={ 0 }
         value={ quantity }
       />
       <button
         type="button"
         data-testid={ `customer_products__button-card-add-item-${id}` }
-        onClick={ () => 'add função' }
+        onClick={ incrementItems }
       >
         +
       </button>
