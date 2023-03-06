@@ -21,12 +21,14 @@ module.exports = class UserService {
     const user = await this.getUserByEmail(email);
     Validate.verifyLogin(email, password, user);
 
+    const token = await TokenGenerator.generateToken(user);
+
     return {
       id: user.id,
       name: user.name,
       email,
       role: user.role,
-      token: TokenGenerator.generateToken(user),
+      token,
     };
   }
 
@@ -42,12 +44,14 @@ module.exports = class UserService {
 
     const newUser = await this.model.create({ ...data, password: hashMD5 });
 
+    const token = await TokenGenerator.generateToken(newUser);
+
     return {
       id: newUser.id,
       name: newUser.name,
       email: newUser.email,
       role: newUser.role,
-      token: TokenGenerator.generateToken(newUser),
+      token,
     };
    }
 };

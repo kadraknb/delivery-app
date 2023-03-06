@@ -17,4 +17,9 @@ module.exports = class SalesService {
 
     return newSale;
   }
+
+  async getAllSales() {
+    const allSales = await this.model.findAll();
+    return allSales;
+  }
 };

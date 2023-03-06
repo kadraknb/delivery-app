@@ -7,6 +7,6 @@ const router = Router();
 
 router.use(UserRouter);
 router.use(ProductRouter);
-router.use(SalesRouter);
+router.use(SaleRouter);
 
 module.exports = router;
