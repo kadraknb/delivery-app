@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import api from '../../services/axios';
+import LocalStorage from '../../utils/localStorage.utils';
 
 function Checkout() {
   const [tableData, setTableData] = useState(JSON.parse(localStorage.getItem('card')));
@@ -37,6 +38,7 @@ function Checkout() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const authorization = LocalStorage.getToken();
 
     const storedUserId = JSON.parse(localStorage.getItem('userId'));
     const productsFilter = tableData.map((element) => {
@@ -52,6 +54,8 @@ function Checkout() {
 
     try {
       const { data } = await api.post('/sales', {
+        headers: { authorization },
+      }, {
         userId: storedUserId,
         sellerId: Number(seller),
         totalPrice: totalPriceCalculate,
@@ -85,43 +89,43 @@ function Checkout() {
           {tableData && tableData.map((row, index) => (
             <tr key={ index }>
               <td
-                data-testid={ `customer_checkout__element-order-table-item-number-
-                ${index}` }
+                data-testid={
+                  `customer_checkout__element-order-table-item-number-${index}` 
+                }
               >
-                {index}
+                {index + 1}
 
               </td>
               <td
-                data-testid={ `customer_checkout__element-order-table-name-
-              ${index}` }
+                data-testid={ `customer_checkout__element-order-table-name-${index}` }
               >
                 {row.name}
               </td>
               <td
-                data-testid={ `customer_checkout__element-order-table-quantity-
-              ${index}` }
+                data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
               >
 
                 {row.quantity}
               </td>
               <td
-                data-testid={ `customer_checkout__element-order-table-unit-price-
-                ${index}` }
+                data-testid={
+                  `customer_checkout__element-order-table-unit-price-${index}`
+                }
               >
 
-                {row.price}
+                {row.price.replace('.', ',')}
               </td>
               <td
-                data-testid={ `customer_checkout__element-order-table-sub-total-
-                ${index}` }
+                data-testid={
+                  `customer_checkout__element-order-table-sub-total-${index}`
+                }
               >
-                {row.totalPrice}
+                {row.totalPrice.replace('.', ',')}
 
               </td>
               <td>
                 <button
-                  data-testid={ `customer_checkout__element-order-table-remove-
-                ${index}` }
+                  data-testid={ `customer_checkout__element-order-table-remove-${index}` }
                   type="button"
                   onClick={ () => handleRemoveRow(index) }
                 >
@@ -136,7 +140,8 @@ function Checkout() {
             <td colSpan="4" style={ { textAlign: 'right' } }>Total:</td>
             <td data-testid="customer_checkout__element-order-total-price">
               {tableData
-                .reduce((total, row) => total + Number(row.totalPrice), 0).toFixed(2)}
+                .reduce((total, row) => total + Number(row.totalPrice), 0)
+                .toFixed(2).replace('.', ',')}
             </td>
           </tr>
         </tfoot>
@@ -144,6 +149,7 @@ function Checkout() {
       P. Vendedora Responsável:
       <select
         name="seller"
+        data-testid="customer_checkout__select-seller"
         value={ seller }
         onChange={ (e) => setSeller(e.target.value) }
       >
@@ -158,6 +164,7 @@ function Checkout() {
       <input
         type="text"
         name="address"
+        data-testid="customer_checkout__input-address"
         value={ address }
         onChange={ (e) => setAddress(e.target.value) }
       />
@@ -165,10 +172,17 @@ function Checkout() {
       <input
         type="text"
         name="number"
+        data-testid="customer_checkout__input-address-number"
         value={ number }
         onChange={ (e) => setNumber(e.target.value) }
       />
-      <button type="button" onClick={ handleSubmit }>FINALIZAR PEDIDO</button>
+      <button
+        data-testid="customer_checkout__button-submit-order"
+        type="button"
+        onClick={ handleSubmit }
+      >
+        FINALIZAR PEDIDO
+      </button>
     </div>
   );
 }
