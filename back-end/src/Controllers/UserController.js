@@ -13,9 +13,9 @@ module.exports = class UserController {
     }
   }
 
-  async getUserByRoleSaller(_req, res, next) {
+  async getUserByRoleSeller(_req, res, next) {
     try {
-      const seller = await this.service.getUserByRoleSaller();
+      const seller = await this.service.getUserByRoleSeller();
       return res.status(200).json(seller);
     } catch (error) {
       next(error);

@@ -12,7 +12,7 @@ module.exports = class UserService {
     return user;
   }
 
-  async getUserByRoleSaller() {
+  async getUserByRoleSeller() {
     const seller = await this.model.findAll({ where: { role: 'seller' } });
     return seller;
   }

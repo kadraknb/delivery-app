@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
+import api from '../../services/axios';
 
 function Checkout() {
   const [tableData, setTableData] = useState(JSON.parse(localStorage.getItem('card')));
   const [address, setAddress] = useState('');
+  const [sellers, setSellers] = useState([]);
   const [seller, setSeller] = useState('');
   const [number, setNumber] = useState('');
+
+  const navigate = useNavigate();
 
   const handleRemoveRow = (index) => {
     const newData = [...tableData];
@@ -13,14 +18,27 @@ function Checkout() {
     setTableData(newData);
     localStorage.setItem('card', JSON.stringify(newData));
   };
+
+  const getAllSellers = async () => {
+    try {
+      const { data } = await api.get('/seller');
+      setSellers(data);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem('card')) || [];
     setTableData(storedItems);
-    console.log(tableData);
+    getAllSellers();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const storedUserId = JSON.parse(localStorage.getItem('userId'));
     const productsFilter = tableData.map((element) => {
       const acc = {
         id: element.id,
@@ -34,16 +52,17 @@ function Checkout() {
 
     try {
       const { data } = await api.post('/sales', {
-        userId: 1,
-        sellerId: 2,
+        userId: storedUserId,
+        sellerId: Number(seller),
         totalPrice: totalPriceCalculate,
         deliveryAddress: address,
         deliveryNumber: number,
         products: productsFilter,
       });
+      console.log(data);
       navigate(`/customer/orders/${data.id}`);
     } catch (error) {
-      setErrorMsg([true, `${error}`]);
+      console.error(error);
     }
   };
 
@@ -123,12 +142,18 @@ function Checkout() {
         </tfoot>
       </table>
       P. Vendedora Responsável:
-      <input
-        type="text"
+      <select
         name="seller"
         value={ seller }
         onChange={ (e) => setSeller(e.target.value) }
-      />
+      >
+        <option disabled value="">
+          Selecione
+        </option>
+        {sellers.map(({ name, id }) => (
+          <option key={ id } value={ id }>{name}</option>
+        ))}
+      </select>
       Endereço
       <input
         type="text"
