@@ -11,8 +11,8 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const passwordMinLength = 6;
     const emailRegEx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    const passwordMinLength = 6;
     const emailIsValid = email.match(emailRegEx);
 
     if (password.length >= passwordMinLength && emailIsValid) {
