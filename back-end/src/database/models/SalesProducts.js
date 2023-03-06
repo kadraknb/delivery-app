@@ -6,10 +6,13 @@ module.exports = (sequelize, DataTypes) => {
     productId: {
       type: DataTypes.INTEGER,
     },
+    quantity: {
+      type: DataTypes.INTEGER,
+    }
   },
   {
     timestamps: false,
-    tableName: 'products',
+    tableName: 'sales_products',
     underscored: true,
   });
 
