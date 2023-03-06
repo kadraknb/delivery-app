@@ -41,7 +41,7 @@ function RegisterForm() {
         </label>
         <button
           type="submit"
-          data-testid="common_register__button-register"
+          data-testid="admin_manage__button-register"
         >
           Cadastrar
         </button>
