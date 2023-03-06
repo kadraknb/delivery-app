@@ -22,6 +22,12 @@ function RegisterForm() {
     }
   }, [email, password, name]);
 
+  const handleSelect = ({ target }) => {
+    if (target.value === 'Customer') setRole('customer');
+    if (target.value === 'Seller') setRole('seller');
+    if (target.value === 'Administrator') setRole('administrator');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -67,8 +73,7 @@ function RegisterForm() {
         <label htmlFor="label-type">
           Type
           <select
-            value={ role }
-            onChange={ (e) => setRole(e.target.value) }
+            onChange={ handleSelect }
             data-testid="admin_manage__select-role"
           >
             <option>Customer</option>
