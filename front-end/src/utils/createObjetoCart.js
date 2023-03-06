@@ -1,7 +1,9 @@
-const createObjCart = (name, price, qty, card) => {
-  const totalPrice = (price * qty).toFixed(2);
-  const obj = { name, price, quantity: qty, totalPrice };
-  if (qty > 0) {
+const createObjCart = (valuesCart) => {
+  console.log(valuesCart);
+  const { id, name, price, card, newQty } = valuesCart;
+  const totalPrice = (price * newQty).toFixed(2);
+  const obj = { id, name, price, quantity: newQty, totalPrice };
+  if (newQty > 0) {
     const existItem = card.find((item) => item.name === name);
     if (existItem) {
       const index = card.findIndex((item) => item.name === name);
@@ -18,9 +20,10 @@ const removeObjCart = (name, card, setCard) => {
 };
 
 const setObjCartInLocalStorage = (values, newQty) => {
-  const { setQuantity, name, price, card, setCard } = values;
+  const { id, setQuantity, name, price, card, setCard } = values;
   setQuantity(Number(newQty));
-  const data = createObjCart(name, price, newQty, card);
+  const valuesCart = { name, price, newQty, card, id };
+  const data = createObjCart(valuesCart);
 
   if (data === undefined) {
     return removeObjCart(name, card, setCard);

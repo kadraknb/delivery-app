@@ -4,7 +4,7 @@ import { setObjCartInLocalStorage } from '../utils/createObjetoCart';
 
 function CardProduct({ urlImage, name, price, id, card, setCard }) {
   const [quantity, setQuantity] = useState(0);
-  const values = { setQuantity, name, price, card, setCard };
+  const values = { setQuantity, name, price, card, setCard, id };
 
   const getQuantityLocalStorage = () => {
     const items = JSON.parse(localStorage.getItem('card'));
