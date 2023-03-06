@@ -12,7 +12,8 @@ function Login() {
 
   useEffect(() => {
     const passwordMinLength = 6;
-    const emailIsValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{3})$/i);
+    const emailRegEx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    const emailIsValid = email.match(emailRegEx);
 
     if (password.length >= passwordMinLength && emailIsValid) {
       setIsDisabled(false);
