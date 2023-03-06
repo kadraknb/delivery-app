@@ -13,6 +13,15 @@ module.exports = class UserController {
     }
   }
 
+  async getUserByRoleSaller(_req, res, next) {
+    try {
+      const seller = await this.service.getUserByRoleSaller();
+      return res.status(200).json(seller);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async createUser(req, res, next) {
     try {
       const newUser = await this.service.createUser(req.body);

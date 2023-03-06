@@ -12,6 +12,11 @@ module.exports = class UserService {
     return user;
   }
 
+  async getUserByRoleSaller() {
+    const seller = await this.model.findAll({ where: { role: 'seller' } });
+    return seller;
+  }
+
   async login(email, password) {
     const user = await this.getUserByEmail(email);
     Validate.verifyLogin(email, password, user);
@@ -19,6 +24,7 @@ module.exports = class UserService {
     const token = await TokenGenerator.generateToken(user);
 
     return {
+      id: user.id,
       name: user.name,
       email,
       role: user.role,
@@ -41,6 +47,7 @@ module.exports = class UserService {
     const token = await TokenGenerator.generateToken(newUser);
 
     return {
+      id: newUser.id,
       name: newUser.name,
       email: newUser.email,
       role: newUser.role,
