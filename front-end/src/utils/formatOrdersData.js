@@ -13,3 +13,10 @@ export const formatOrdersDate = (orders) => {
     order.saleDate = `${getDay}/${getMonth}/${getYear}`;
   });
 };
+
+export const formatOrdersTotalPrice = (orders) => {
+  orders.forEach((order) => {
+    order.totalPrice = order.totalPrice
+      .toString().replace('.', ',');
+  });
+};
