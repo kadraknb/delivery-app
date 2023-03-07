@@ -11,6 +11,12 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const isLoggedIn = LocalStorage.getUser();
+
+    if (isLoggedIn !== null) navigate('/customer/products');
+  }, []);
+
+  useEffect(() => {
     const emailRegEx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
     const passwordMinLength = 6;
     const emailIsValid = email.match(emailRegEx);
