@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../../components/NavBar';
 import CardOrder from '../../components/CardOrder';
 import api from '../../services/axios';
+import formatOrdersDate from '../../utils/formatOrdersData';
 
 function Orders() {
   const [salesData, setSalesData] = useState([]);
@@ -11,6 +12,8 @@ function Orders() {
   const getAllSales = async () => {
     try {
       const { data } = await api.get('/customer/orders');
+
+      formatOrdersDate(data);
 
       setSalesData(data);
       setIsLoading(false);
