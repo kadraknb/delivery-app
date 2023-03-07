@@ -8,6 +8,7 @@ function RegisterForm() {
   const [name, setName] = useState('');
   const [role, setRole] = useState('seller');
   const [isDisabled, setIsDisabled] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(false);
 
   useEffect(() => {
     const emailRegEx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -93,6 +94,9 @@ function RegisterForm() {
           Cadastrar
         </button>
       </form>
+      { errorMsg
+        ? <p data-testid="admin_manage__element-invalid-register">Mensagem de erro</p>
+        : undefined }
     </div>
   );
 }
