@@ -6,7 +6,7 @@ function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [role, setRole] = useState('customer');
+  const [role, setRole] = useState('seller');
   const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
@@ -83,8 +83,8 @@ function RegisterForm() {
             onChange={ handleSelect }
             data-testid="admin_manage__select-role"
           >
-            <option>Customer</option>
             <option>Seller</option>
+            <option>Customer</option>
             <option>Administrator</option>
           </select>
         </label>
