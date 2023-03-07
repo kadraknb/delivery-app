@@ -6,4 +6,14 @@ const userMock = {
   role: 'customer'
 }
 
-module.exports = { userMock };
+const tokenMock = 'tribo-B-grupo-23';
+
+const loginMock = {
+  "id": 3,
+  "name": "Cliente Zé Birita",
+  "email": "zebirita@email.com",
+  "role": "customer",
+  "token": "tribo-B-grupo-23"
+}
+
+module.exports = { userMock, tokenMock, loginMock };

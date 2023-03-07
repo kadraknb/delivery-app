@@ -1,8 +1,9 @@
 const sinon = require('sinon');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { userMock } = require('./mocks');
+const { userMock, tokenMock, loginMock } = require('./mocks');
 const { User } = require('../../../database/models');
+const TokenGenerator = require('../../../utils/auth/TokenGenerator');
 const app = require('../../../api/app');
 
 
@@ -17,13 +18,14 @@ describe('Teste endPoint /login', () => {
   describe('Login com sucesso', () => {
     it('Retorna uma menssgem "login successful"', async () => {
       sinon.stub(User, 'findOne').resolves(userMock);
+      sinon.stub(TokenGenerator, 'generateToken').resolves(tokenMock);
       const { status, body } = await chai.request(app).post('/login').send({
         "email": "zebirita@email.com",
         "password": "$#zebirita#$"
       })
 
       expect(status).to.be.equal(200);
-      expect(body).to.be.deep.equal('login successful');
+      expect(body).to.be.deep.equal(loginMock);
     });
   });
 
