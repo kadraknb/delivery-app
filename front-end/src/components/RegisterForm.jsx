@@ -1,9 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
-import DeliveryContext from '../context/DeliveryContext';
+import React, { useState, useEffect } from 'react';
 import api from '../services/api';
 
 function RegisterForm() {
-  const { email, password, setEmail, setPassword } = useContext(DeliveryContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [role, setRole] = useState('customer');
   const [isDisabled, setIsDisabled] = useState(true);
@@ -46,10 +46,11 @@ function RegisterForm() {
     <div>
       <h2>Cadastrar novo usuário</h2>
       <form>
-        <label htmlFor="input-email">
+        <label htmlFor="input-name">
           Name
           <input
             type="text"
+            name="input-name"
             onChange={ (e) => setName(e.target.value) }
             data-testid="admin_manage__input-name"
           />
@@ -58,21 +59,24 @@ function RegisterForm() {
           E-mail
           <input
             type="email"
+            name="input-email"
             onChange={ (e) => setEmail(e.target.value) }
             data-testid="admin_manage__input-email"
           />
         </label>
-        <label htmlFor="label-password">
+        <label htmlFor="input-password">
           Password
           <input
             type="password"
+            name="input-password"
             onChange={ (e) => setPassword(e.target.value) }
             data-testid="admin_manage__input-password"
           />
         </label>
-        <label htmlFor="label-type">
+        <label htmlFor="select-type">
           Type
           <select
+            name="select-type"
             onChange={ handleSelect }
             data-testid="admin_manage__select-role"
           >
