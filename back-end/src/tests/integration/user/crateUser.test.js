@@ -1,7 +1,7 @@
 const sinon = require('sinon');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { getUserbyroleSeller } = require('./mocks');
+const { tokenMock, createUserMock, createUserInBdMock } = require('./mocks');
 const { User } = require('../../../database/models');
 const TokenGenerator = require('../../../utils/auth/TokenGenerator');
 const app = require('../../../api/app');
@@ -17,10 +17,17 @@ describe('Teste endPoint post /register', () => {
 
   describe('Cria usario com sucesso', () => {
     it('cria usario uma Json com usario que são vendedores', async () => {
-      const { status, body } = await chai.request(app).get('/seller');
+      sinon.stub(User, 'create').resolves(createUserInBdMock);
+      sinon.stub(TokenGenerator, 'generateToken').resolves(tokenMock);
+      const { status, body } = await chai.request(app).post('/register').send(
+        {
+          "name": "Grupo 23 Tribo B",
+          "email": "grupo23@tb.com",
+          "password": "$#grupo23#$"
+        });
 
-      expect(status).to.be.equal(200);
-      expect(body).to.be.deep.equal(getUserbyroleSeller);
+      expect(status).to.be.equal(201);
+      expect(body).to.be.deep.equal(createUserMock);
     });
   });
 });
