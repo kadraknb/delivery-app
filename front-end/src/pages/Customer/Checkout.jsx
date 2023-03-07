@@ -54,14 +54,14 @@ function Checkout() {
 
     try {
       const { data } = await api.post('/sales', {
-        headers: { authorization },
-      }, {
         userId: storedUserId,
         sellerId: Number(seller),
         totalPrice: totalPriceCalculate,
         deliveryAddress: address,
         deliveryNumber: number,
         products: productsFilter,
+      }, {
+        headers: { authorization },
       });
       console.log(data);
       navigate(`/customer/orders/${data.id}`);
