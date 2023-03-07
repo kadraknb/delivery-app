@@ -12,9 +12,8 @@ function Login() {
 
   useEffect(() => {
     const isLoggedIn = LocalStorage.getUser();
-
     if (isLoggedIn !== null) navigate('/customer/products');
-  }, []);
+  });
 
   useEffect(() => {
     const emailRegEx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
