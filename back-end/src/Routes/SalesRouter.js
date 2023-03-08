@@ -15,9 +15,6 @@ SalesRouter.post("/sales", (req, res, next) =>
   SalesFactory.createSales(req, res, next)
 );
 
-SalesRouter.get("/sales/detail", (req, res, next) =>
-  SalesFactory.getOrderWithAssociation(req, res, next)
-);
 SalesRouter.put("/sales/detail/:id", (req, res, next) =>
   SalesFactory.changeStateOfSaleById(req, res, next)
 );
