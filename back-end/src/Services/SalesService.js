@@ -19,9 +19,9 @@ module.exports = class SalesService {
     return newSale;
   }
 
-  async getAllSales() {
-    const allSales = await this.model.findAll();
-    return allSales;
+  async getAllSalesbyUserId(id) {
+    const allSales = await this.model.findAll({ where: { userId: id } });
+    return allSales; 
   }
 
   async getOrderById(id) {

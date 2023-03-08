@@ -12,9 +12,9 @@ module.exports = class SalesController {
     }
   }
   
-  async getAllSales(_req, res, next) {
+  async getAllSalesbyUserId(req, res, next) {
     try {
-      const allSales = await this.service.getAllSales();
+      const allSales = await this.service.getAllSalesbyUserId(req.params.id);
       return res.status(200).json(allSales);
     } catch (error) {
       next(error);

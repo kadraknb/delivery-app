@@ -8,10 +8,11 @@ import { formatOrdersDate, formatOrdersTotalPrice } from '../../utils/formatOrde
 function Orders() {
   const [salesData, setSalesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const id = localStorage.getItem('userId');
 
   const getAllSales = async () => {
     try {
-      const { data } = await api.get('/customer/orders');
+      const { data } = await api.get(`/customer/orders/${id}`);
 
       formatOrdersDate(data);
       formatOrdersTotalPrice(data);
