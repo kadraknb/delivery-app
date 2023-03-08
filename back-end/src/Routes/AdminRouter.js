@@ -10,4 +10,10 @@ AdminRouter.post(
   (req, res, next) => UserFactory.createUser(req, res, next),
 );
 
+AdminRouter.get(
+  '/admin/manage',
+  TokenGenerator.validateToken,
+  (req, res, next) => UserFactory.getAllUsers(req, res, next),
+);
+
 module.exports = AdminRouter;
