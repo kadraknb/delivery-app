@@ -13,7 +13,9 @@ module.exports = class UserService {
   }
 
   async getUserByRoleSeller() {
-    const seller = await this.model.findAll({ where: { role: 'seller' } });
+    const seller = await this.model.findAll({ where: { role: 'seller' },
+    attributes: { exclude:
+      ['password'] } });
     return seller;
   }
 
