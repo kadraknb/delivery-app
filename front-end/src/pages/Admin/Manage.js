@@ -4,6 +4,7 @@ import NavBar from '../../components/NavBar';
 import RegisterForm from '../../components/RegisterForm';
 import UsersTable from '../../components/UsersTable';
 import api from '../../services/api';
+import formatUsersRole from '../../utils/formatUsersData';
 
 function Manage() {
   const [usersData, setUsers] = useState([]);
@@ -12,6 +13,8 @@ function Manage() {
   const getAllUsers = async () => {
     try {
       const { data } = await api.get('admin/manage');
+
+      formatUsersRole(data);
 
       setUsers(data);
       setIsLoading(false);
