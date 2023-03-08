@@ -4,9 +4,11 @@ module.exports = class SalesProductsService {
     this.modelProduct = modelProduct;
   }
 
-  async getAllProductsWithSalesByUserId(id) {
-    const allProducts = await this.model.findAll({ where: { userId: id },
-      include: [{ model: this.modelProduct, as: 'products' }],
+  async getAllProductsWithSalesById(id) {
+    const [allProducts] = await this.model.findAll({ where: { id },
+      include: [{ model: this.modelProduct,
+      as: 'products',
+    }],
     });
     return allProducts;
   }
