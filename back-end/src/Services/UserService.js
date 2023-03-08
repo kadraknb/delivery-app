@@ -69,4 +69,8 @@ module.exports = class UserService {
       token,
     };
    }
+
+   async deleteUser(id) {
+    await this.model.destroy({ where: { id } });
+   }
 };
