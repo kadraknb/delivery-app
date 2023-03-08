@@ -35,6 +35,7 @@ function Manage() {
         && usersData.map((user, index) => (
           <UsersTable
             key={ user.id }
+            id={ user.id }
             itemNumber={ index + 1 }
             name={ user.name }
             email={ user.email }

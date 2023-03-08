@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import api from '../services/api';
 
-function UsersTable({ itemNumber, name, email, role }) {
+function UsersTable({ id, itemNumber, name, email, role }) {
   const indexLine = itemNumber - 1;
+
+  const deleteUser = async () => {
+    await api.delete(`admin/manage/${id}`);
+  };
 
   return (
     <table>
@@ -39,7 +44,7 @@ function UsersTable({ itemNumber, name, email, role }) {
         >
           <button
             type="button"
-            onClick=""
+            onClick={ deleteUser }
           >
             Excluir
           </button>
