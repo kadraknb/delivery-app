@@ -18,7 +18,7 @@ AdminRouter.get(
 );
 
 AdminRouter.delete(
-  endpoint,
+  `${endpoint}/:id`,
   TokenGenerator.validateToken,
   (req, res, next) => UserFactory.createUser(req, res, next),
 );
