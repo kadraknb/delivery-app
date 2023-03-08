@@ -25,7 +25,7 @@ function Manage() {
 
   useEffect(() => {
     getAllUsers();
-  }, []);
+  }, [usersData]);
 
   return (
     <div>
