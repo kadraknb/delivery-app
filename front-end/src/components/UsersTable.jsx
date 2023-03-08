@@ -1,12 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import api from '../services/api';
+import LocalStorage from '../utils/localStorage.utils';
 
 function UsersTable({ id, itemNumber, name, email, role }) {
   const indexLine = itemNumber - 1;
 
-  const deleteUser = async () => {
-    await api.delete(`admin/manage/${id}`);
+  const deleteUser = async (e) => {
+    e.preventDefault();
+    const authorization = LocalStorage.getToken();
+
+    try {
+      await api.delete(
+        `admin/manage/${id}`,
+        { headers: { authorization } },
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
