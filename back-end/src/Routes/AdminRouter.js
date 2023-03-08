@@ -12,7 +12,6 @@ AdminRouter.post(
 
 AdminRouter.get(
   '/admin/manage',
-  TokenGenerator.validateToken,
   (req, res, next) => UserFactory.getAllUsers(req, res, next),
 );
 
