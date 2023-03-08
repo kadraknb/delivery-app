@@ -1,10 +1,20 @@
 const md5 = require('md5');
 const Validate = require('../utils/validate/userValidate');
 const TokenGenerator = require('../utils/auth/TokenGenerator');
+const User = require('../database/models');
 
 module.exports = class UserService {
   constructor(model) {
     this.model = model;
+  }
+
+  async getAllUsers() {
+    const allUsers = await this.model.findAll({
+      exclude: [
+        { model: User, attributes: { role: 'administrator' } },
+      ],
+    });
+    return allUsers;
   }
 
   async getUserByEmail(email) {
