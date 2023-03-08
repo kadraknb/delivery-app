@@ -39,4 +39,15 @@ module.exports = class UserController {
       next(error);
     }
   }
+
+  async deleteUser(req, res, next) {
+    try {
+      const { id } = req.params;
+      await this.sercice.deleteUser(id);
+
+      return res.status(204);
+    } catch (error) {
+      next(error);
+    }
+  }
 };
