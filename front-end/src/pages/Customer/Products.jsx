@@ -15,7 +15,6 @@ function Products() {
 
   const getProductsOnDB = async () => {
     const authorization = LocalStorage.getToken();
-    console.log(authorization);
 
     try {
       const { data } = await api.get('/customer/products', {

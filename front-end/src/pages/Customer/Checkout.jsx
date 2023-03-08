@@ -24,7 +24,6 @@ function Checkout() {
     try {
       const { data } = await api.get('/seller');
       setSellers(data);
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -39,6 +38,7 @@ function Checkout() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const authorization = LocalStorage.getToken();
+    const Ok = 201;
 
     const storedUserId = JSON.parse(localStorage.getItem('userId'));
     const productsFilter = tableData.map((element) => {
@@ -53,7 +53,7 @@ function Checkout() {
       .reduce((total, row) => total + Number(row.totalPrice), 0).toFixed(2);
 
     try {
-      const { data } = await api.post('/sales', {
+      const { data, status } = await api.post('/sales', {
         userId: storedUserId,
         sellerId: Number(seller),
         totalPrice: totalPriceCalculate,
@@ -63,8 +63,11 @@ function Checkout() {
       }, {
         headers: { authorization },
       });
-      console.log(data);
-      navigate(`/customer/orders/${data.id}`);
+      if (status === Ok) {
+        console.log(data, status);
+        localStorage.removeItem('card');
+        navigate(`/customer/orders/${data.id}`);
+      }
     } catch (error) {
       console.error(error);
     }
