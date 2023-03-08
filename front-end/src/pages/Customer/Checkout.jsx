@@ -64,7 +64,6 @@ function Checkout() {
         headers: { authorization },
       });
       if (status === Ok) {
-        console.log(data, status);
         localStorage.removeItem('card');
         navigate(`/customer/orders/${data.id}`);
       }
