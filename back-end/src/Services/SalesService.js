@@ -19,7 +19,7 @@ module.exports = class SalesService {
   }
 
   async getAllSalesbyUserId(id) {
-    const allSales = await this.model.findAll({ where: { userId: id } });
+    const allSales = await this.model.findOne({ where: { userId: id } });
     return allSales; 
   }
 };
