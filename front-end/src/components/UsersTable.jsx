@@ -22,45 +22,49 @@ function UsersTable({ id, itemNumber, name, email, role }) {
 
   return (
     <table>
-      <tr>
-        <th>Item</th>
-        <th>Nome</th>
-        <th>E-mail</th>
-        <th>Tipo</th>
-        <th>Excluir</th>
-      </tr>
-      <tr>
-        <td
-          data-testid={ `admin_manage__element-user-table-item-number-${indexLine}` }
-        >
-          { itemNumber }
-        </td>
-        <td
-          data-testid={ `admin_manage__element-user-table-name-${indexLine}` }
-        >
-          { name }
-        </td>
-        <td
-          data-testid={ `admin_manage__element-user-table-email-${indexLine}` }
-        >
-          { email }
-        </td>
-        <td
-          data-testid={ `admin_manage__element-user-table-role-${indexLine}` }
-        >
-          { role }
-        </td>
-        <td
-          data-testid={ `admin_manage__element-user-table-remove-${indexLine}` }
-        >
-          <button
-            type="button"
-            onClick={ deleteUser }
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Tipo</th>
+          <th>Excluir</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            data-testid={ `admin_manage__element-user-table-item-number-${indexLine}` }
           >
-            Excluir
-          </button>
-        </td>
-      </tr>
+            { itemNumber }
+          </td>
+          <td
+            data-testid={ `admin_manage__element-user-table-name-${indexLine}` }
+          >
+            { name }
+          </td>
+          <td
+            data-testid={ `admin_manage__element-user-table-email-${indexLine}` }
+          >
+            { email }
+          </td>
+          <td
+            data-testid={ `admin_manage__element-user-table-role-${indexLine}` }
+          >
+            { role }
+          </td>
+          <td
+            data-testid={ `admin_manage__element-user-table-remove-${indexLine}` }
+          >
+            <button
+              type="button"
+              onClick={ deleteUser }
+            >
+              Excluir
+            </button>
+          </td>
+        </tr>
+      </tbody>
     </table>
   );
 }
