@@ -1,7 +1,7 @@
 const md5 = require('md5');
+const { Op } = require('sequelize');
 const Validate = require('../utils/validate/userValidate');
 const TokenGenerator = require('../utils/auth/TokenGenerator');
-const User = require('../database/models');
 
 module.exports = class UserService {
   constructor(model) {
@@ -10,10 +10,13 @@ module.exports = class UserService {
 
   async getAllUsers() {
     const allUsers = await this.model.findAll({
-      exclude: [
-        { model: User, attributes: { role: 'administrator' } },
-      ],
-    });
+      where: {
+        [Op.or]: [
+          { role: 'customer' },
+          { role: 'seller' },
+        ],
+      },
+  });
     return allUsers;
   }
 
