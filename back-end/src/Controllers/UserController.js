@@ -3,6 +3,15 @@ module.exports = class UserController {
     this.service = service;
   }
 
+  async getAllUsers(_req, res, next) {
+    try {
+      const allUsers = await this.service.getAllUsers();
+      return res.status(200).json(allUsers);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async login(req, res, next) {
     try {
       const { email, password } = req.body;
