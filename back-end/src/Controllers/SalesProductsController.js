@@ -5,7 +5,7 @@ module.exports = class SalesProductsController {
 
   async getAllProductsWithSalesByUserId(req, res, next) {
     try {
-      const allSalesWithCutomer = await this.service.getAllProductsWithSalesByUserId(req.params.id);
+      const allSalesWithCutomer = await this.service.getAllProductsWithSalesById(req.params.id);
       return res.status(200).json(allSalesWithCutomer);
     } catch (error) {
       next(error);
