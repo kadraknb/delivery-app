@@ -1,5 +1,4 @@
 const createObjCart = (valuesCart) => {
-  console.log(valuesCart);
   const { id, name, price, card, newQty } = valuesCart;
   const totalPrice = (price * newQty).toFixed(2);
   const obj = { id, name, price, quantity: newQty, totalPrice };
