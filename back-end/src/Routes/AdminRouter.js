@@ -20,7 +20,7 @@ AdminRouter.get(
 AdminRouter.delete(
   `${endpoint}/:id`,
   TokenGenerator.validateToken,
-  (req, res, next) => UserFactory.createUser(req, res, next),
+  (req, res, next) => UserFactory.deleteUser(req, res, next),
 );
 
 module.exports = AdminRouter;

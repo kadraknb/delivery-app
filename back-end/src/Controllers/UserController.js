@@ -43,9 +43,9 @@ module.exports = class UserController {
   async deleteUser(req, res, next) {
     try {
       const { id } = req.params;
-      await this.sercice.deleteUser(id);
+      await this.service.deleteUser(id);
 
-      return res.status(204);
+      return res.status(204).json({ message: 'User deleted' });
     } catch (error) {
       next(error);
     }
