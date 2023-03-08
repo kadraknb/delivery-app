@@ -9,7 +9,6 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.get('/coffee', (_req, res) => res.status(418).end());
-
 app.use(router);
 app.use(erro);
 

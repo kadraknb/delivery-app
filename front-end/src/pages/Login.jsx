@@ -44,6 +44,9 @@ function Login() {
         LocalStorage.setLogin(data);
         navigate('/admin/manage');
       }
+      if (data.role === 'seller') {
+        navigate('/seller/orders');
+      }
     } catch (error) {
       setErrorMsg([true, `${error}`]);
     }

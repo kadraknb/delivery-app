@@ -9,6 +9,8 @@ import Products from './pages/Customer/Products';
 import Orders from './pages/Customer/Orders';
 import Checkout from './pages/Customer/Checkout';
 import Manage from './pages/Admin/Manage';
+import PersonSallerOrdersDetail from './pages/seller/saleOrder';
+import SellerOrders from './pages/seller/orders';
 import OrdersDatails from './pages/Customer/OrderDatails';
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
         <Route path="/customer/orders/:id" element={ <OrdersDatails /> } />
         <Route path="/customer/checkout" element={ <Checkout /> } />
         <Route path="/admin/manage" element={ <Manage /> } />
+        <Route path="/seller/orders/:id" element={ <PersonSallerOrdersDetail /> } />
+        <Route path="/seller/orders" element={ <SellerOrders /> } />
       </Routes>
     </DeliveryProvider>
   );
