@@ -9,8 +9,8 @@ SalesRouter.post('/sales', TokenGenerator.validateToken, (req, res, next) =>
 SalesFactory.createSales(req, res, next));
 
 SalesRouter.get(
-  '/customer/orders',
-  (req, res, next) => SalesFactory.getAllSales(req, res, next),
+  '/customer/orders/:id',
+  (req, res, next) => SalesFactory.getAllSalesbyUserId(req, res, next),
 );
 
 module.exports = SalesRouter;
