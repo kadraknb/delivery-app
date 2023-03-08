@@ -6,7 +6,7 @@ import UsersTable from '../../components/UsersTable';
 import api from '../../services/api';
 
 function Manage() {
-  const [users, setUsers] = useState([]);
+  const [usersData, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const getAllUsers = async () => {
@@ -20,11 +20,24 @@ function Manage() {
     }
   };
 
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
   return (
     <div>
       <NavBar />
       <RegisterForm />
-      <UsersTable />
+      {!isLoading
+        && usersData.map((user, index) => (
+          <UsersTable
+            key={ user.id }
+            itemNumber={ index + 1 }
+            name={ user.name }
+            email={ user.email }
+            role={ user.role }
+          />
+        ))}
     </div>
   );
 }
