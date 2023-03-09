@@ -32,6 +32,11 @@ module.exports = class SalesService {
     return allSales;
   }
 
+  async getAllSalesbySellerId(id) {
+    const allSales = await this.model.findAll({ where: { sellerId: id } });
+    return allSales;
+  }
+
   async getOrderById(id) {
     const data = this.model.findOne({ where: { id } });
     return data;

@@ -21,6 +21,15 @@ module.exports = class SalesController {
     }
   }
 
+  async getAllSalesbySellerId(req, res, next) {
+    try {
+      const allSales = await this.service.getAllSalesbySellerId(req.params.id);
+      return res.status(200).json(allSales);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async changeStateOfSaleById(req, res, next) {
     try {
       const { id } = req.params;
