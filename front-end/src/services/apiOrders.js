@@ -1,10 +1,7 @@
 import api from './axios';
 
-const getOrders = async ({ email, token }) => {
-  const result = await api.get('/sales', {
-    headers: { Authorization: token },
-    params: { email },
-  });
+const getOrders = async (id) => {
+  const result = await api.get(`seller/orders/${id}`);
 
   return result.data;
 };

@@ -4,20 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import TableOrders from '../../components/TableOrders';
 import NavBar from '../../components/NavBar';
 import { getOrders } from '../../services/apiOrders';
-import LocalStorage from '../../utils/localStorage.utils';
+import { formatOrdersDate } from '../../utils/formatOrdersData';
 
 function SellerOrders() {
   const nav = useNavigate();
   const [sellerOrders, setSellerOrders] = useState([]);
+  const id = localStorage.getItem('userId');
 
   useEffect(() => {
     try {
-      const user = LocalStorage.getUser();
-
-      if (!user) throw new Error('logged out user');
-
       const getOrdersOfApi = async () => {
-        const data = await getOrders(user);
+        const data = await getOrders(id);
+        formatOrdersDate(data);
+        console.log(data)
         setSellerOrders(data);
       };
       getOrdersOfApi();
