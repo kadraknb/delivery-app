@@ -41,34 +41,34 @@ function Register() {
   return (
     <div>
       <form onSubmit={ handleSubmit } className="formulario">
-        <h1>Register</h1>
+        <h1>Cadastro</h1>
         <section>
           <label htmlFor="input-email">
-            Name
             <input
               className="form-input"
               type="text"
               name="text"
+              placeholder="Nome"
               onChange={ (e) => setName(e.target.value) }
               data-testid="common_register__input-name"
             />
           </label>
           <label htmlFor="input-email">
-            E-mail
             <input
               className="form-input"
               type="email"
               name="email"
+              placeholder="seu-email@grupo23.com"
               onChange={ (e) => setEmail(e.target.value) }
               data-testid="common_register__input-email"
             />
           </label>
           <label htmlFor="label-password">
-            Password
             <input
               className="form-input"
               type="password"
               name="password"
+              placeholder="Senha"
               onChange={ (e) => setPassword(e.target.value) }
               data-testid="common_register__input-password"
             />
@@ -82,14 +82,13 @@ function Register() {
             data-testid="common_register__button-register"
             disabled={ isDisabled }
           >
-            Create Account
+            Cadastrar
           </button>
         </div>
       </form>
       { errorMsg
         ? <p data-testid="common_register__element-invalid_register">Mensagem de erro</p>
         : undefined }
-
     </div>
   );
 }
