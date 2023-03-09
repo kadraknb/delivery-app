@@ -6,11 +6,8 @@ const getOrders = async (id) => {
   return result.data;
 };
 
-const getSaleDetail = async (id, token) => {
-  const { data } = await api.get('/sales/detail', {
-    headers: { Authorization: token },
-    params: { id },
-  });
+const getSaleDetail = async (id) => {
+  const { data } = await api.get(`/sales/products/${id}`);
 
   return data;
 };
