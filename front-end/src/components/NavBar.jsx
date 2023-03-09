@@ -1,10 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import LocalStorage from '../utils/localStorage.utils';
 
 function NavBar() {
   const nav = useNavigate();
   const data = LocalStorage.getUser();
+  const path = useLocation();
 
   const handleLogOut = () => {
     LocalStorage.logOut();
@@ -22,35 +23,43 @@ function NavBar() {
 
   return (
     <nav>
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-products"
-        onClick={ () => handleProducts() }
-      >
-        PRODUCTS
-      </button>
+      {
+        path.pathname.includes('customer') && (
+          <button
+            type="button"
+            data-testid="customer_products__element-navbar-link-products"
+            onClick={ () => handleProducts() }
+          >
+            PRODUTOS
+          </button>
+        )
+      }
 
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => handleOrders() }
-      >
-        MY ORDERS
-      </button>
+      {path.pathname.includes('admin')
+        ? (<span>GERENCIAR USUÁRIOS</span>)
+        : (
+          <button
+            type="button"
+            data-testid="customer_products__element-navbar-link-orders"
+            onClick={ () => handleOrders() }
+          >
+            {path.pathname.includes('customer') ? 'MEUS PEDIDOS' : 'PEDIDOS'}
+          </button>
+        )}
 
-      <button
+      <span
         type="button"
         data-testid="customer_products__element-navbar-user-full-name"
       >
         { data.name }
-      </button>
+      </span>
 
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
         onClick={ () => handleLogOut() }
       >
-        LOG OUT
+        SAIR
       </button>
     </nav>
   );
