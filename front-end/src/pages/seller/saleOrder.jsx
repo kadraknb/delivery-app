@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { getSaleDetail, changeStateApiOrders } from '../../services/apiOrders';
-import TableProducts from '../../components/TableProducts';
+import OrderDetailsTable from '../../components/OrderDetailsTable';
 import NavBar from '../../components/NavBar';
 
 function PersonSallerOrdersDetail() {
@@ -76,7 +76,7 @@ function PersonSallerOrdersDetail() {
               </tr>
             </thead>
             <tbody>
-              <TableProducts array={ arrProducts } />
+              <OrderDetailsTable array={ arrProducts } />
             </tbody>
           </table>
           <h1 data-testid="seller_order_details__element-order-total-price">
