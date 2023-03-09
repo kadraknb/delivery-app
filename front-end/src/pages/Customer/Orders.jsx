@@ -13,7 +13,6 @@ function Orders() {
   const getAllSales = async () => {
     try {
       const { data } = await api.get(`/customer/orders/${id}`);
-
       formatOrdersDate(data);
       formatOrdersTotalPrice(data);
 

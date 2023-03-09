@@ -4,7 +4,7 @@ import LocalStorage from '../utils/localStorage.utils';
 
 function NavBar() {
   const nav = useNavigate();
-  const { name } = LocalStorage.getUser();
+  const data = LocalStorage.getUser();
 
   const handleLogOut = () => {
     LocalStorage.logOut();
@@ -16,6 +16,7 @@ function NavBar() {
   };
 
   const handleOrders = () => {
+    if (data.role === 'seller') return nav('/seller/orders');
     nav('/customer/orders');
   };
 
@@ -41,7 +42,7 @@ function NavBar() {
         type="button"
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        { name }
+        { data.name }
       </button>
 
       <button

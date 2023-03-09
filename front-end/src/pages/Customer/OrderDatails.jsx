@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import NavBar from '../../components/NavBar';
 import api from '../../services/axios';
-// import formatOrdersData from '../../utils/formatOrdersData';
-
-// import PropTypes from 'prop-types';
+import { formatOrdersDate } from '../../utils/formatOrdersData';
+import { changeStateApiOrders } from '../../services/apiOrders';
 
 function OrdersDatails() {
   const pathLocation = useLocation();
@@ -16,22 +15,25 @@ function OrdersDatails() {
   const getAllSalesProducts = async () => {
     try {
       const { data } = await api.get(`/sales/products/${saleId}`);
-
-      setIsLoading(false);
-
-      // formatOrdersDate(data);
-      // formatOrdersTotalPrice(data);
-
+      formatOrdersDate([data]);
+      console.log(data);
       setSaleData(data);
-      console.log('testes', data);
-      console.log('te', data.products);
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
   };
+
+  const changeState = async (newStatus) => {
+    await changeStateApiOrders(saleId, newStatus);
+    await getAllSalesProducts();
+  };
+
   useEffect(() => {
     getAllSalesProducts();
   }, []);
+
+  const nameTest = 'customer_order_details__element-order-details-label-delivery-status';
 
   return (
     <div>
@@ -40,35 +42,33 @@ function OrdersDatails() {
         <div>
           <h1
             data-testid="customer_order_details__element-order-details-label-order-id"
-            width={ 277 }
           >
             PEDIDO:
             { saleData.id }
           </h1>
           <h1
             data-testid="customer_order_details__element-order-details-label-seller-name"
-            width={ 277 }
           >
             P.Vend: Fulana Pereira
           </h1>
+          <p>
+            DATA DO PEDIDO:
+            <span
+              data-testid="customer_order_details__element-order-details-label-order-date"
+            >
+              {saleData.saleDate}
+            </span>
+          </p>
           <h1
-            data-testid="customer_order_details__element-order-details-label-order-date" // data do pedido nescessaria
-            width={ 216 } // arrumar a DATA
-          >
-            DATA DO PEDIDO: 06/12/2012
-          </h1>
-          <h1
-            data-
-            testid="customer_order_details__element-order-details-label-delivery-status"
-            width={ 216 }
+            data-testid={ nameTest }
           >
             { saleData.status }
           </h1>
           <button
             type="button"
             data-testid="customer_order_details__button-delivery-check" // botão de preparação de pedido
-            width={ 332 }
-            onClick={ () => 'add função' }
+            disabled={ saleData.status !== 'Em Trânsito' }
+            onClick={ () => changeState('Entregue') }
           >
             MARCAR COMO ENTREGUE
           </button>
@@ -126,11 +126,13 @@ function OrdersDatails() {
               ))}
             </tbody>
           </table>
-          <h4
-            data-testid="customer_order_details__element-order-total-price"
-          >
+          <h4>
             TOTAL :
-            { saleData.totalPrice }
+            <span
+              data-testid="customer_order_details__element-order-total-price"
+            >
+              { saleData.totalPrice.replace('.', ',') }
+            </span>
           </h4>
         </div>
       )}

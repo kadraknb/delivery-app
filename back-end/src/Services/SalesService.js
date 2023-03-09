@@ -8,12 +8,11 @@ module.exports = class SalesService {
 
   async createSales(values) {
     const { products: _, ...sale } = values;
-
     const saleDate = new Date();
     const newSale = await this.model.create({
       ...sale,
       saleDate,
-      status: "Pendente",
+      status: 'Pendente',
     });
 
     await Promise.all(
@@ -22,16 +21,19 @@ module.exports = class SalesService {
           saleId: newSale.id,
           productId: id,
           quantity,
-        })
-      )
+        })),
     );
 
     return newSale;
   }
-
   
   async getAllSalesbyUserId(id) {
     const allSales = await this.model.findAll({ where: { userId: id } });
+    return allSales;
+  }
+
+  async getAllSalesbySellerId(id) {
+    const allSales = await this.model.findAll({ where: { sellerId: id } });
     return allSales;
   }
 
@@ -41,14 +43,6 @@ module.exports = class SalesService {
   }
 
   async changeStateOfSaleById(id, status) {
-    const idIsValid = await this.getOrderById(id);
-
-    if (!idIsValid) {
-      const error = new Error("Error fetch order");
-      error.statusCode = 404;
-      throw error;
-    }
-
     const sales = await this.model.update({ status }, { where: { id } });
 
     return sales;

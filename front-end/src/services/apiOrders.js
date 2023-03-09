@@ -1,28 +1,21 @@
 import api from './axios';
 
-const getOrders = async ({ email, token }) => {
-  const result = await api.get('/sales', {
-    headers: { Authorization: token },
-    params: { email },
-  });
+const getOrders = async (id) => {
+  const result = await api.get(`seller/orders/${id}`);
 
   return result.data;
 };
 
-const getSaleDetail = async (id, token) => {
-  const { data } = await api.get('/sales/detail', {
-    headers: { Authorization: token },
-    params: { id },
-  });
+const getSaleDetail = async (id) => {
+  const { data } = await api.get(`/sales/products/${id}`);
 
   return data;
 };
 
-const changeStateApiOrders = async (id, token, newStatus) => {
-  await api.put(
+const changeStateApiOrders = async (id, status) => {
+  await api.patch(
     `/sales/detail/${id}`,
-    { newStatus },
-    { headers: { Authorization: token } },
+    { status },
   );
 };
 
