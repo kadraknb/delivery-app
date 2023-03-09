@@ -17,14 +17,8 @@ function OrdersDatails() {
     try {
       const { data } = await api.get(`/sales/products/${saleId}`);
 
-      setIsLoading(false);
-
-      // formatOrdersDate(data);
-      // formatOrdersTotalPrice(data);
-
       setSaleData(data);
-      console.log('testes', data);
-      console.log('te', data.products);
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
