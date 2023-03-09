@@ -12,7 +12,12 @@ function Login() {
 
   useEffect(() => {
     const isLoggedIn = LocalStorage.getUser();
-    if (isLoggedIn !== null) navigate('/customer/products');
+    if (isLoggedIn !== null) {
+      if (isLoggedIn.role === 'seller') {
+        return navigate('/seller/orders');
+      }
+      navigate('/customer/products');
+    }
   });
 
   useEffect(() => {
@@ -34,7 +39,6 @@ function Login() {
         email,
         password,
       });
-
       if (data.role === 'customer') {
         LocalStorage.setLogin(data);
         navigate('/customer/products');
@@ -45,6 +49,7 @@ function Login() {
         navigate('/admin/manage');
       }
       if (data.role === 'seller') {
+        LocalStorage.setLogin(data);
         navigate('/seller/orders');
       }
     } catch (error) {
