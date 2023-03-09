@@ -12,7 +12,7 @@ SalesRouter.get('/seller/orders/:id', (req, res, next) =>
 SalesRouter.post('/sales', (req, res, next) =>
   SalesFactory.createSales(req, res, next));
 
-SalesRouter.put('/sales/detail/:id', (req, res, next) =>
+SalesRouter.patch('/sales/detail/:id', (req, res, next) =>
   SalesFactory.changeStateOfSaleById(req, res, next));
 
 module.exports = SalesRouter;

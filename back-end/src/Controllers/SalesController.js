@@ -33,9 +33,9 @@ module.exports = class SalesController {
   async changeStateOfSaleById(req, res, next) {
     try {
       const { id } = req.params;
-      const { newStatus } = req.body;
+      const { status } = req.body;
 
-      await this.service.changeStateOfSaleById(id, newStatus);
+      await this.service.changeStateOfSaleById(id, status);
 
       return res.status(204).end();
     } catch (error) {

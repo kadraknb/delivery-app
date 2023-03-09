@@ -43,14 +43,6 @@ module.exports = class SalesService {
   }
 
   async changeStateOfSaleById(id, status) {
-    const idIsValid = await this.getOrderById(id);
-
-    if (!idIsValid) {
-      const error = new Error('Error fetch order');
-      error.statusCode = 404;
-      throw error;
-    }
-
     const sales = await this.model.update({ status }, { where: { id } });
 
     return sales;
