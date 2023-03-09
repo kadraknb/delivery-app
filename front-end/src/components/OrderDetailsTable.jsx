@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function TableProducts({ array, type }) {
+function OrderDetailsTable({ array, type, removeProduct }) {
+  const genericArray = () => {
+    let items;
+    if (array.includes(products)) {
+      items = array.products;
+      return items;
+    }
+    items = array;
+    return items;
+  };
+
+  useEffect(() => {
+    genericArray();
+  }, []);
+
   return (
-    array.products.map((product, index) => (
+    items.map((product, index) => (
       <tr key={ product.name }>
         <td
           data-testid={ `${type}__element-order-table-item-number-${index}` }
@@ -30,15 +44,23 @@ function TableProducts({ array, type }) {
         >
           { (product.price * product.SalesProducts.quantity)
             .toFixed(2).replace('.', ',') }
-
+        </td>
+        <td>
+          <button
+            data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+            type="button"
+            onClick={ () => removeProduct(index) }
+          >
+            Remove
+          </button>
         </td>
       </tr>
     ))
   );
 }
 
-TableProducts.propTypes = {
+OrderDetailsTable.propTypes = {
   array: PropTypes.arrayOf(),
 }.isRequired;
 
-export default TableProducts;
+export default OrderDetailsTable;

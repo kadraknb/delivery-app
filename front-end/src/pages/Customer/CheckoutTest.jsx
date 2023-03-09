@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
+import OrderDetailsTable from '../../components/OrderDetailsTable';
 import api from '../../services/axios';
 import LocalStorage from '../../utils/localStorage.utils';
 
 function CheckoutTest() {
-  const [tableData, setTableData] = useState(JSON.parse(localStorage.getItem('card')));
+  const [tableData, setTableData] = useState([]);
   const [address, setAddress] = useState('');
   const [sellers, setSellers] = useState([]);
   const [seller, setSeller] = useState('');
   const [number, setNumber] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -33,6 +35,7 @@ function CheckoutTest() {
     const storedItems = JSON.parse(localStorage.getItem('card')) || [];
     setTableData(storedItems);
     getAllSellers();
+    setIsLoading(false);
   }, []);
 
   const handleSubmit = async (e) => {
@@ -75,79 +78,38 @@ function CheckoutTest() {
   return (
     <div>
       <NavBar />
-      <table>
-        <thead>
-          Finalizar Pedido
-          <tr>
-            <th>Item</th>
-            <th>Description</th>
-            <th>Quantity</th>
-            <th>Unit Price</th>
-            <th>Subtotal</th>
-            <th>Remove Item</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableData && tableData.map((row, index) => (
-            <tr key={ index }>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-item-number-${index}`
-                }
-              >
-                {index + 1}
-
-              </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-name-${index}` }
-              >
-                {row.name}
-              </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
-              >
-
-                {row.quantity}
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-unit-price-${index}`
-                }
-              >
-
-                {row.price.replace('.', ',')}
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-sub-total-${index}`
-                }
-              >
-                {row.totalPrice.replace('.', ',')}
-
-              </td>
-              <td>
-                <button
-                  data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-                  type="button"
-                  onClick={ () => handleRemoveRow(index) }
-                >
-                  Remove
-                </button>
+      {!isLoading && (
+        <table>
+          <thead>
+            Finalizar Pedido
+            <tr>
+              <th>Item</th>
+              <th>Description</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+              <th>Subtotal</th>
+              <th>Remove Item</th>
+            </tr>
+          </thead>
+          <tbody>
+            <OrderDetailsTable
+              array={ tableData }
+              type="customer_checkout"
+              removeProduct={ handleRemoveRow }
+            />
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan="4" style={ { textAlign: 'right' } }>Total:</td>
+              <td data-testid="customer_checkout__element-order-total-price">
+                {tableData
+                  .reduce((total, row) => total + Number(row.totalPrice), 0)
+                  .toFixed(2).replace('.', ',')}
               </td>
             </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colSpan="4" style={ { textAlign: 'right' } }>Total:</td>
-            <td data-testid="customer_checkout__element-order-total-price">
-              {tableData
-                .reduce((total, row) => total + Number(row.totalPrice), 0)
-                .toFixed(2).replace('.', ',')}
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+          </tfoot>
+        </table>
+      )}
       P. Vendedora Responsável:
       <select
         name="seller"
