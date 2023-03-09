@@ -2,22 +2,24 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 function OrderDetailsTable({ array, type, removeProduct }) {
+  console.log(array);
+  let items;
   const genericArray = () => {
-    let items;
-    if (array.includes(products)) {
+    if (array.includes('products')) {
       items = array.products;
       return items;
     }
     items = array;
     return items;
   };
+  console.log(items);
 
   useEffect(() => {
     genericArray();
   }, []);
 
   return (
-    items.map((product, index) => (
+    items ? items.map((product, index) => (
       <tr key={ product.name }>
         <td
           data-testid={ `${type}__element-order-table-item-number-${index}` }
@@ -55,7 +57,7 @@ function OrderDetailsTable({ array, type, removeProduct }) {
           </button>
         </td>
       </tr>
-    ))
+    )) : null
   );
 }
 
