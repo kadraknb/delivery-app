@@ -9,12 +9,10 @@ function Orders() {
   const [salesData, setSalesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const id = localStorage.getItem('userId');
-  console.log(id);
 
   const getAllSales = async () => {
     try {
       const { data } = await api.get(`/customer/orders/${id}`);
-      console.log(data);
       formatOrdersDate(data);
       formatOrdersTotalPrice(data);
 
