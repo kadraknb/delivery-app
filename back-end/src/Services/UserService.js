@@ -1,10 +1,23 @@
 const md5 = require('md5');
+const { Op } = require('sequelize');
 const Validate = require('../utils/validate/userValidate');
 const TokenGenerator = require('../utils/auth/TokenGenerator');
 
 module.exports = class UserService {
   constructor(model) {
     this.model = model;
+  }
+
+  async getAllUsers() {
+    const allUsers = await this.model.findAll({
+      where: {
+        [Op.or]: [
+          { role: 'customer' },
+          { role: 'seller' },
+        ],
+      },
+  });
+    return allUsers;
   }
 
   async getUserByEmail(email) {
@@ -55,5 +68,9 @@ module.exports = class UserService {
       role: newUser.role,
       token,
     };
+   }
+
+   async deleteUser(id) {
+    await this.model.destroy({ where: { id } });
    }
 };
