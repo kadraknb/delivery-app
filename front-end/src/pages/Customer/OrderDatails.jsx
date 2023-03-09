@@ -3,6 +3,7 @@ import { useLocation } from 'react-router';
 import NavBar from '../../components/NavBar';
 import api from '../../services/axios';
 import { formatOrdersDate } from '../../utils/formatOrdersData';
+import { changeStateApiOrders } from '../../services/apiOrders';
 
 function OrdersDatails() {
   const pathLocation = useLocation();
@@ -22,6 +23,12 @@ function OrdersDatails() {
       console.error(error);
     }
   };
+
+  const changeState = async (newStatus) => {
+    await changeStateApiOrders(saleId, newStatus);
+    await getAllSalesProducts();
+  };
+
   useEffect(() => {
     getAllSalesProducts();
   }, []);
@@ -60,8 +67,8 @@ function OrdersDatails() {
           <button
             type="button"
             data-testid="customer_order_details__button-delivery-check" // botão de preparação de pedido
-            disabled
-            onClick={ () => 'add função' }
+            disabled={ saleData.status !== 'Em Trânsito' }
+            onClick={ () => changeState('Entregue') }
           >
             MARCAR COMO ENTREGUE
           </button>
