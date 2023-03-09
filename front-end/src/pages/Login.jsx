@@ -60,24 +60,23 @@ function Login() {
   return (
     <div>
       <form onSubmit={ handleSubmit }>
-        <h1>Delivery</h1>
         <section>
           <label htmlFor="input-email">
-            E-mail
             <input
               className="form-input"
               type="email"
               name="email"
+              placeholder="Email"
               onChange={ (e) => setEmail(e.target.value) }
               data-testid="common_login__input-email"
             />
           </label>
           <label htmlFor="label-password">
-            Password
             <input
               className="form-input"
               type="password"
               name="password"
+              placeholder="Senha"
               onChange={ (e) => setPassword(e.target.value) }
               data-testid="common_login__input-password"
             />
@@ -99,7 +98,7 @@ function Login() {
             data-testid="common_login__button-register"
             onClick={ () => navigate('/register') }
           >
-            Register
+            Criar conta
           </button>
         </div>
       </form>
