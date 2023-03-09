@@ -5,7 +5,7 @@ import OrderDetailsTable from '../../components/OrderDetailsTable';
 import api from '../../services/axios';
 import LocalStorage from '../../utils/localStorage.utils';
 
-function CheckoutTest() {
+function Checkout() {
   const [tableData, setTableData] = useState([]);
   const [address, setAddress] = useState('');
   const [sellers, setSellers] = useState([]);
@@ -151,4 +151,4 @@ function CheckoutTest() {
   );
 }
 
-export default CheckoutTest;
+export default Checkout;
