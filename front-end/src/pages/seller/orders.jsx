@@ -16,7 +16,6 @@ function SellerOrders() {
       const getOrdersOfApi = async () => {
         const data = await getOrders(id);
         formatOrdersDate(data);
-        console.log(data)
         setSellerOrders(data);
       };
       getOrdersOfApi();

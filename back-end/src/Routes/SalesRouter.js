@@ -9,7 +9,6 @@ SalesRouter.get('/customer/orders/:id', (req, res, next) =>
 SalesRouter.get('/seller/orders/:id', (req, res, next) =>
   SalesFactory.getAllSalesbySellerId(req, res, next));
 
-
 SalesRouter.post('/sales', (req, res, next) =>
   SalesFactory.createSales(req, res, next));
 
