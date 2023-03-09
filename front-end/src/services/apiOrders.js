@@ -12,11 +12,10 @@ const getSaleDetail = async (id) => {
   return data;
 };
 
-const changeStateApiOrders = async (id, token, newStatus) => {
-  await api.put(
+const changeStateApiOrders = async (id, status) => {
+  await api.patch(
     `/sales/detail/${id}`,
-    { newStatus },
-    { headers: { Authorization: token } },
+    { status },
   );
 };
 

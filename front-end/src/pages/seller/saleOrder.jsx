@@ -12,13 +12,14 @@ function PersonSallerOrdersDetail() {
 
   const saveSaleDetail = async () => {
     const orders = await getSaleDetail(id);
+    console.log(seleOrders.status);
     setArrProducts(orders);
     setSeleOrders(orders);
     setIsLoading(false);
   };
 
   const changeState = async (newStatus) => {
-    await changeStateApiOrders(id, token, newStatus);
+    await changeStateApiOrders(id, newStatus);
     await saveSaleDetail();
   };
 
@@ -61,7 +62,7 @@ function PersonSallerOrdersDetail() {
               onClick={ () => changeState('Em Trânsito') }
               disabled={ seleOrders.status !== 'Preparando' }
             >
-              Pendente
+              SAIU PARA ENTREGA
             </button>
           </span>
           <table>
