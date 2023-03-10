@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import NavBar from '../../components/NavBar';
-import CardOrder from '../../components/CardOrder';
+import OrderCard from '../../components/OrderCard';
 import api from '../../services/api';
 import { formatOrdersDate, formatOrdersTotalPrice } from '../../utils/formatOrdersData';
 
@@ -31,15 +31,10 @@ function CustomerOrders() {
     <div>
       <NavBar />
       {!isLoading
-        && salesData.map((sale) => (
-          <CardOrder
-            key={ sale.id }
-            id={ sale.id }
-            status={ sale.status }
-            saleDate={ sale.saleDate }
-            totalPrice={ sale.totalPrice }
-          />
-        ))}
+        && <OrderCard
+          arrayOrders={ salesData }
+          type="customer"
+        />}
     </div>
   );
 }
