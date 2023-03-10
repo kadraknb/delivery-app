@@ -10,8 +10,8 @@ import CustomerOrders from './pages/Customer/CustomerOrders';
 import CustomerOrderDetails from './pages/Customer/CustomerOrderDetails';
 import Checkout from './pages/Customer/Checkout';
 import Manage from './pages/Admin/Manage';
-import SellerOrderDetail from './pages/seller/SellerOrderDetails';
-import SellerOrders from './pages/seller/SellerOrders';
+import SellerOrderDetail from './pages/Seller/SellerOrderDetails';
+import SellerOrders from './pages/Seller/SellerOrders';
 
 function App() {
   return (
