@@ -1,25 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 function OrderDetailsTable({ array, type, removeProduct }) {
-  console.log(array);
-  let items;
+  const [isLoading, setIsLoading] = useState(true);
+  const [items, setItems] = useState([]);
+
   const genericArray = () => {
-    if (array.includes('products')) {
-      items = array.products;
-      return items;
+    if ('products' in array) {
+      setItems(array.products);
+      return setIsLoading(false);
     }
-    items = array;
-    return items;
+    setItems(array);
+    setIsLoading(false);
   };
-  console.log(items);
 
   useEffect(() => {
     genericArray();
-  }, []);
+  }, [array]);
 
   return (
-    items ? items.map((product, index) => (
+    !isLoading && items.map((product, index) => (
       <tr key={ product.name }>
         <td
           data-testid={ `${type}__element-order-table-item-number-${index}` }
@@ -34,7 +34,7 @@ function OrderDetailsTable({ array, type, removeProduct }) {
         <td
           data-testid={ `${type}__element-order-table-quantity-${index}` }
         >
-          { product.SalesProducts.quantity }
+          { product.quantity ? product.quantity : product.SalesProducts.quantity }
         </td>
         <td
           data-testid={ `${type}__element-order-table-unit-price-${index}` }
@@ -44,20 +44,23 @@ function OrderDetailsTable({ array, type, removeProduct }) {
         <td
           data-testid={ `${type}__element-order-table-sub-total-${index}` }
         >
-          { (product.price * product.SalesProducts.quantity)
-            .toFixed(2).replace('.', ',') }
+          { product.quantity ? (product.price * product.quantity)
+            .toFixed(2).replace('.', ',') : (
+            product.price * product.SalesProducts.quantity)
+            .toFixed(2).replace('.', ',')}
         </td>
-        <td>
-          <button
-            data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-            type="button"
-            onClick={ () => removeProduct(index) }
-          >
-            Remove
-          </button>
-        </td>
+        { product.quantity && (
+          <td>
+            <button
+              data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+              type="button"
+              onClick={ () => removeProduct(index) }
+            >
+              Remove
+            </button>
+          </td>)}
       </tr>
-    )) : null
+    ))
   );
 }
 

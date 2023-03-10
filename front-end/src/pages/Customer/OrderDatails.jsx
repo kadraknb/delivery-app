@@ -4,6 +4,7 @@ import NavBar from '../../components/NavBar';
 import api from '../../services/axios';
 import { formatOrdersDate } from '../../utils/formatOrdersData';
 import { changeStateApiOrders } from '../../services/apiOrders';
+import OrderDetailsTable from '../../components/OrderDetailsTable';
 
 function OrdersDatails() {
   const pathLocation = useLocation();
@@ -16,7 +17,6 @@ function OrdersDatails() {
     try {
       const { data } = await api.get(`/sales/products/${saleId}`);
       formatOrdersDate([data]);
-      console.log(data);
       setSaleData(data);
       setIsLoading(false);
     } catch (error) {
@@ -84,46 +84,10 @@ function OrdersDatails() {
               </tr>
             </thead>
             <tbody>
-              {saleData.products.map((row, index) => (
-                <tr key={ index }>
-                  <td
-                    data-testid={
-                      `customer_order_details__element-order-table-item-number-${index}`
-                    }
-                  >
-                    { index + 1 }
-                  </td>
-                  <td
-                    data-testid={
-                      `customer_order_details__element-order-table-name-${index}`
-                    }
-                  >
-                    { row.name }
-                  </td>
-                  <td
-                    data-testid={
-                      `customer_order_details__element-order-table-quantity-${index}`
-                    }
-                  >
-                    { row.SalesProducts.quantity }
-                  </td>
-                  <td
-                    data-testid={
-                      `customer_order_details__element-order-table-unit-price-${index}`
-                    }
-                  >
-                    { row.price }
-                  </td>
-                  <td
-                    data-testid={
-                      `customer_order_details__element-order-table-sub-total-${index}`
-                    }
-                  >
-                    { (row.price * row.SalesProducts.quantity)
-                      .toFixed(2).replace('.', ',') }
-                  </td>
-                </tr>
-              ))}
+              <OrderDetailsTable
+                type="customer_order_details"
+                array={ saleData }
+              />
             </tbody>
           </table>
           <h4>
