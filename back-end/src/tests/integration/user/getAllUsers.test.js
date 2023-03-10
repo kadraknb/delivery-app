@@ -24,4 +24,13 @@ describe('Teste endPoint get /admin/manage', () => {
       expect(body).to.be.deep.equal(getAllUsers);
     });
   });
+  describe('Busca todos usuarios pelo role "customer", "seller" com ERRO', () => {
+    it('Retorna uma mensagem de erro', async () => {
+      sinon.stub(User, 'findAll').throws(new Error());;
+      const { status, body } = await chai.request(app).get('/admin/manage');
+
+      expect(status).to.be.equal(500);
+      expect(body).to.be.deep.equal({"message": ""});
+    });
+  });
 });
