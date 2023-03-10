@@ -6,8 +6,7 @@ function OrderDetailsTable({ array, type, removeProduct }) {
   const [items, setItems] = useState([]);
 
   const genericArray = () => {
-    const t = [array].includes('products');
-    if (t) {
+    if ('products' in array) {
       setItems(array.products);
       return setIsLoading(false);
     }
