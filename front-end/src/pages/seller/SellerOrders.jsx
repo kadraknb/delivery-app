@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import TableOrders from '../../components/TableOrders';
+import OrderCard from '../../components/OrderCard';
 import NavBar from '../../components/NavBar';
 import { getOrders } from '../../services/apiOrders';
 import { formatOrdersDate } from '../../utils/formatOrdersData';
@@ -28,7 +28,7 @@ function SellerOrders() {
   return (
     <div>
       <NavBar />
-      <TableOrders
+      <OrderCard
         arrayOrders={ sellerOrders }
         type="seller"
       />

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-function TableOrders({ arrayOrders, type }) {
+function OrderCard({ arrayOrders, type }) {
   const nav = useNavigate();
 
   return (
@@ -44,8 +44,8 @@ function TableOrders({ arrayOrders, type }) {
   );
 }
 
-TableOrders.propTypes = {
+OrderCard.propTypes = {
   arrayOrders: PropTypes.arrayOf(),
 }.isRequired;
 
-export default TableOrders;
+export default OrderCard;
