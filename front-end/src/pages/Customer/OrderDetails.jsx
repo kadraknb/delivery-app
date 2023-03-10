@@ -74,12 +74,12 @@ function OrderDetails() {
           </button>
           <table>
             <thead>
-              Detalhe do Pedido
+              Detalhes do Pedido
               <tr>
                 <th>Item</th>
                 <th>Descrição</th>
                 <th>Quantidade</th>
-                <th>Valor Unitario</th>
+                <th>Valor Unitário</th>
                 <th>Sub-total</th>
               </tr>
             </thead>

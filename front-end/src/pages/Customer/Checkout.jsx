@@ -84,11 +84,11 @@ function Checkout() {
             Finalizar Pedido
             <tr>
               <th>Item</th>
-              <th>Description</th>
-              <th>Quantity</th>
-              <th>Unit Price</th>
-              <th>Subtotal</th>
-              <th>Remove Item</th>
+              <th>Descrição</th>
+              <th>Quantidade</th>
+              <th>Valor Unitário</th>
+              <th>Sub-total</th>
+              <th>Remover Item</th>
             </tr>
           </thead>
           <tbody>

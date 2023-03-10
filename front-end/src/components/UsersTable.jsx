@@ -26,7 +26,7 @@ function UsersTable({ id, itemNumber, name, email, role }) {
         <tr>
           <th>Item</th>
           <th>Nome</th>
-          <th>E-mail</th>
+          <th>Email</th>
           <th>Tipo</th>
           <th>Excluir</th>
         </tr>

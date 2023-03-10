@@ -56,7 +56,7 @@ function OrderDetailsTable({ array, type, removeProduct }) {
               type="button"
               onClick={ () => removeProduct(index) }
             >
-              Remove
+              Remover
             </button>
           </td>)}
       </tr>
