@@ -37,11 +37,6 @@ module.exports = class SalesService {
     return allSales;
   }
 
-  async getOrderById(id) {
-    const data = this.model.findOne({ where: { id } });
-    return data;
-  }
-
   async changeStateOfSaleById(id, status) {
     const sales = await this.model.update({ status }, { where: { id } });
 
