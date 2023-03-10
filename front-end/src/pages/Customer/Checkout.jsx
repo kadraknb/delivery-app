@@ -134,7 +134,7 @@ function Checkout() {
       />
       Número
       <input
-        type="text"
+        type="number"
         name="number"
         data-testid="customer_checkout__input-address-number"
         value={ number }
