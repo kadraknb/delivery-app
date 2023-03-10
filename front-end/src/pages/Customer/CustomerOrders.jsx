@@ -5,7 +5,7 @@ import CardOrder from '../../components/CardOrder';
 import api from '../../services/api';
 import { formatOrdersDate, formatOrdersTotalPrice } from '../../utils/formatOrdersData';
 
-function Orders() {
+function CustomerOrders() {
   const [salesData, setSalesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const id = localStorage.getItem('userId');
@@ -44,4 +44,4 @@ function Orders() {
   );
 }
 
-export default Orders;
+export default CustomerOrders;

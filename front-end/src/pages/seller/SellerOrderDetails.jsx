@@ -4,7 +4,7 @@ import { getSaleDetail, changeStateApiOrders } from '../../services/apiOrders';
 import OrderDetailsTable from '../../components/OrderDetailsTable';
 import NavBar from '../../components/NavBar';
 
-function PersonSallerOrdersDetail() {
+function SellerOrdersDetails() {
   const [seleOrders, setSeleOrders] = useState({});
   const [arrProducts, setArrProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -88,4 +88,4 @@ function PersonSallerOrdersDetail() {
   );
 }
 
-export default PersonSallerOrdersDetail;
+export default SellerOrdersDetails;

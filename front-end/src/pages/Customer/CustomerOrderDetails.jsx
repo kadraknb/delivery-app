@@ -6,7 +6,7 @@ import { formatOrdersDate } from '../../utils/formatOrdersData';
 import { changeStateApiOrders } from '../../services/apiOrders';
 import OrderDetailsTable from '../../components/OrderDetailsTable';
 
-function OrderDetails() {
+function CustomerOrderDetails() {
   const pathLocation = useLocation();
   const i = -1;
   const saleId = pathLocation.pathname.slice(i);
@@ -105,4 +105,4 @@ function OrderDetails() {
   );
 }
 
-export default OrderDetails;
+export default CustomerOrderDetails;
