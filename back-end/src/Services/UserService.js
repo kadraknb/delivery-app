@@ -47,7 +47,7 @@ module.exports = class UserService {
     };
   }
 
- async createUser(user) {
+  async createUser(user) {
     const verifyUserExist = await this.getUserByEmail(user.email);
     Validate.validCreateUser(verifyUserExist, user);
 
@@ -68,9 +68,9 @@ module.exports = class UserService {
       role: newUser.role,
       token,
     };
-   }
+  }
 
-   async deleteUser(id) {
+  async deleteUser(id) {
     await this.model.destroy({ where: { id } });
-   }
+  }
 };
