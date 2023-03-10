@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import NavBar from '../../components/NavBar';
 import CardOrder from '../../components/CardOrder';
-import api from '../../services/axios';
+import api from '../../services/api';
 import { formatOrdersDate, formatOrdersTotalPrice } from '../../utils/formatOrdersData';
 
 function Orders() {

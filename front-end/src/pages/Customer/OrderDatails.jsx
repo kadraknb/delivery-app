@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import NavBar from '../../components/NavBar';
-import api from '../../services/axios';
+import api from '../../services/api';
 import { formatOrdersDate } from '../../utils/formatOrdersData';
 import { changeStateApiOrders } from '../../services/apiOrders';
 import OrderDetailsTable from '../../components/OrderDetailsTable';
