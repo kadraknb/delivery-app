@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import OrderDetailsTable from '../../components/OrderDetailsTable';
-import api from '../../services/axios';
+import api from '../../services/api';
 import LocalStorage from '../../utils/localStorage.utils';
 
 function Checkout() {
@@ -84,11 +84,11 @@ function Checkout() {
             Finalizar Pedido
             <tr>
               <th>Item</th>
-              <th>Description</th>
-              <th>Quantity</th>
-              <th>Unit Price</th>
-              <th>Subtotal</th>
-              <th>Remove Item</th>
+              <th>Descrição</th>
+              <th>Quantidade</th>
+              <th>Valor Unitário</th>
+              <th>Sub-total</th>
+              <th>Remover Item</th>
             </tr>
           </thead>
           <tbody>
@@ -134,7 +134,7 @@ function Checkout() {
       />
       Número
       <input
-        type="text"
+        type="number"
         name="number"
         data-testid="customer_checkout__input-address-number"
         value={ number }

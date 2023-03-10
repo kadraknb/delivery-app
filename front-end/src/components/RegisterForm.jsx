@@ -45,34 +45,34 @@ function RegisterForm() {
       <h2>Cadastrar novo usuário</h2>
       <form>
         <label htmlFor="input-name">
-          Name
           <input
             type="text"
             name="input-name"
+            placeholder="Nome"
             onChange={ (e) => setName(e.target.value) }
             data-testid="admin_manage__input-name"
           />
         </label>
         <label htmlFor="input-email">
-          E-mail
           <input
             type="email"
             name="input-email"
+            placeholder="Email"
             onChange={ (e) => setEmail(e.target.value) }
             data-testid="admin_manage__input-email"
           />
         </label>
         <label htmlFor="input-password">
-          Password
           <input
             type="password"
             name="input-password"
+            placeholder="Senha"
             onChange={ (e) => setPassword(e.target.value) }
             data-testid="admin_manage__input-password"
           />
         </label>
         <label htmlFor="select-type">
-          Type
+          Tipo
           <select
             name="role"
             value={ role }
@@ -80,9 +80,9 @@ function RegisterForm() {
             data-testid="admin_manage__select-role"
           >
             <option disabled value=""> Selecione </option>
-            <option value="seller">Seller</option>
-            <option value="customer">Customer</option>
-            <option value="administrator">Administrator</option>
+            <option value="seller">P. Vendedora</option>
+            <option value="customer">Cliente</option>
+            <option value="administrator">P. Administradora</option>
           </select>
         </label>
         <button

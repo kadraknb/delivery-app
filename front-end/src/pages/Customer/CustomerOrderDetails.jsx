@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import NavBar from '../../components/NavBar';
-import api from '../../services/axios';
+import api from '../../services/api';
 import { formatOrdersDate } from '../../utils/formatOrdersData';
 import { changeStateApiOrders } from '../../services/apiOrders';
 import OrderDetailsTable from '../../components/OrderDetailsTable';
 
-function OrdersDatails() {
+function CustomerOrderDetails() {
   const pathLocation = useLocation();
   const i = -1;
   const saleId = pathLocation.pathname.slice(i);
@@ -74,12 +74,12 @@ function OrdersDatails() {
           </button>
           <table>
             <thead>
-              Detalhe do Pedido
+              Detalhes do Pedido
               <tr>
                 <th>Item</th>
                 <th>Descrição</th>
                 <th>Quantidade</th>
-                <th>Valor Unitario</th>
+                <th>Valor Unitário</th>
                 <th>Sub-total</th>
               </tr>
             </thead>
@@ -105,4 +105,4 @@ function OrdersDatails() {
   );
 }
 
-export default OrdersDatails;
+export default CustomerOrderDetails;

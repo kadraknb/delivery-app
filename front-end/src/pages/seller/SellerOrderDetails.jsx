@@ -4,7 +4,7 @@ import { getSaleDetail, changeStateApiOrders } from '../../services/apiOrders';
 import OrderDetailsTable from '../../components/OrderDetailsTable';
 import NavBar from '../../components/NavBar';
 
-function PersonSallerOrdersDetail() {
+function SellerOrdersDetails() {
   const [seleOrders, setSeleOrders] = useState({});
   const [arrProducts, setArrProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +33,7 @@ function PersonSallerOrdersDetail() {
       <NavBar />
       {!isLoading && (
         <div>
-          <h3>Detalhe do Pedido</h3>
+          <h3>Detalhes do Pedido</h3>
           <span>
             <p data-testid="seller_order_details__element-order-details-label-order-id">
               PEDIDO
@@ -69,10 +69,10 @@ function PersonSallerOrdersDetail() {
             <thead>
               <tr>
                 <th>Item</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Unitary Price</th>
-                <th>Sub-Total</th>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Valor Unitário</th>
+                <th>Sub-total</th>
               </tr>
             </thead>
             <tbody>
@@ -88,4 +88,4 @@ function PersonSallerOrdersDetail() {
   );
 }
 
-export default PersonSallerOrdersDetail;
+export default SellerOrdersDetails;
