@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../../components/NavBar';
 import OrderCard from '../../components/OrderCard';
 import api from '../../services/api';
-import { formatOrdersDate, formatOrdersTotalPrice } from '../../utils/formatOrdersData';
+import formatOrdersDate from '../../utils/formatOrdersData';
 
 function CustomerOrders() {
   const [salesData, setSalesData] = useState([]);
@@ -14,7 +14,6 @@ function CustomerOrders() {
     try {
       const { data } = await api.get(`/customer/orders/${id}`);
       formatOrdersDate(data);
-      formatOrdersTotalPrice(data);
 
       setSalesData(data);
       setIsLoading(false);
