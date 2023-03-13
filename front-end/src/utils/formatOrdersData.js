@@ -1,4 +1,4 @@
-export const formatOrdersDate = (orders) => {
+const formatOrdersDate = (orders) => {
   const INDEX_0 = 0;
   const INDEX_4 = 4;
   const INDEX_5 = 5;
@@ -14,9 +14,4 @@ export const formatOrdersDate = (orders) => {
   });
 };
 
-export const formatOrdersTotalPrice = (orders) => {
-  orders.forEach((order) => {
-    order.totalPrice = order.totalPrice
-      .toString().replace('.', ',');
-  });
-};
+export default formatOrdersDate;
