@@ -1,13 +1,14 @@
-import React from 'react';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
 import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { BrowserRouter } from 'react-router-dom';
 
-const renderWithRouter = (component, path = '/') => {
-  const history = createMemoryHistory({ initialEntries: [path] });
-  return ({
-    ...render(<Router history={ history }>{component}</Router>), history,
-  });
+const renderWithRouter = (ui, { route = '/' } = {}) => {
+  window.history.pushState({}, 'Test page', route);
+
+  return {
+    user: userEvent.setup(),
+    ...render(ui, { wrapper: BrowserRouter }),
+  };
 };
 
 export default renderWithRouter;

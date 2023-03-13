@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import OrderCard from '../../components/OrderCard';
 import NavBar from '../../components/NavBar';
 import { getOrders } from '../../services/apiOrders';
-import { formatOrdersDate } from '../../utils/formatOrdersData';
+import formatOrdersDate from '../../utils/formatOrdersData';
 
 function SellerOrders() {
   const nav = useNavigate();
