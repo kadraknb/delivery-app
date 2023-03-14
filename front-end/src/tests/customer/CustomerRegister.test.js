@@ -69,11 +69,11 @@ describe('Testa o login do usuário cliente', () => {
       expect(path).toBe('/customer/products')
     })
   });
-  /* it('Deve mostrar uma mensagem de erro no caso de dados inválidos', async () => {
+  it('Deve mostrar uma mensagem de erro no caso de dados inválidos', async () => {
     const { user } = renderWithRouter(<App />);
     const registerBtn = screen.getByTestId('common_login__button-register');
     await user.click(registerBtn);
-    jest.spyOn(api,'post').mockResolvedValue(new Error());
+    jest.spyOn(api,'post').mockRejectedValue(new Error());
 
     const nameInput = screen.getByTestId('common_register__input-name');
     await user.type(nameInput, 'Cliente gropo 23');
@@ -91,5 +91,5 @@ describe('Testa o login do usuário cliente', () => {
       const errorMsg = screen.getByTestId('common_register__element-invalid_register');
       expect(errorMsg).toBeInTheDocument();
     });
-  }); */
+  });
 });

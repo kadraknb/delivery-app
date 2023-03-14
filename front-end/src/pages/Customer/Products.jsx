@@ -23,8 +23,7 @@ function Products() {
       setDataProducts(data);
       setLoading(false);
     } catch (err) {
-      console.error(err);
-      nav('/login');
+      console.error(err.message);
     }
   };
 
