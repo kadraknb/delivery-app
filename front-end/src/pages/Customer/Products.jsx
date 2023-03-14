@@ -20,7 +20,6 @@ function Products() {
       const { data } = await api.get('/customer/products', {
         headers: { authorization },
       });
-
       setDataProducts(data);
       setLoading(false);
     } catch (err) {

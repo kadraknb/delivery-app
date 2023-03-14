@@ -18,7 +18,7 @@ function Login() {
       }
       navigate('/customer/products');
     }
-  });
+  }, []);
 
   useEffect(() => {
     const emailRegEx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
