@@ -12,6 +12,7 @@ function OrderCard({ arrayOrders, type }) {
           deliveryNumber }) => (
           (
             <div
+              data-testid="div click"
               key={ type + id }
               onClick={ () => {
                 nav(`/${type}/orders/${id}`);
