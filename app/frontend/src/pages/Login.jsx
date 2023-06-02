@@ -108,7 +108,6 @@ function Login() {
       <button
         type="button"
         name="register"
-        data-testid="common_login__button-register"
         onClick={ () => {
           setPassword('--adm2@21!!--');
           setEmail('adm@deliveryapp.com');
@@ -119,7 +118,6 @@ function Login() {
       <button
         type="button"
         name="register"
-        data-testid="common_login__button-register"
         onClick={ () => {
           setPassword('$#zebirita#$');
           setEmail('zebirita@email.com');
@@ -130,7 +128,6 @@ function Login() {
       <button
         type="button"
         name="register"
-        data-testid="common_login__button-register"
         onClick={ () => {
           setPassword('fulana@123');
           setEmail('fulana@deliveryapp.com');
