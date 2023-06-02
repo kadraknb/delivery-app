@@ -1,6 +1,8 @@
 export NODE_ENV=development
-cd ./back-end
-npx sequelize-cli db:drop
+cd ./app/backend
+
 npx sequelize-cli db:create
 npx sequelize-cli db:migrate
 npx sequelize-cli db:seed:all
+
+printf "\n> O banco de dados foi inicializado.\n\n"
