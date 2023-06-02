@@ -102,10 +102,42 @@ function Login() {
           </button>
         </div>
       </form>
-      { errorMsg[0]
-        ? <p data-testid="common_login__element-invalid-email">{errorMsg[1]}</p>
-        : undefined }
-
+      {errorMsg[0] ? (
+        <p data-testid="common_login__element-invalid-email">{errorMsg[1]}</p>
+      ) : undefined}
+      <button
+        type="button"
+        name="register"
+        data-testid="common_login__button-register"
+        onClick={ () => {
+          setPassword('--adm2@21!!--');
+          setEmail('adm@deliveryapp.com');
+        } }
+      >
+        adm
+      </button>
+      <button
+        type="button"
+        name="register"
+        data-testid="common_login__button-register"
+        onClick={ () => {
+          setPassword('$#zebirita#$');
+          setEmail('zebirita@email.com');
+        } }
+      >
+        vendedor
+      </button>
+      <button
+        type="button"
+        name="register"
+        data-testid="common_login__button-register"
+        onClick={ () => {
+          setPassword('fulana@123');
+          setEmail('fulana@deliveryapp.com');
+        } }
+      >
+        cliente
+      </button>
     </div>
   );
 }
