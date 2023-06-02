@@ -123,7 +123,7 @@ function Login() {
           setEmail('zebirita@email.com');
         } }
       >
-        vendedor
+        cliente
       </button>
       <button
         type="button"
@@ -133,7 +133,7 @@ function Login() {
           setEmail('fulana@deliveryapp.com');
         } }
       >
-        cliente
+        vendedor
       </button>
     </div>
   );
