@@ -14,7 +14,7 @@
   "scripts": {
     "start": "./scripts/start.sh",
     "logs": "./scripts/logs.sh",
-    "stop": "cd app && docker-compose down --remove-orphans",
+    "stop": "./scripts/stop.sh",
     "db:start": "./scripts/start-db.sh",
     "db:drop": "./scripts/drop-db.sh",
     "db:reset": "./scripts/reset-db.sh"
