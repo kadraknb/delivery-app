@@ -33,6 +33,7 @@ function CardProduct({ urlImage, name, price, id, card, setCard }) {
 
   useEffect(() => {
     getQuantityLocalStorage();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

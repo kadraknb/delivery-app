@@ -24,6 +24,7 @@ function CustomerOrders() {
 
   useEffect(() => {
     getAllSales();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

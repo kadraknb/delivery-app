@@ -23,6 +23,7 @@ function SellerOrders() {
       console.error(err);
       nav('/login');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

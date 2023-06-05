@@ -25,6 +25,7 @@ function SellerOrdersDetails() {
 
   useEffect(() => {
     saveSaleDetail();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const dataName = 'seller_order_details__element-order-details-label-delivery-status';

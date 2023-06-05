@@ -31,6 +31,7 @@ function CustomerOrderDetails() {
 
   useEffect(() => {
     getAllSalesProducts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const nameTest = 'customer_order_details__element-order-details-label-delivery-status';

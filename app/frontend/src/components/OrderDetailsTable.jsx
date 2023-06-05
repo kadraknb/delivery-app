@@ -16,6 +16,7 @@ function OrderDetailsTable({ array, type, removeProduct }) {
 
   useEffect(() => {
     genericArray();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [array]);
 
   return (
