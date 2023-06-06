@@ -1,8 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import DeliveryContext from '../context/DeliveryContext';
 import api from '../services/api';
 import LocalStorage from '../utils/localStorage.utils';
+
+import AccountErrorMessage from '../components/stylizedElement/AccountErrorMessage';
+import DefaultInput from '../components/stylizedElement/DefaultInput';
+import SmallButton from '../components/stylizedElement/SmallButton';
+import BigButton from '../components/stylizedElement/BigButton';
 
 function Login() {
   const { email, password, setEmail, setPassword } = useContext(DeliveryContext);
@@ -27,11 +33,6 @@ function Login() {
     const emailIsValid = email.match(emailRegEx);
 
     setIsDisabled(password.length >= minLength && emailIsValid);
-    // if (password.length >= passwordMinLength && emailIsValid) {
-    //   setIsDisabled(false);
-    // } else {
-    //   setIsDisabled(true);
-    // }
   }, [email, password]);
 
   const handleSubmit = async (e) => {
@@ -42,64 +43,105 @@ function Login() {
         password,
       });
 
-      if (data.role) { LocalStorage.setLogin(data); }
-      if (data.role === 'customer') { navigate('/customer/products'); }
-      if (data.role === 'administrator') { navigate('/admin/manage'); }
-      if (data.role === 'seller') { navigate('/seller/orders'); }
+      if (data.role) {
+        LocalStorage.setLogin(data);
+      }
+      if (data.role === 'customer') {
+        navigate('/customer/products');
+      }
+      if (data.role === 'administrator') {
+        navigate('/admin/manage');
+      }
+      if (data.role === 'seller') {
+        navigate('/seller/orders');
+      }
     } catch (error) {
       setErrorMsg([true, `${error}`]);
     }
   };
 
   return (
-    <div>
-      <form onSubmit={ handleSubmit }>
-        <section>
-          <label htmlFor="input-email">
-            <input
-              className="form-input"
-              type="email"
-              name="email"
-              placeholder="Email"
-              onChange={ (e) => setEmail(e.target.value) }
-              data-testid="common_login__input-email"
+    <>
+      <div
+        className="h-[550px] w-[900px] fixed inset-0 border-[1px]
+         border-default_light_gray
+        rounded-[20px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+        flex items-center justify-center gap-12 pl-1 pr-2"
+      >
+        <div className="flex flex-col gap-4 pl-8">
+          <div className="w-64">
+            <h1 className="font-normal text-[38px] text-right">
+              Enter your registered email address
+            </h1>
+          </div>
+
+          <div className="flex flex-col items-end gap-4">
+            <BigButton
+              button={ 1 }
+              content="I don&rsquo;t remember"
+              handleOnClick={ () => nav('/notfound') }
             />
-          </label>
-          <label htmlFor="label-password">
-            <input
-              className="form-input"
-              type="password"
-              name="password"
-              placeholder="Senha"
-              onChange={ (e) => setPassword(e.target.value) }
-              data-testid="common_login__input-password"
-            />
-          </label>
-        </section>
-        <div>
-          <button
-            type="submit"
-            name="login"
-            className="login-button"
-            data-testid="common_login__button-login"
-            disabled={ isDisabled }
-          >
-            Login
-          </button>
-          <button
-            type="button"
-            name="register"
-            data-testid="common_login__button-register"
-            onClick={ () => navigate('/register') }
-          >
-            Criar conta
-          </button>
+
+            <BigButton button={ 0 } content="Terms of Service" disabled />
+
+            <BigButton button={ 0 } content="Report a problem" disabled />
+          </div>
         </div>
-      </form>
-      {errorMsg[0] ? (
-        <p data-testid="common_login__element-invalid-email">{errorMsg[1]}</p>
-      ) : undefined}
-      {/* <button
+
+        <hr className="w-[3px] h-60 p-[1px] bg-default_light_gray" />
+
+        <form className="flex flex-col gap-2 p-0 h-[376px]">
+          <h1 className="font-extrabold text-[48px]">Login</h1>
+
+          <DefaultInput
+            setShowError={ errorMsg[0] }
+            type="email"
+            dataTestId="common_login__input-email"
+            placeholder="email@gmail.com"
+            title="Email"
+            value={ email }
+            setState={ setEmail }
+          />
+
+          <DefaultInput
+            setShowError={ errorMsg[0] }
+            type="password"
+            dataTestId="common_login__input-password"
+            placeholder="Your password"
+            title="Password"
+            value={ password }
+            setState={ setPassword }
+          />
+
+          <div className="flex justify-center items-start h-[11px]">
+            {errorMsg[0] && (
+              <AccountErrorMessage
+                testid="common_login__element-invalid-email"
+                content="Invalid email or password. User not found."
+              />
+            )}
+          </div>
+
+          <div className="flex gap-10 mt-11">
+            <SmallButton
+              button={ 1 }
+              dataTestId="common_login__button-login"
+              content="Sign in"
+              handleOnClick={ handleSubmit }
+              disabled={ isDisabled }
+            />
+
+            <SmallButton
+              button={ 0 }
+              dataTestId="common_login__button-register"
+              content="Sign up"
+              handleOnClick={ () => nav('/register') }
+              disabled={ false }
+            />
+          </div>
+        </form>
+      </div>
+      <button
         type="button"
         name="register"
         onClick={ () => {
@@ -108,8 +150,9 @@ function Login() {
           handleSubmit();
         } }
       >
-        auto login adm
+        adm
       </button>
+      <br />
       <button
         type="button"
         name="register"
@@ -119,8 +162,9 @@ function Login() {
           handleSubmit();
         } }
       >
-        auto login cliente
+        cliente
       </button>
+      <br />
       <button
         type="button"
         name="register"
@@ -130,9 +174,9 @@ function Login() {
           handleSubmit();
         } }
       >
-        auto login vendedor
-      </button> */}
-    </div>
+        vendedor
+      </button>
+    </>
   );
 }
 
