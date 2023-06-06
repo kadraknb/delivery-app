@@ -16,22 +16,23 @@ import SellerOrders from './pages/Seller/SellerOrders';
 function App() {
   return (
     <DeliveryProvider>
-      <Routes>
-        <Route
-          exact
-          path="/"
-          element={ <Navigate to="/login" replace /> }
-        />
-        <Route path="/login" element={ <Login /> } />
-        <Route path="/register" element={ <Register /> } />
-        <Route path="/customer/products" element={ <Products /> } />
-        <Route path="/customer/orders/" element={ <CustomerOrders /> } />
-        <Route path="/customer/orders/:id" element={ <CustomerOrderDetails /> } />
-        <Route path="/customer/checkout" element={ <Checkout /> } />
-        <Route path="/seller/orders" element={ <SellerOrders /> } />
-        <Route path="/seller/orders/:id" element={ <SellerOrderDetail /> } />
-        <Route path="/admin/manage" element={ <Manage /> } />
-      </Routes>
+      <div className="App select-none">
+        <Routes>
+          <Route exact path="/" element={ <Navigate to="/login" replace /> } />
+          <Route path="/login" element={ <Login /> } />
+          <Route path="/register" element={ <Register /> } />
+          <Route path="/customer/products" element={ <Products /> } />
+          <Route path="/customer/orders/" element={ <CustomerOrders /> } />
+          <Route
+            path="/customer/orders/:id"
+            element={ <CustomerOrderDetails /> }
+          />
+          <Route path="/customer/checkout" element={ <Checkout /> } />
+          <Route path="/seller/orders" element={ <SellerOrders /> } />
+          <Route path="/seller/orders/:id" element={ <SellerOrderDetail /> } />
+          <Route path="/admin/manage" element={ <Manage /> } />
+        </Routes>
+      </div>
     </DeliveryProvider>
   );
 }

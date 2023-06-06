@@ -1,0 +1,3 @@
+criar arquivo para as rotas do fronte
+ajustar isto 
+// const scrollbars = require('tailwind-scrollbar');
