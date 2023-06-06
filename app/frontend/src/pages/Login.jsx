@@ -9,6 +9,8 @@ import AccountErrorMessage from '../components/stylizedElement/AccountErrorMessa
 import DefaultInput from '../components/stylizedElement/DefaultInput';
 import SmallButton from '../components/stylizedElement/SmallButton';
 import BigButton from '../components/stylizedElement/BigButton';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 function Login() {
   const { email, password, setEmail, setPassword } = useContext(DeliveryContext);
@@ -29,14 +31,13 @@ function Login() {
 
   useEffect(() => {
     const emailRegEx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    const minLength = 6;
+    const minLength = 7;
     const emailIsValid = email.match(emailRegEx);
 
-    setIsDisabled(password.length >= minLength && emailIsValid);
+    setIsDisabled(password.length > minLength && emailIsValid);
   }, [email, password]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
       const { data } = await api.post('/login', {
         email,
@@ -62,6 +63,7 @@ function Login() {
 
   return (
     <>
+      <NavBar type="other" />
       <div
         className="h-[550px] w-[900px] fixed inset-0 border-[1px]
          border-default_light_gray
@@ -128,7 +130,7 @@ function Login() {
               dataTestId="common_login__button-login"
               content="Sign in"
               handleOnClick={ handleSubmit }
-              disabled={ isDisabled }
+              disabled={ !isDisabled }
             />
 
             <SmallButton
@@ -176,6 +178,7 @@ function Login() {
       >
         vendedor
       </button>
+      <Footer />
     </>
   );
 }

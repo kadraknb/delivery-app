@@ -6,7 +6,7 @@ function SmallButton({ button, handleOnClick, disabled, dataTestId, content }) {
     <button
       type="button"
       data-testid={ dataTestId }
-      onClick={ (e) => handleOnClick(e) }
+      onClick={ () => handleOnClick() }
       disabled={ disabled }
       className="font-semibold h-12 w-32 text-lg rounded-md transition
       bg-default_dark_accent text-default_white opacity-80 duration-300
