@@ -18,19 +18,20 @@ function Login() {
       }
       navigate('/customer/products');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     const emailRegEx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    const passwordMinLength = 6;
+    const minLength = 6;
     const emailIsValid = email.match(emailRegEx);
 
-    if (password.length >= passwordMinLength && emailIsValid) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
+    setIsDisabled(password.length >= minLength && emailIsValid);
+    // if (password.length >= passwordMinLength && emailIsValid) {
+    //   setIsDisabled(false);
+    // } else {
+    //   setIsDisabled(true);
+    // }
   }, [email, password]);
 
   const handleSubmit = async (e) => {
@@ -40,19 +41,11 @@ function Login() {
         email,
         password,
       });
-      if (data.role === 'customer') {
-        LocalStorage.setLogin(data);
-        navigate('/customer/products');
-      }
 
-      if (data.role === 'administrator') {
-        LocalStorage.setLogin(data);
-        navigate('/admin/manage');
-      }
-      if (data.role === 'seller') {
-        LocalStorage.setLogin(data);
-        navigate('/seller/orders');
-      }
+      if (data.role) { LocalStorage.setLogin(data); }
+      if (data.role === 'customer') { navigate('/customer/products'); }
+      if (data.role === 'administrator') { navigate('/admin/manage'); }
+      if (data.role === 'seller') { navigate('/seller/orders'); }
     } catch (error) {
       setErrorMsg([true, `${error}`]);
     }
@@ -106,7 +99,7 @@ function Login() {
       {errorMsg[0] ? (
         <p data-testid="common_login__element-invalid-email">{errorMsg[1]}</p>
       ) : undefined}
-      <button
+      {/* <button
         type="button"
         name="register"
         onClick={ () => {
@@ -138,7 +131,7 @@ function Login() {
         } }
       >
         auto login vendedor
-      </button>
+      </button> */}
     </div>
   );
 }
