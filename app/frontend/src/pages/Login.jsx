@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import DeliveryContext from '../context/DeliveryContext';
 import api from '../services/api';
-import LocalStorage from '../utils/localStorage.utils';
+import LocalStorage from '../utils/localStorage';
 
 import AccountErrorMessage from '../components/stylizedElement/AccountErrorMessage';
 import DefaultInput from '../components/stylizedElement/DefaultInput';
@@ -81,7 +81,7 @@ function Login() {
             <BigButton
               button={ 1 }
               content="I don&rsquo;t remember"
-              handleOnClick={ () => nav('/notfound') }
+              handleOnClick={ () => navigate('/notfound') }
             />
 
             <BigButton button={ 0 } content="Terms of Service" disabled />
@@ -137,8 +137,7 @@ function Login() {
               button={ 0 }
               dataTestId="common_login__button-register"
               content="Sign up"
-              handleOnClick={ () => nav('/register') }
-              disabled={ false }
+              handleOnClick={ () => navigate('/register') }
             />
           </div>
         </form>

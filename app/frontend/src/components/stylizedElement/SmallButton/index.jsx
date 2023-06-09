@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function SmallButton({ button, handleOnClick, disabled, dataTestId, content }) {
+function SmallButton({ button, handleOnClick, disabled = false, dataTestId, content }) {
   const button1 = (
     <button
       type="button"

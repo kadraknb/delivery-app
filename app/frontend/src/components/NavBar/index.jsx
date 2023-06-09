@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import PropTypes from 'prop-types';
-import LocalStorage from '../../utils/localStorage.utils';
+import LocalStorage from '../../utils/localStorage';
 
 import iHome from '../../images/icons/navBar_home.svg';
 import iLogOut from '../../images/icons/navBar_logout.svg';

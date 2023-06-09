@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import api from '../services/api';
-import LocalStorage from '../utils/localStorage.utils';
+import LocalStorage from '../utils/localStorage';
 
 function UsersTable({ id, itemNumber, name, email, role }) {
   const indexLine = itemNumber - 1;

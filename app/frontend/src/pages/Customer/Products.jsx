@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import CardProduct from '../../components/CardProduct';
 import NavBar from '../../components/NavBar';
 import api from '../../services/api';
-import LocalStorage from '../../utils/localStorage.utils';
+import LocalStorage from '../../utils/localStorage';
 
 function Products() {
   const [dataProducts, setDataProducts] = useState([]);

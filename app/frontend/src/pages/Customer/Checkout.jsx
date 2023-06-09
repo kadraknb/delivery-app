@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import OrderDetailsTable from '../../components/OrderDetailsTable';
 import api from '../../services/api';
-import LocalStorage from '../../utils/localStorage.utils';
+import LocalStorage from '../../utils/localStorage';
 
 function Checkout() {
   const [tableData, setTableData] = useState([]);
