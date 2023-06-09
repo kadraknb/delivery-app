@@ -28,14 +28,14 @@ function CustomerOrders() {
   }, []);
 
   return (
-    <div>
-      <NavBar />
+    <>
+      <NavBar type="main" />
       {!isLoading
         && <OrderCard
           arrayOrders={ salesData }
           type="customer"
         />}
-    </div>
+    </>
   );
 }
 

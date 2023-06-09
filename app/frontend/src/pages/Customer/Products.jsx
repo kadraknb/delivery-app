@@ -43,7 +43,7 @@ function Products() {
 
   return (
     <div>
-      <NavBar />
+      <NavBar type="main" />
       {!itsLoading
         && dataProducts.map((product) => (
           <CardProduct
