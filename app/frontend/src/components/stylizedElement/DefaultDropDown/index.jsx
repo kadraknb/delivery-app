@@ -6,8 +6,8 @@ function DefaultDropDown({ title,
   value,
   valuesArray,
   setState }) {
-  const createOptions = () => valuesArray.map((item, index) => (
-    <option key={ item.name + index } value={ item.id }>
+  const createOptions = () => valuesArray.map((item) => (
+    <option key={ item.name } value={ item.id }>
       {item.name}
     </option>
   ));

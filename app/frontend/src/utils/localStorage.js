@@ -35,6 +35,16 @@ export default class LocalStorage {
     return token;
   };
 
+  static getUserID = () => {
+    const data = localStorage.getItem('userId');
+
+    if (!data) {
+      return null;
+    }
+
+    return data;
+  };
+
   static checkOperator(operator, itemQuantity) {
     const operators = {
       '-': () => itemQuantity - 1,
@@ -88,5 +98,16 @@ export default class LocalStorage {
     }
 
     return JSON.parse(data);
+  };
+
+  static removeProductFromCart = (product) => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    const newCart = cart.filter((item) => item.id !== product.id);
+
+    localStorage.setItem('cart', JSON.stringify(newCart));
+  };
+
+  static removeALLProductsFromCart = () => {
+    localStorage.removeItem('cart');
   };
 }

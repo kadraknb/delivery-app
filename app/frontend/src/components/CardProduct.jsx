@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import LocalStorage from '../utils/localStorage';
@@ -30,7 +31,6 @@ function CardProduct({ urlImage, name, price, id, createCart, persistentQuantity
         .setProductIntoCart({ id, name, price, urlImage, quantity }, operator);
     }
     setQuantityGlobal(quantityGlobal + 1);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quantity]);
 
   return (

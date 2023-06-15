@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../../context';
@@ -34,7 +35,7 @@ function TableProducts({ array, page, quantity, type }) {
   return (
     tableProducts.map((product, index) => (
       <tr
-        key={ product.name + index + page }
+        key={ product.name + product.id }
         className="text-center border-b-[3px] h-14"
       >
         {/* ITEM */}
