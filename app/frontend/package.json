@@ -17,7 +17,6 @@
     "eject": "react-scripts eject",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js --ext .jsx",
     "lint:styles": "stylelint **/*.css --config .stylelintrc.json --ignore-disables --allow-empty-input",
-
     "compose:up": "cd app && docker-compose up -d --build",
     "compose:down": "cd app && docker-compose down --remove-orphans",
     "logs": "cd app && docker-compose logs -f"
@@ -28,12 +27,13 @@
     "@testing-library/user-event": "^14.4.3",
     "axios": "^0.26.1",
     "history": "^5.3.0",
+    "moment": "^2.29.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-loader-spinner": "^5.3.4",
     "react-router": "^6.8.2",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.0",
-    "react-loader-spinner": "^5.3.4",
     "serve": "13.0.2",
     "web-vitals": "2.1.4"
   },
