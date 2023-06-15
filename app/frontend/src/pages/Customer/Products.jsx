@@ -50,6 +50,7 @@ function Products() {
   useEffect(() => {
     getProductsOnDB();
     getProductsOnLocalStorage();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
