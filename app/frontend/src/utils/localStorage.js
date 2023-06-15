@@ -34,4 +34,14 @@ export default class LocalStorage {
 
     return token;
   };
+
+  static getProductFromCart = () => {
+    const data = localStorage.getItem('cart');
+
+    if (!data) {
+      return [];
+    }
+
+    return JSON.parse(data);
+  };
 }

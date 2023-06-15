@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import DeliveryContext from '../context/DeliveryContext';
 import api from '../services/api';
 import LocalStorage from '../utils/localStorage';
 import InputValidations from '../utils/inputsValidations';
@@ -13,7 +12,8 @@ import AccountErrorMessage from '../components/stylizedElement/AccountErrorMessa
 import Footer from '../components/Footer';
 
 function Register() {
-  const { email, password, setEmail, setPassword } = useContext(DeliveryContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [showError, setShowError] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);

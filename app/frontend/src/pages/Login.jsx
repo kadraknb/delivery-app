@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import DeliveryContext from '../context/DeliveryContext';
 import api from '../services/api';
 import LocalStorage from '../utils/localStorage';
 
@@ -13,7 +12,8 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
 function Login() {
-  const { email, password, setEmail, setPassword } = useContext(DeliveryContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState([false, '']);
   const [isDisabled, setIsDisabled] = useState(true);
   const navigate = useNavigate();

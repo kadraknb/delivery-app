@@ -1,74 +1,86 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
+import CartButton from '../../components/stylizedElement/CartButton';
 import CardProduct from '../../components/CardProduct';
 import NavBar from '../../components/NavBar';
 import api from '../../services/api';
 import LocalStorage from '../../utils/localStorage';
+import imageProducts from '../../images/productsImage.png';
 
 function Products() {
   const [dataProducts, setDataProducts] = useState([]);
-  const [itsLoading, setLoading] = useState(true);
-  const [cart, setCart] = useState(0);
-  const [card, setCard] = useState([]);
+  const [localStorageProducts, setLocalStorageProducts] = useState([]);
+  const [createCart, setCreateCart] = useState(false);
   const nav = useNavigate();
+
+  const getProductsOnLocalStorage = async () => {
+    const products = await LocalStorage.getProductFromCart();
+
+    setLocalStorageProducts(products);
+  };
 
   const getProductsOnDB = async () => {
     const authorization = LocalStorage.getToken();
 
     try {
-      const { data } = await api.get('/customer/products', {
-        headers: { authorization },
-      });
+      const { data } = await api.get(
+        '/customer/products',
+        { headers: { authorization } },
+      );
+
       setDataProducts(data);
-      setLoading(false);
+      setCreateCart(true);
     } catch (err) {
-      console.error(err.message);
+      console.log(err);
+      nav('/login');
     }
   };
 
-  const getCartLocalStorage = () => {
-    const soma = 0;
-    const items = JSON.parse(localStorage.getItem('card'));
-    if (items) {
-      const totalPrice = items.reduce((acc, cur) => acc + Number(cur.totalPrice), soma);
-      setCart(totalPrice.toFixed(2));
+  const retrievePersistentQuantity = (product) => {
+    const findOnLocal = localStorageProducts.find((item) => item.id === product.id);
+
+    if (localStorageProducts.length && findOnLocal) {
+      return findOnLocal.quantity;
     }
+
+    return 0;
   };
 
   useEffect(() => {
     getProductsOnDB();
-    getCartLocalStorage();
-  }, [card]);
+    getProductsOnLocalStorage();
+  }, []);
 
   return (
-    <div>
+    <div className="h-full w-full flex flex-col select-none">
       <NavBar type="main" />
-      {!itsLoading
-        && dataProducts.map((product) => (
+
+      <img
+        src={ imageProducts }
+        alt="Products"
+        className="w-80 self-center pb-10 pt-12 pointer-events-none
+      select-none"
+      />
+
+      <div
+        className="flex items-center self-center gap-8 flex-wrap
+        justify-between w-[1200px] h-full after:pr-[268px] mb-32"
+      >
+        {dataProducts.map((product) => (
           <CardProduct
             key={ product.id }
             urlImage={ product.urlImage }
+            persistentQuantity={ retrievePersistentQuantity(product) }
             id={ product.id }
             name={ product.name }
             price={ product.price }
-            card={ card }
-            setCard={ setCard }
+            createCart={ createCart }
           />
         ))}
-      <button
-        type="button"
-        data-testid="customer_products__button-cart"
-        disabled={ cart === 0 }
-        onClick={ () => nav('/customer/checkout') }
-      >
-        Ver Carrinho: R$
-        <span
-          data-testid="customer_products__checkout-bottom-value"
-        >
-          {String(cart).replace('.', ',')}
-        </span>
-      </button>
+      </div>
+
+      <CartButton />
     </div>
   );
 }

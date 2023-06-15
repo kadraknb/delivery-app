@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Navigate, Routes } from 'react-router-dom';
 
-import DeliveryProvider from './context/DeliveryProvider';
+import Provider from './context';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -15,7 +15,7 @@ import SellerOrders from './pages/Seller/SellerOrders';
 
 function App() {
   return (
-    <DeliveryProvider>
+    <Provider>
       <div className="App select-none">
         <Routes>
           <Route exact path="/" element={ <Navigate to="/login" replace /> } />
@@ -33,7 +33,7 @@ function App() {
           <Route path="/admin/manage" element={ <Manage /> } />
         </Routes>
       </div>
-    </DeliveryProvider>
+    </Provider>
   );
 }
 
