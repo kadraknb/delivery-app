@@ -43,6 +43,7 @@ function Login() {
         email,
         password,
       });
+      console.log('🚀 ~ handleSubmit ~ data:', data);
 
       if (data.role) {
         LocalStorage.setLogin(data);
@@ -148,7 +149,6 @@ function Login() {
         onClick={ () => {
           setPassword('--adm2@21!!--');
           setEmail('adm@deliveryapp.com');
-          handleSubmit();
         } }
       >
         adm
@@ -160,7 +160,6 @@ function Login() {
         onClick={ () => {
           setPassword('$#zebirita#$');
           setEmail('zebirita@email.com');
-          handleSubmit();
         } }
       >
         cliente
@@ -172,7 +171,6 @@ function Login() {
         onClick={ () => {
           setPassword('fulana@123');
           setEmail('fulana@deliveryapp.com');
-          handleSubmit();
         } }
       >
         vendedor
