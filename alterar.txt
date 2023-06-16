@@ -1,0 +1,8 @@
+criar arquivo para as rotas do fronte
+ajustar isto 
+// const scrollbars = require('tailwind-scrollbar');
+tirar mens de erro do login
+remover comentarios 
+remover risco no header
+suavizar icon
+criar um index na api

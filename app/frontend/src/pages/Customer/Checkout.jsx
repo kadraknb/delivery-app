@@ -1,152 +1,221 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+/* eslint-disable react/jsx-max-depth */
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import NavBar from '../../components/NavBar';
-import OrderDetailsTable from '../../components/OrderDetailsTable';
+import TableProducts from '../../components/TableProducts';
+import { Context } from '../../context';
 import api from '../../services/api';
-import LocalStorage from '../../utils/localStorage.utils';
+import InputValidations from '../../utils/inputsValidations';
+import LocalStorage from '../../utils/localStorage';
+import iCart from '../../images/icons/iCart.svg';
+import iCheckout from '../../images/checkoutImage.png';
+import DefaultInput from '../../components/stylizedElement/DefaultInput';
+import BigButton from '../../components/stylizedElement/BigButton';
+import DefaultDropDown from '../../components/stylizedElement/DefaultDropDown';
 
 function Checkout() {
-  const [tableData, setTableData] = useState([]);
-  const [address, setAddress] = useState('');
+  const { totalPricesGlobal } = useContext(Context);
+  const [addressValue, setAddressValue] = useState('');
+  const [numberValue, setNumberValue] = useState('');
+  const [orderDisabled, setOrderDisabled] = useState(true);
   const [sellers, setSellers] = useState([]);
-  const [seller, setSeller] = useState('');
-  const [number, setNumber] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [selectedSeller, setSelectedSeller] = useState(0);
+  const [confirmPurchase, setConfirmPurchase] = useState(false);
+  const nav = useNavigate();
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    setOrderDisabled(
+      !InputValidations.validateAddressAndNumber(addressValue, numberValue),
+    );
+  }, [addressValue, numberValue]);
 
-  const handleRemoveRow = (index) => {
-    const newData = [...tableData];
-    newData.splice(index, 1);
-    setTableData(newData);
-    localStorage.setItem('card', JSON.stringify(newData));
-  };
+  const handleOrder = async () => {
+    const authorization = LocalStorage.getToken();
+    const timerSeconds = 1000;
 
-  const getAllSellers = async () => {
+    setConfirmPurchase(true);
+
+    const data = {
+      userId: +LocalStorage.getUserID(),
+      sellerId: +selectedSeller,
+      totalPrice: +totalPricesGlobal.toFixed(2),
+      deliveryAddress: addressValue,
+      deliveryNumber: numberValue,
+      products: LocalStorage.getProductFromCart(),
+    };
+
     try {
-      const { data } = await api.get('/seller');
-      setSellers(data);
+      const response = await api.post('/sales', data, {
+        headers: { authorization },
+      });
+      LocalStorage.removeALLProductsFromCart();
+
+      setTimeout(() => {
+        setConfirmPurchase(false);
+      }, timerSeconds);
+
+      nav(`/customer/orders/${response.data.id}`);
     } catch (error) {
+      setConfirmPurchase(false);
       console.error(error);
     }
+  };
+
+  const retrieveSellers = async () => {
+    const response = await api.get('/seller');
+    setSellers(response.data);
+    setSelectedSeller(response.data[0].id);
   };
 
   useEffect(() => {
-    const storedItems = JSON.parse(localStorage.getItem('card')) || [];
-    setTableData(storedItems);
-    getAllSellers();
-    setIsLoading(false);
+    retrieveSellers();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const authorization = LocalStorage.getToken();
-    const Ok = 201;
+  const tableHeaders = [
+    'Item',
+    'Description',
+    'Quantity',
+    'Unit Price',
+    'Sub-Total',
+    'Remove Item',
+  ];
 
-    const storedUserId = JSON.parse(localStorage.getItem('userId'));
-    const productsFilter = tableData.map((element) => {
-      const acc = {
-        id: element.id,
-        name: element.name,
-        quantity: element.quantity,
-      };
-      return acc;
-    });
-    const totalPriceCalculate = tableData
-      .reduce((total, row) => total + Number(row.totalPrice), 0).toFixed(2);
+  const trsTable = (
+    <tr>
+      {tableHeaders.map((name, index) => {
+        if (index > 0) {
+          return (
+            <th className="text-default_white font-normal" key={ name }>
+              {name}
+            </th>
+          );
+        }
+        return (
+          <th className="text-default_white font-normal w-40" key={ name }>
+            {name}
+          </th>
+        );
+      })}
+    </tr>
+  );
 
-    try {
-      const { data, status } = await api.post('/sales', {
-        userId: storedUserId,
-        sellerId: Number(seller),
-        totalPrice: totalPriceCalculate,
-        deliveryAddress: address,
-        deliveryNumber: number,
-        products: productsFilter,
-      }, {
-        headers: { authorization },
-      });
-      if (status === Ok) {
-        localStorage.removeItem('card');
-        navigate(`/customer/orders/${data.id}`);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const thProducts = (
+    <TableProducts
+      page="checkout"
+      type="customer_checkout"
+      array={ LocalStorage.getProductFromCart().filter(
+        (product) => product.quantity > 0,
+      ) }
+    />
+  );
+
+  const table = (
+    <table className="w-full">
+      <thead className="h-20 bg-default_black">{trsTable}</thead>
+      <tbody>{thProducts}</tbody>
+    </table>
+  );
+
+  const mainContent = (
+    <>
+      <div className="flex flex-col items-start w-9/12 mt-16 mx-auto">
+        <div className="flex items-end gap-2 mb-4">
+          <img
+            src={ iCart }
+            alt="Icone de carrinho"
+            className="w-24 ml-[-10px]"
+          />
+          <h1 className="text-6xl font-extrabold">CHECKOUT</h1>
+        </div>
+
+        {table}
+      </div>
+      <div
+        className="flex w-[1390px] m-auto rounded-2xl border-[2px]
+      border-default_light_gray mb-32 mt-16"
+      >
+        <form className="p-6 flex flex-col w-full text-default_black">
+          <span className="text-3xl font-bold mb-8">Delivery Details</span>
+
+          <div className="flex items-center mb-4 gap-8">
+            <DefaultInput
+              title="Address Number"
+              dataTestId="customer_checkout__input-address-number"
+              placeholder="nº 563"
+              value={ numberValue }
+              type="number"
+              size="small"
+              setState={ setNumberValue }
+            />
+
+            <DefaultDropDown
+              title="Responsible Seller"
+              dataTestId="customer_checkout__select-seller"
+              value={ selectedSeller.id }
+              type="number"
+              valuesArray={ sellers }
+              setState={ setSelectedSeller }
+            />
+          </div>
+
+          <DefaultInput
+            title="Address Location"
+            dataTestId="customer_checkout__input-address"
+            placeholder="Robert Robertson, NW Bobcat Lane, St. Robert"
+            value={ addressValue }
+            type="text"
+            size="large"
+            setState={ setAddressValue }
+          />
+        </form>
+
+        <hr className="h-40 w-1 rounded-full self-center bg-default_light_gray" />
+
+        <div
+          className="flex flex-col items-center justify-center
+        w-full font-semibold gap-6"
+        >
+          <div className="flex flex-col items-center justify-center gap-1">
+            <span className="text-2xl">Total</span>
+            <p
+              data-testid="customer_checkout__element-order-total-price"
+              className="text-4xl"
+            >
+              {`R$ ${Number(totalPricesGlobal).toFixed(2).replace('.', ',')}`}
+            </p>
+          </div>
+          <BigButton
+            content="Finish Checkout"
+            button={ 1 }
+            disabled={ orderDisabled }
+            handleOnClick={ handleOrder }
+          />
+        </div>
+      </div>
+    </>
+  );
+
+  const messageContent = (
+    <div className="flex flex-col items-center justify-center gap-2 mt-[13%]">
+      <img
+        src={ iCheckout }
+        alt="Checkout"
+        className="w-96 pointer-events-none"
+      />
+      <div className="flex flex-col justify-center items-center">
+        <span className="text-default_dark_gray text-xl font-bold">
+          Purchase completed successfully!
+        </span>
+        <hr className="w-2/4 h-1 bg-default_black" />
+      </div>
+    </div>
+  );
 
   return (
     <div>
-      <NavBar />
-      {!isLoading && (
-        <table>
-          <thead>
-            Finalizar Pedido
-            <tr>
-              <th>Item</th>
-              <th>Descrição</th>
-              <th>Quantidade</th>
-              <th>Valor Unitário</th>
-              <th>Sub-total</th>
-              <th>Remover Item</th>
-            </tr>
-          </thead>
-          <tbody>
-            <OrderDetailsTable
-              array={ tableData }
-              type="customer_checkout"
-              removeProduct={ handleRemoveRow }
-            />
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colSpan="4" style={ { textAlign: 'right' } }>Total:</td>
-              <td data-testid="customer_checkout__element-order-total-price">
-                {tableData
-                  .reduce((total, row) => total + Number(row.totalPrice), 0)
-                  .toFixed(2).replace('.', ',')}
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      )}
-      P. Vendedora Responsável:
-      <select
-        name="seller"
-        data-testid="customer_checkout__select-seller"
-        value={ seller }
-        onChange={ (e) => setSeller(e.target.value) }
-      >
-        <option disabled value="">
-          Selecione
-        </option>
-        {sellers.map(({ name, id }) => (
-          <option key={ id } value={ id }>{name}</option>
-        ))}
-      </select>
-      Endereço
-      <input
-        type="text"
-        name="address"
-        data-testid="customer_checkout__input-address"
-        value={ address }
-        onChange={ (e) => setAddress(e.target.value) }
-      />
-      Número
-      <input
-        type="number"
-        name="number"
-        data-testid="customer_checkout__input-address-number"
-        value={ number }
-        onChange={ (e) => setNumber(e.target.value) }
-      />
-      <button
-        data-testid="customer_checkout__button-submit-order"
-        type="button"
-        onClick={ handleSubmit }
-      >
-        FINALIZAR PEDIDO
-      </button>
+      <NavBar type="main" />
+
+      <div>{!confirmPurchase ? mainContent : messageContent}</div>
     </div>
   );
 }

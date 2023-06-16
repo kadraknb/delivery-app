@@ -10,7 +10,7 @@ const options = {
   dialectOptions: {
     timezone: 'Z',
   },
-  logging: false,
+  logging: true,
 };
 
 module.exports = {

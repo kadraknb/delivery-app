@@ -6,6 +6,8 @@ services:
       - 3000:3000
     platform: linux/x86_64
     working_dir: /app-frontend
+    volumes:
+      - ./frontend:/app-frontend
     depends_on:
       backend:
         condition: service_healthy
@@ -25,6 +27,8 @@ services:
       - 3001:3001
     platform: linux/x86_64
     working_dir: /app-backend
+    volumes:
+      - ./backend:/app-backend
     depends_on:
       db:
         condition: service_healthy
