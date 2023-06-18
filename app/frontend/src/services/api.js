@@ -45,6 +45,18 @@ export default class Api {
     }
   };
 
+  static getProducts = async (authorization) => {
+    try {
+      const { data } = await api.get(
+        '/customer/products',
+        { headers: { authorization } },
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   static getSalesProductsById = async (id) => {
     try {
       const { data: { products, ...order } } = await api.get(`/sales/products/${id}`);
