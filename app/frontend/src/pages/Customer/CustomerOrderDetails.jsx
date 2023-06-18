@@ -4,9 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { Circles } from 'react-loader-spinner';
 
-import NavBar from '../../components/NavBar';
-import api from '../../services/api';
+import Api from '../../services/api';
 import DateOperations from '../../utils/dateOperations';
+
+import NavBar from '../../components/NavBar';
 import TableProducts from '../../components/TableProducts';
 import DefaultInput from '../../components/stylizedElement/DefaultInput';
 import BigButton from '../../components/stylizedElement/BigButton';
@@ -23,17 +24,18 @@ function CustomerDetails() {
   const zerosLength = 5;
 
   const retrieveOrder = async () => {
-    const { data } = await api.get(`/sales/products/${id}`);
-    const sellerApi = await api.get('/seller');
+    const data = await Api.getSalesProductsById(id);
 
-    const productsDestructuring = data.products
-      .map(({ SalesProducts, ...rest }) => ({ ...rest, ...SalesProducts }));
+    setProducts(data.products);
+    setOrder(data.order);
+    setSeller(await Api.getSellerById(data.order.sellerId));
+  };
 
-    const getSeller = sellerApi.data.find((i) => i.id === data.sellerId).name;
-
-    setProducts(productsDestructuring);
-    setOrder(data);
-    setSeller(getSeller);
+  const changeState = async () => {
+    const data = await Api.changeStateOrders(order.id, 'Entregue');
+    if (data) {
+      setOrder({ ...order, status: 'Entregue' });
+    }
   };
 
   const createTable = () => {
@@ -185,8 +187,8 @@ function CustomerDetails() {
             <BigButton
               content="Mark as Delivered"
               button={ 1 }
-              handleOnClick={'asd'}
-              disabled={ order.status === 'Pendente' }
+              handleOnClick={ changeState }
+              disabled={ order.status !== 'Pendente' }
             />
           </div>
         </div>
