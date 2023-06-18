@@ -14,6 +14,18 @@ export default class Api {
   //   }
   // };
 
+  static login = async (email, password) => {
+    try {
+      const { data } = await api.post('/login', {
+        email,
+        password,
+      });
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   static getAllSeller = async () => {
     try {
       const { data } = await api.get('/seller');
