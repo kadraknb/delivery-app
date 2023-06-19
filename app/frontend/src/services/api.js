@@ -1,8 +1,11 @@
 import axios from 'axios';
+import LocalStorage from '../utils/localStorage';
 
 const api = axios.create({
   baseURL: 'http://localhost:3001/',
 });
+
+const authorization = LocalStorage.getToken();
 
 export default class Api {
   // static get = async () => {
@@ -45,7 +48,7 @@ export default class Api {
     }
   };
 
-  static getProducts = async (authorization) => {
+  static getProducts = async () => {
     try {
       const { data } = await api.get(
         '/customer/products',
@@ -57,7 +60,18 @@ export default class Api {
     }
   };
 
-  static getSalesProductsById = async (id) => {
+  static postOrder = async (order) => {
+    try {
+      const { data } = await api.post('/sales', order, {
+        headers: { authorization },
+      });
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  static getSalesById = async (id) => {
     try {
       const { data: { products, ...order } } = await api.get(`/sales/products/${id}`);
 

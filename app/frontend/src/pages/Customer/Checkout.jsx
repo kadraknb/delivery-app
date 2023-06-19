@@ -30,7 +30,6 @@ function Checkout() {
   }, [addressValue, numberValue]);
 
   const handleOrder = async () => {
-    const authorization = LocalStorage.getToken();
     const timerSeconds = 1000;
 
     setConfirmPurchase(true);
@@ -45,16 +44,18 @@ function Checkout() {
     };
 
     try {
-      const response = await api.post('/sales', data, {
-        headers: { authorization },
-      });
+      const response = await api.postOrder(data);
+      if (typeof response !== 'object') {
+        throw new Error('Error in server');
+      }
+
       LocalStorage.removeALLProductsFromCart();
 
       setTimeout(() => {
         setConfirmPurchase(false);
       }, timerSeconds);
 
-      nav(`/customer/orders/${response.data.id}`);
+      nav(`/customer/orders/${response.id}`);
     } catch (error) {
       setConfirmPurchase(false);
       console.error(error);
@@ -62,9 +63,9 @@ function Checkout() {
   };
 
   const retrieveSellers = async () => {
-    const response = await api.get('/seller');
-    setSellers(response.data);
-    setSelectedSeller(response.data[0].id);
+    const data = await api.getAllSeller();
+    setSellers(data);
+    setSelectedSeller(data[0].id);
   };
 
   useEffect(() => {

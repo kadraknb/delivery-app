@@ -19,13 +19,10 @@ function CustomerDetails() {
   const [seller, setSeller] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
-
-  const variav = 'customer_order_details__element-order-details-label-delivery-status';
   const zerosLength = 5;
 
   const retrieveOrder = async () => {
-    const data = await Api.getSalesProductsById(id);
-
+    const data = await Api.getSalesById(id);
     setProducts(data.products);
     setOrder(data.order);
     setSeller(await Api.getSellerById(data.order.sellerId));
@@ -33,33 +30,18 @@ function CustomerDetails() {
 
   const changeState = async () => {
     const data = await Api.changeStateOrders(order.id, 'Entregue');
-    if (data) {
+    if (data === true) {
       setOrder({ ...order, status: 'Entregue' });
-    }
-  };
-
-  const createTable = () => {
-    if (products.length) {
-      return (
-        <TableProducts
-          page="orders"
-          type="customer_order_details"
-          array={ products }
-        />
-      );
     }
   };
 
   useEffect(() => {
     try {
       retrieveOrder();
-    } catch (_) {
-      try {
-        retrieveOrder();
-      } catch (error) {
-        console.error(error);
-      }
+    } catch (error) {
+      console.error(error);
     }
+    /* eslint-disable react-hooks/exhaustive-deps */
   }, []);
 
   useEffect(() => {
@@ -89,7 +71,11 @@ function CustomerDetails() {
         </tr>
       </thead>
       <tbody>
-        {createTable()}
+        <TableProducts
+          page="orders"
+          type="customer_order_details"
+          array={ products }
+        />
       </tbody>
     </table>
   );
@@ -115,7 +101,7 @@ function CustomerDetails() {
 
       <form
         className="p-6 flex flex-col
-        text-default_black m-auto w-[1390px] m-auto rounded-2xl border-[2px]
+        text-default_black  w-[1390px] m-auto rounded-2xl border-[2px]
         border-default_light_gray mb-32 mt-16"
       >
         <div className="flex">
@@ -158,7 +144,7 @@ function CustomerDetails() {
 
               <DefaultInput
                 title="Status"
-                dataTestId={ variav }
+                dataTestId="customer_order_details__element-order-details-label-delivery-status"
                 placeholder={ order.status }
                 type="text"
                 size="small"
