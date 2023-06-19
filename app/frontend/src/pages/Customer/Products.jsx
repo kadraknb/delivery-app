@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import CartButton from '../../components/stylizedElement/CartButton';
+import CartButton from '../../components/Common/CartButton';
 import CardProduct from '../../components/CardProduct';
 import NavBar from '../../components/NavBar';
 import Api from '../../services/api';

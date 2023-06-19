@@ -9,8 +9,7 @@ function DefaultInput({
   type,
   size,
   disabled,
-  setState,
-  setShowError }) {
+  setState }) {
   const switchObject = {
     small: `border-2 text-lg border-default_dark_gray rounded-[5px] py-2 px-4
     w-[184px] focus:outline-default_dark_accent disabled:text-default_dark_gray`,
@@ -34,7 +33,6 @@ function DefaultInput({
         disabled={ disabled || false }
         onChange={ ({ target }) => {
           setState(target.value);
-          if (setShowError) setShowError(false);
         } }
       />
     </label>
@@ -47,7 +45,6 @@ DefaultInput.propTypes = {
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   setState: PropTypes.func.isRequired,
-  setShowError: PropTypes.func.isRequired,
   size: PropTypes.string,
 }.isRequired;
 

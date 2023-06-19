@@ -6,9 +6,9 @@ import LocalStorage from '../utils/localStorage';
 import InputValidations from '../utils/inputsValidations';
 
 import NavBar from '../components/NavBar';
-import DefaultInput from '../components/stylizedElement/DefaultInput';
-import SmallButton from '../components/stylizedElement/SmallButton';
-import AccountErrorMessage from '../components/stylizedElement/AccountErrorMessage';
+import DefaultInput from '../components/Common/DefaultInput';
+import SmallButton from '../components/Common/SmallButton';
+import AccountErrorMessage from '../components/Common/AccountErrorMessage';
 import Footer from '../components/Footer';
 
 function Register() {

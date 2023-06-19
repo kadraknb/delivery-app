@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../services/api';
-import LocalStorage from '../utils/localStorage';
+import Api from '../services/api';
 
 function RegisterForm() {
   const [email, setEmail] = useState('');
@@ -26,15 +25,14 @@ function RegisterForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const authorization = LocalStorage.getToken();
 
     try {
-      await api.post('/admin/manage', {
+      await Api.postAdm(
         name,
         email,
         password,
         role,
-      }, { headers: { authorization } });
+      );
     } catch (error) {
       setErrorMsg([true, `${error}`]);
     }

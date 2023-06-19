@@ -30,6 +30,30 @@ export default class Api {
     }
   };
 
+  static getAdm = async () => {
+    try {
+      const { data } = await api.get('admin/manage');
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  static postAdm = async (
+    name,
+    email,
+    password,
+    role,
+  ) => {
+    console.log('ss');
+    await api.post('/admin/manage', {
+      name,
+      email,
+      password,
+      role,
+    }, { headers: { authorization } });
+  };
+
   static getAllSeller = async () => {
     try {
       const { data } = await api.get('/seller');
@@ -49,7 +73,7 @@ export default class Api {
     }
   };
 
-  static getSellerByUserId = async () => {
+  static getSalesByUserId = async () => {
     try {
       const { data } = await api.get(`/customer/orders/${userId}`);
 

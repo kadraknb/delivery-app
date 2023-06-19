@@ -10,7 +10,7 @@ function SellerOrders() {
   const [user] = useState(LocalStorage.getUser());
 
   const retrieveOrders = async () => {
-    const data = await Api.getSellerByUserId();
+    const data = await Api.getSalesByUserId();
     setOrders(data);
   };
 

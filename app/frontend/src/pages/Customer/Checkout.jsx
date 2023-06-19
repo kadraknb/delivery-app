@@ -9,9 +9,9 @@ import InputValidations from '../../utils/inputsValidations';
 import LocalStorage from '../../utils/localStorage';
 import iCart from '../../images/icons/iCart.svg';
 import iCheckout from '../../images/checkoutImage.png';
-import DefaultInput from '../../components/stylizedElement/DefaultInput';
-import BigButton from '../../components/stylizedElement/BigButton';
-import DefaultDropDown from '../../components/stylizedElement/DefaultDropDown';
+import DefaultInput from '../../components/Common/DefaultInput';
+import BigButton from '../../components/Common/BigButton';
+import DefaultDropDown from '../../components/Common/DefaultDropDown';
 
 function Checkout() {
   const { totalPricesGlobal } = useContext(Context);

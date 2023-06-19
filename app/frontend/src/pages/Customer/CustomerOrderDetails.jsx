@@ -9,8 +9,8 @@ import DateOperations from '../../utils/dateOperations';
 
 import NavBar from '../../components/NavBar';
 import TableProducts from '../../components/TableProducts';
-import DefaultInput from '../../components/stylizedElement/DefaultInput';
-import BigButton from '../../components/stylizedElement/BigButton';
+import DefaultInput from '../../components/Common/DefaultInput';
+import BigButton from '../../components/Common/BigButton';
 import iOrder from '../../images/icons/orderDashboard_order.svg';
 
 function CustomerDetails() {
@@ -25,7 +25,7 @@ function CustomerDetails() {
     const data = await Api.getSalesById(id);
     setProducts(data.products);
     setOrder(data.order);
-    setSeller(await Api.getSellerById(data.order.sellerId));
+    setSeller(await Api.getSellerBySellerId(data.order.sellerId));
   };
 
   const changeState = async () => {

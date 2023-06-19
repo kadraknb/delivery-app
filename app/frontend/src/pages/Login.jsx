@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import Api from '../services/api';
 import LocalStorage from '../utils/localStorage';
 
-import AccountErrorMessage from '../components/stylizedElement/AccountErrorMessage';
-import DefaultInput from '../components/stylizedElement/DefaultInput';
-import SmallButton from '../components/stylizedElement/SmallButton';
-import BigButton from '../components/stylizedElement/BigButton';
+import AccountErrorMessage from '../components/Common/AccountErrorMessage';
+import DefaultInput from '../components/Common/DefaultInput';
+import SmallButton from '../components/Common/SmallButton';
+import BigButton from '../components/Common/BigButton';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
