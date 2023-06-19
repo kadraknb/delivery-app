@@ -5,13 +5,15 @@ import AccountErrorMessage from '../Common/AccountErrorMessage';
 import DefaultInput from '../Common/DefaultInput';
 import SmallButton from '../Common/SmallButton';
 import DefaultDropDown from '../Common/DefaultDropDown';
+import InputValidations from '../../utils/inputsValidations';
 
 function Register({
   handleRegister,
   isDisabled = false,
   showError = false,
-  type,
+  type = 'common',
 }) {
+  console.log("🚀 ~ type:", type);
   const roles = [
     { name: 'seller', id: 0 },
     { name: 'customer', id: 1 },
@@ -21,25 +23,13 @@ function Register({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setSelectedRole] = useState(1);
-
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   useEffect(() => {
-    const emailRegEx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    const passwordMinLength = 6;
-    const nameMinLenght = 12;
-    const emailIsValid = email.match(emailRegEx);
-
-    if (
-      password.length >= passwordMinLength
-      && emailIsValid
-      && name.length >= nameMinLenght
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [email, password, name]);
+    const enabledButton = InputValidations.validateRegister(email, password, name)
+      && isDisabled;
+    setButtonDisabled(!enabledButton);
+  }, [name, email, password]);
 
   return (
     <form className="flex flex-col gap-1 p-0 h-[376px]">

@@ -6,26 +6,13 @@ import LocalStorage from '../utils/localStorage';
 import InputValidations from '../utils/inputsValidations';
 
 import NavBar from '../components/NavBar';
-import DefaultInput from '../components/Common/DefaultInput';
-import SmallButton from '../components/Common/SmallButton';
-import AccountErrorMessage from '../components/Common/AccountErrorMessage';
 import Footer from '../components/Footer';
 
 function Register() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
   const [showError, setShowError] = useState(false);
-  const [buttonDisabled, setButtonDisabled] = useState(true);
   const [termsOfService, setTermsOfService] = useState(false);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const enabledButton = InputValidations.validateRegister(email, password, name)
-      && termsOfService;
-    setButtonDisabled(!enabledButton);
-  }, [name, email, password, termsOfService]);
 
   const handleRegister = async () => {
     const HTTP_CREATED = 201;
@@ -104,62 +91,13 @@ function Register() {
 
         <hr className="w-[3px] h-60 p-[1px] bg-default_light_gray" />
 
-        <form className="flex flex-col gap-1 p-0 h-[376px]">
-          <DefaultInput
-            setShowError={ setShowError }
-            type="string"
-            dataTestId="common_register__input-name"
-            placeholder="Daniel Orivaldo da Silva"
-            title="Name"
-            value={ name }
-            setState={ setName }
-          />
+        <Register
+          handleRegister={ handleRegister }
+          showError={ showError }
+          isDisabled={ termsOfService }
+          type="adm"
+        />
 
-          <DefaultInput
-            setShowError={ setShowError }
-            type="email"
-            dataTestId="common_register__input-email"
-            placeholder="danielsilva@gmail.com"
-            title="Email"
-            value={ email }
-            setState={ setEmail }
-          />
-
-          <DefaultInput
-            setShowError={ setShowError }
-            type="password"
-            dataTestId="common_register__input-password"
-            placeholder="Your password"
-            title="Password"
-            value={ password }
-            setState={ setPassword }
-          />
-
-          <div className="flex justify-center items-start h-[8px] top-0">
-            {showError && (
-              <AccountErrorMessage
-                testid="common_register__element-invalid_register"
-                content="User or email already registered."
-              />
-            )}
-          </div>
-
-          <div className="flex gap-10 mt-10">
-            <SmallButton
-              button={ 1 }
-              dataTestId="common_register__button-register"
-              content="Sign in"
-              handleOnClick={ handleRegister }
-              disabled={ buttonDisabled }
-            />
-
-            <SmallButton
-              button={ 0 }
-              content="Go back"
-              handleOnClick={ () => navigate('/login') }
-            />
-          </div>
-        </form>
       </div>
       <Footer />
     </div>
