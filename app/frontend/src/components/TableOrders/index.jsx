@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import DateOperations from '../utils/dateOperations';
-import iOrder from '../images/icons/orderDashboard_order.svg';
+import DateOperations from '../../utils/dateOperations';
+import iOrder from '../../images/icons/orderDashboard_order.svg';
 
-function OrderCard({ arrayOrders, type }) {
+function TableOrders({ arrayOrders, type }) {
   const orderStringLength = 5;
   const nav = useNavigate();
 
@@ -26,9 +26,8 @@ function OrderCard({ arrayOrders, type }) {
             justify-center h-[102.5%] -left-1 -top-1 relative"
           >
             <span
-              className="text-default_white
-                text-4xl font-bold uppercase flex
-                text-center-rotate-90"
+              className="text-default_white text-4xl font-bold uppercase flex text-center
+            -rotate-90"
             >
               {order.status}
             </span>
@@ -79,8 +78,8 @@ function OrderCard({ arrayOrders, type }) {
   );
 }
 
-OrderCard.propTypes = {
+TableOrders.propTypes = {
   arrayOrders: PropTypes.arrayOf(),
 }.isRequired;
 
-export default OrderCard;
+export default TableOrders;

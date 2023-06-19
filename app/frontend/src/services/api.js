@@ -6,6 +6,7 @@ const api = axios.create({
 });
 
 const authorization = LocalStorage.getToken();
+const userId = LocalStorage.getUserID();
 
 export default class Api {
   // static get = async () => {
@@ -38,11 +39,21 @@ export default class Api {
     }
   };
 
-  static getSellerById = async (sellerId) => {
+  static getSellerBySellerId = async (sellerId) => {
     try {
       const { data } = await api.get('/seller');
 
       return data.find((i) => i.id === sellerId).name;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  static getSellerByUserId = async () => {
+    try {
+      const { data } = await api.get(`/customer/orders/${userId}`);
+
+      return data;
     } catch (error) {
       console.error(error);
     }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import NavBar from '../../components/NavBar';
-import OrderCard from '../../components/OrderCard';
+import OrderCard from '../../components/TableOrders';
 import api from '../../services/api';
 import formatOrdersDate from '../../utils/formatOrdersData';
 

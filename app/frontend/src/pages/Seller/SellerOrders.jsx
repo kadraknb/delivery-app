@@ -1,31 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import OrderCard from '../../components/OrderCard';
 import NavBar from '../../components/NavBar';
-import { getOrders } from '../../services/apiOrders';
-import formatOrdersDate from '../../utils/formatOrdersData';
+import TableOrders from '../../components/TableOrders';
+import LocalStorage from '../../utils/localStorage';
 import OrdersImage from '../../images/ordersImage.png';
+import Api from '../../services/api';
 
 function SellerOrders() {
-  const nav = useNavigate();
-  const [sellerOrders, setSellerOrders] = useState([]);
-  const id = localStorage.getItem('userId');
+  const [orders, setOrders] = useState([]);
+  const [user] = useState(LocalStorage.getUser());
 
-  useEffect(() => {
-    try {
-      const getOrdersOfApi = async () => {
-        const data = await getOrders(id);
-        formatOrdersDate(data);
-        setSellerOrders(data);
-      };
-      getOrdersOfApi();
-    } catch (err) {
-      console.error(err);
-      nav('/login');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const retrieveOrders = async () => {
+    const data = await Api.getSellerByUserId();
+    setOrders(data);
+  };
+
+  useEffect(() => retrieveOrders(), []);
 
   return (
     <div className="flex flex-col">
@@ -36,9 +25,8 @@ function SellerOrders() {
         className="w-[26rem] self-center
       pb-10 pt-14 pointer-events-none select-none"
       />
-      {/* <OrderCard arrayOrders={sellerOrders} type="seller" /> */}
       <div className="flex justify-center">
-        <OrderCard arrayOrders={ sellerOrders } type="seller" />
+        <TableOrders arrayOrders={ orders } type={ user.role } />
       </div>
     </div>
   );
