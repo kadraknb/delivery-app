@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
 import NavBar from '../../components/NavBar';
-import RegisterForm from '../../components/RegisterForm';
 import UsersTable from '../../components/UsersTable';
-import api from '../../services/api';
 import formatUsersRole from '../../utils/formatUsersData';
+import Api from '../../services/api';
+import Register from '../../components/Register';
 
 function Manage() {
   const [usersData, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(false);
 
   const getAllUsers = async () => {
     try {
-      const { data } = await api.get('admin/manage');
-
+      const data = await Api.getAdm();
       formatUsersRole(data);
-
       setUsers(data);
       setIsLoading(false);
     } catch (error) {
@@ -23,14 +22,31 @@ function Manage() {
     }
   };
 
+  const handleSubmit = async (name, email, password, role) => {
+    try {
+      await Api.postAdm(
+        name,
+        email,
+        password,
+        role,
+      );
+    } catch (error) {
+      setErrorMsg([true, `${error}`]);
+    }
+  };
+
   useEffect(() => {
     getAllUsers();
-  }, [usersData]);
+  }, []);
 
   return (
     <div>
-      <NavBar />
-      <RegisterForm />
+      <NavBar type="main" />
+      <Register
+        handleRegister={ handleSubmit }
+        showError={ errorMsg }
+        type="adm"
+      />
       {!isLoading
         && usersData.map((user, index) => (
           <UsersTable
