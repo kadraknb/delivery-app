@@ -10,7 +10,7 @@ import CustomerOrders from './pages/Customer/CustomerOrders';
 import CustomerOrderDetails from './pages/Customer/CustomerOrderDetails';
 import Checkout from './pages/Customer/Checkout';
 import Manage from './pages/Admin/Manage';
-import SellerOrderDetail from './pages/Seller/SellerOrderDetails';
+// import SellerOrderDetail from './pages/Seller/SellerOrderDetails';
 import SellerOrders from './pages/Seller/SellerOrders';
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
           />
           <Route path="/customer/checkout" element={ <Checkout /> } />
           <Route path="/seller/orders" element={ <SellerOrders /> } />
-          <Route path="/seller/orders/:id" element={ <SellerOrderDetail /> } />
+          <Route path="/seller/orders/:id" element={ <CustomerOrderDetails /> } />
           <Route path="/admin/manage" element={ <Manage /> } />
         </Routes>
       </div>

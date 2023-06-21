@@ -91,6 +91,16 @@ export default class Api {
     }
   };
 
+  static getSalesBySellerId = async () => {
+    try {
+      const { data } = await api.get(`/seller/orders/${userId}`);
+
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   static getProducts = async () => {
     try {
       const { data } = await api.get(
