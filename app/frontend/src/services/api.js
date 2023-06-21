@@ -30,6 +30,15 @@ export default class Api {
     }
   };
 
+  static postRegister = async ({ name, email, password }) => {
+    const response = await api.post('/register', {
+      name,
+      email,
+      password,
+    });
+    return response;
+  };
+
   static getAdm = async () => {
     try {
       const { data } = await api.get('admin/manage');
@@ -53,15 +62,6 @@ export default class Api {
     }, { headers: { authorization } });
   };
 
-  static postRegister = async ({ name, email, password }) => {
-    const response = await api.post('/register', {
-      name,
-      email,
-      password,
-    });
-    return response;
-  };
-
   static getAllSeller = async () => {
     try {
       const { data } = await api.get('/seller');
@@ -81,9 +81,9 @@ export default class Api {
     }
   };
 
-  static getSalesByUserId = async () => {
+  static getSalesBySellerId = async () => {
     try {
-      const { data } = await api.get(`/customer/orders/${userId}`);
+      const { data } = await api.get(`/seller/orders/${userId}`);
 
       return data;
     } catch (error) {
@@ -91,9 +91,9 @@ export default class Api {
     }
   };
 
-  static getSalesBySellerId = async () => {
+  static getSalesByUserId = async () => {
     try {
-      const { data } = await api.get(`/seller/orders/${userId}`);
+      const { data } = await api.get(`/customer/orders/${userId}`);
 
       return data;
     } catch (error) {
