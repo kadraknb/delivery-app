@@ -25,34 +25,73 @@ function Manage() {
   const handleSubmit = async (newUser) => {
     try {
       await Api.postAdm(newUser);
+      getAllUsers();
     } catch (error) {
       setErrorMsg([true, `${error}`]);
     }
+  };
+
+  const deleteUser = async (id) => {
+    await Api.deleteUser(id);
+    getAllUsers();
   };
 
   useEffect(() => {
     getAllUsers();
   }, []);
 
+  const tableHeaders = [
+    'Item',
+    'Nome',
+    'Email',
+    'Tipo',
+    'Excluir',
+  ];
+
+  const trsTable = (
+    <tr>
+      {tableHeaders.map((thName, index) => {
+        if (index > 0) {
+          return (
+            <th className="text-default_white font-normal" key={ thName }>
+              {thName}
+            </th>
+          );
+        }
+        return (
+          <th className="text-default_white font-normal w-40" key={ thName }>
+            {thName}
+          </th>
+        );
+      })}
+    </tr>
+  );
+
   return (
     <div>
       <NavBar type="main" />
-      <Register
-        handleRegister={ handleSubmit }
-        showError={ errorMsg }
-        type="adm"
-      />
-      {!isLoading
-        && usersData.map((user, index) => (
-          <UsersTable
-            key={ user.id }
-            id={ user.id }
-            itemNumber={ index + 1 }
-            name={ user.name }
-            email={ user.email }
-            role={ user.role }
-          />
-        ))}
+      <table className="w-full">
+        <thead className="h-20 bg-default_black">
+          {trsTable}
+        </thead>
+        <tbody>
+          {!isLoading
+              && <UsersTable
+                array={ usersData }
+                deleteUser={ deleteUser }
+              />}
+        </tbody>
+      </table>
+
+      <br />
+      <div className="flex justify-center">
+
+        <Register
+          handleRegister={ handleSubmit }
+          showError={ errorMsg }
+          type="adm"
+        />
+      </div>
     </div>
   );
 }

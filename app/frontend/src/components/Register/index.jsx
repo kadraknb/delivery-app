@@ -10,7 +10,7 @@ import InputValidations from '../../utils/inputsValidations';
 
 function Register({
   handleRegister,
-  isDisabled = false,
+  isDisabled = true,
   showError = false,
   type,
 }) {

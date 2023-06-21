@@ -1,79 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import api from '../services/api';
-import LocalStorage from '../utils/localStorage';
 
-function UsersTable({ id, itemNumber, name, email, role }) {
-  const indexLine = itemNumber - 1;
-
-  const deleteUser = async (e) => {
-    e.preventDefault();
-    const authorization = LocalStorage.getToken();
-
-    try {
-      await api.delete(
-        `admin/manage/${id}`,
-        { headers: { authorization } },
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+function UsersTable({ array, deleteUser }) {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Tipo</th>
-          <th>Excluir</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td
-            data-testid={ `admin_manage__element-user-table-item-number-${indexLine}` }
-          >
-            { itemNumber }
+    <>
+      {array.map(({ id, name, email, role }) => (
+
+        <tr className="text-center border-b-[3px] h-14" key={ id }>
+          <td>
+            { id }
           </td>
-          <td
-            data-testid={ `admin_manage__element-user-table-name-${indexLine}` }
-          >
+          <td>
             { name }
           </td>
-          <td
-            data-testid={ `admin_manage__element-user-table-email-${indexLine}` }
-          >
+          <td>
             { email }
           </td>
-          <td
-            data-testid={ `admin_manage__element-user-table-role-${indexLine}` }
-          >
+          <td>
             { role }
           </td>
-          <td
-            data-testid={ `admin_manage__element-user-table-remove-${indexLine}` }
-          >
+          <td>
             <button
+              className="relative top-1"
               type="button"
-              onClick={ deleteUser }
+              onClick={ () => deleteUser(id) }
             >
               Excluir
             </button>
           </td>
         </tr>
-      </tbody>
-    </table>
+      ))}
+
+    </>
+
   );
 }
 
 UsersTable.propTypes = {
-  itemNumber: PropTypes.number,
-  name: PropTypes.string,
-  email: PropTypes.string,
-  role: PropTypes.string,
+  array: PropTypes.array,
+  deleteUser: PropTypes.func,
 }.isRequired;
 
 export default UsersTable;

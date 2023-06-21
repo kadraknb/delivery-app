@@ -62,6 +62,14 @@ export default class Api {
     }, { headers: { authorization } });
   };
 
+  static deleteUser = async (id) => {
+    try {
+      await api.delete(`admin/manage/${id}`, { headers: { authorization } });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   static getAllSeller = async () => {
     try {
       const { data } = await api.get('/seller');
