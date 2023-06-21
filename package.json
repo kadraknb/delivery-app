@@ -1,7 +1,7 @@
 {
   "name": "delivery-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Nessa aplicação, fui responsável por criar e integrar tanto o back-end quanto o front-end, criando uma plataforma de delivery de cerveja.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kadraknb/delivery-app.git"
@@ -18,17 +18,5 @@
     "db:start": "./scripts/start-db.sh",
     "db:drop": "./scripts/drop-db.sh",
     "db:reset": "./scripts/reset-db.sh"
-  },
-  "devDependencies": {
-    "axios": "0.26.1",
-    "dotenv": "16.0.0",
-    "jest": "27.5.1",
-    "jest-puppeteer": "6.1.0",
-    "jsonwebtoken": "8.5.1",
-    "moment": "2.29.1",
-    "mysql2": "2.3.3",
-    "puppeteer": "13.5.1",
-    "sequelize": "6.17.0",
-    "sequelize-cli": "6.4.1"
   }
 }
