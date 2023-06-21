@@ -22,7 +22,7 @@ function CustomerOrders() {
     }
   };
 
-  useEffect(() => getAllSales(), []);
+  useEffect(() => { getAllSales(); }, []);
 
   return (
     <div className="flex flex-col">

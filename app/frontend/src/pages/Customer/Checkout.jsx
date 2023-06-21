@@ -53,9 +53,8 @@ function Checkout() {
 
       setTimeout(() => {
         setConfirmPurchase(false);
+        nav(`/customer/orders/${response.id}`);
       }, timerSeconds);
-
-      nav(`/customer/orders/${response.id}`);
     } catch (error) {
       setConfirmPurchase(false);
       console.error(error);

@@ -14,7 +14,7 @@ function SellerOrders() {
     setOrders(data);
   };
 
-  useEffect(() => retrieveOrders(), []);
+  useEffect(() => { retrieveOrders(); }, []);
 
   return (
     <div className="flex flex-col">
