@@ -1,31 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import api from '../services/api';
+import Api from '../services/api';
 import LocalStorage from '../utils/localStorage';
-import InputValidations from '../utils/inputsValidations';
 
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import Register from '../components/Register';
 
-function Register() {
+function RegisterClient() {
   const [showError, setShowError] = useState(false);
   const [termsOfService, setTermsOfService] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleRegister = async () => {
+  const handleRegister = async (newUser) => {
     const HTTP_CREATED = 201;
 
     try {
-      const responseCreatedUserData = await api.post('/register', {
-        email,
-        password,
-        name,
-      });
-      if (responseCreatedUserData.status === HTTP_CREATED) {
+      const response = await Api.postRegister(newUser);
+      if (response.status === HTTP_CREATED) {
         setShowError(false);
-        LocalStorage.setLogin(responseCreatedUserData.data);
+        LocalStorage.setLogin(response.data);
         navigate('/customer/products');
         return;
       }
@@ -82,7 +78,6 @@ function Register() {
             />
             <div>
               By creating a new account, you agree with our
-              {' '}
               {checkboxSpan}
               .
             </div>
@@ -90,18 +85,16 @@ function Register() {
         </div>
 
         <hr className="w-[3px] h-60 p-[1px] bg-default_light_gray" />
-
         <Register
           handleRegister={ handleRegister }
           showError={ showError }
           isDisabled={ termsOfService }
-          type="adm"
+          type="common"
         />
-
       </div>
       <Footer />
     </div>
   );
 }
 
-export default Register;
+export default RegisterClient;

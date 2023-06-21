@@ -11,9 +11,8 @@ function Register({
   handleRegister,
   isDisabled = false,
   showError = false,
-  type = 'common',
+  type,
 }) {
-  console.log("🚀 ~ type:", type);
   const roles = [
     { name: 'seller', id: 0 },
     { name: 'customer', id: 1 },
@@ -27,9 +26,9 @@ function Register({
 
   useEffect(() => {
     const enabledButton = InputValidations.validateRegister(email, password, name)
-      && isDisabled;
+    && isDisabled;
     setButtonDisabled(!enabledButton);
-  }, [name, email, password]);
+  }, [name, email, password, isDisabled]);
 
   return (
     <form className="flex flex-col gap-1 p-0 h-[376px]">
@@ -85,13 +84,13 @@ function Register({
           button={ 1 }
           dataTestId="common_register__button-register"
           content="Sign in"
-          handleOnClick={ () => handleRegister(
+          handleOnClick={ () => handleRegister({
             name,
             email,
             password,
-            roles[role].name,
-          ) }
-          disabled={ buttonDisabled && isDisabled }
+            role: roles[role].name,
+          }) }
+          disabled={ buttonDisabled }
         />
 
         <SmallButton

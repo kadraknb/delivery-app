@@ -39,19 +39,27 @@ export default class Api {
     }
   };
 
-  static postAdm = async (
+  static postAdm = async ({
     name,
     email,
     password,
     role,
-  ) => {
-    console.log('ss');
+  }) => {
     await api.post('/admin/manage', {
       name,
       email,
       password,
       role,
     }, { headers: { authorization } });
+  };
+
+  static postRegister = async ({ name, email, password }) => {
+    const response = await api.post('/register', {
+      name,
+      email,
+      password,
+    });
+    return response;
   };
 
   static getAllSeller = async () => {

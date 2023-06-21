@@ -22,14 +22,9 @@ function Manage() {
     }
   };
 
-  const handleSubmit = async (name, email, password, role) => {
+  const handleSubmit = async (newUser) => {
     try {
-      await Api.postAdm(
-        name,
-        email,
-        password,
-        role,
-      );
+      await Api.postAdm(newUser);
     } catch (error) {
       setErrorMsg([true, `${error}`]);
     }
