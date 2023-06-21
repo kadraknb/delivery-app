@@ -12,6 +12,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
+    "build": "./scripts/build.sh",
     "start": "./scripts/start.sh",
     "logs": "./scripts/logs.sh",
     "stop": "./scripts/stop.sh",
