@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Api from '../services/api';
-import LocalStorage from '../utils/localStorage';
+import Api from '../../services/api';
+import LocalStorage from '../../utils/localStorage';
 
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
-import Register from '../components/Register';
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer';
+import Register from '../../components/Register';
 
 function RegisterClient() {
   const [showError, setShowError] = useState(false);

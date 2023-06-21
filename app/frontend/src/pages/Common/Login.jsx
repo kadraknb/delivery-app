@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Api from '../services/api';
-import LocalStorage from '../utils/localStorage';
+import Api from '../../services/api';
+import LocalStorage from '../../utils/localStorage';
 
-import AccountErrorMessage from '../components/Common/AccountErrorMessage';
-import DefaultInput from '../components/Common/DefaultInput';
-import SmallButton from '../components/Common/SmallButton';
-import BigButton from '../components/Common/BigButton';
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
+import AccountErrorMessage from '../../components/Common/AccountErrorMessage';
+import DefaultInput from '../../components/Common/DefaultInput';
+import SmallButton from '../../components/Common/SmallButton';
+import BigButton from '../../components/Common/BigButton';
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer';
 
 function Login() {
   const [email, setEmail] = useState('');

@@ -3,8 +3,8 @@ import { Route, Navigate, Routes } from 'react-router-dom';
 
 import Provider from './context';
 
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Login from './pages/Common/Login';
+import Register from './pages/Common/Register';
 import Products from './pages/Customer/Products';
 import CustomerOrders from './pages/Customer/CustomerOrders';
 import CustomerOrderDetails from './pages/Customer/CustomerOrderDetails';
