@@ -17,9 +17,9 @@ export default class LocalStorage {
       return null;
     }
 
-    const { id, name, email, role } = JSON.parse(data);
+    const { name, email, role } = JSON.parse(data);
 
-    return { id, name, email, role };
+    return { id: LocalStorage.getUserID(), name, email, role };
   };
 
   static getToken = () => {

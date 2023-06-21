@@ -4,12 +4,13 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { Circles } from 'react-loader-spinner';
 
-import NavBar from '../../components/NavBar';
-import api from '../../services/api';
+import Api from '../../services/api';
 import DateOperations from '../../utils/dateOperations';
+
+import NavBar from '../../components/NavBar';
 import TableProducts from '../../components/TableProducts';
-import DefaultInput from '../../components/stylizedElement/DefaultInput';
-import BigButton from '../../components/stylizedElement/BigButton';
+import DefaultInput from '../../components/Common/DefaultInput';
+import BigButton from '../../components/Common/BigButton';
 import iOrder from '../../images/icons/orderDashboard_order.svg';
 
 function CustomerDetails() {
@@ -18,46 +19,29 @@ function CustomerDetails() {
   const [seller, setSeller] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
-
-  const variav = 'customer_order_details__element-order-details-label-delivery-status';
   const zerosLength = 5;
 
   const retrieveOrder = async () => {
-    const { data } = await api.get(`/sales/products/${id}`);
-    const sellerApi = await api.get('/seller');
-
-    const productsDestructuring = data.products
-      .map(({ SalesProducts, ...rest }) => ({ ...rest, ...SalesProducts }));
-
-    const getSeller = sellerApi.data.find((i) => i.id === data.sellerId).name;
-
-    setProducts(productsDestructuring);
-    setOrder(data);
-    setSeller(getSeller);
+    const data = await Api.getSalesById(id);
+    setProducts(data.products);
+    setOrder(data.order);
+    setSeller(await Api.getSellerBySellerId(data.order.sellerId));
   };
 
-  const createTable = () => {
-    if (products.length) {
-      return (
-        <TableProducts
-          page="orders"
-          type="customer_order_details"
-          array={ products }
-        />
-      );
+  const changeState = async () => {
+    const data = await Api.changeStateOrders(order.id, 'Entregue');
+    if (data === true) {
+      setOrder({ ...order, status: 'Entregue' });
     }
   };
 
   useEffect(() => {
     try {
       retrieveOrder();
-    } catch (_) {
-      try {
-        retrieveOrder();
-      } catch (error) {
-        console.error(error);
-      }
+    } catch (error) {
+      console.error(error);
     }
+    /* eslint-disable react-hooks/exhaustive-deps */
   }, []);
 
   useEffect(() => {
@@ -87,7 +71,11 @@ function CustomerDetails() {
         </tr>
       </thead>
       <tbody>
-        {createTable()}
+        <TableProducts
+          page="orders"
+          type="customer_order_details"
+          array={ products }
+        />
       </tbody>
     </table>
   );
@@ -113,7 +101,7 @@ function CustomerDetails() {
 
       <form
         className="p-6 flex flex-col
-        text-default_black m-auto w-[1390px] m-auto rounded-2xl border-[2px]
+        text-default_black  w-[1390px] m-auto rounded-2xl border-[2px]
         border-default_light_gray mb-32 mt-16"
       >
         <div className="flex">
@@ -156,7 +144,7 @@ function CustomerDetails() {
 
               <DefaultInput
                 title="Status"
-                dataTestId={ variav }
+                dataTestId="customer_order_details__element-order-details-label-delivery-status"
                 placeholder={ order.status }
                 type="text"
                 size="small"
@@ -185,8 +173,8 @@ function CustomerDetails() {
             <BigButton
               content="Mark as Delivered"
               button={ 1 }
-              handleOnClick={'asd'}
-              disabled={ order.status === 'Pendente' }
+              handleOnClick={ changeState }
+              disabled={ order.status !== 'Pendente' }
             />
           </div>
         </div>

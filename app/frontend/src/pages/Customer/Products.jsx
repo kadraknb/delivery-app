@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import CartButton from '../../components/stylizedElement/CartButton';
+import CartButton from '../../components/Common/CartButton';
 import CardProduct from '../../components/CardProduct';
 import NavBar from '../../components/NavBar';
-import api from '../../services/api';
+import Api from '../../services/api';
 import LocalStorage from '../../utils/localStorage';
 import imageProducts from '../../images/productsImage.png';
 
@@ -20,19 +20,18 @@ function Products() {
     setLocalStorageProducts(products);
   };
 
-  const getProductsOnDB = async () => {
+  const getProducts = async () => {
     const authorization = LocalStorage.getToken();
 
     try {
-      const { data } = await api.get(
-        '/customer/products',
-        { headers: { authorization } },
-      );
-
+      const data = await Api.getProducts(authorization);
+      if (typeof data !== 'object') {
+        throw new Error('Não foi possível carregar os produtos!');
+      }
       setDataProducts(data);
       setCreateCart(true);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       nav('/login');
     }
   };
@@ -48,7 +47,7 @@ function Products() {
   };
 
   useEffect(() => {
-    getProductsOnDB();
+    getProducts();
     getProductsOnLocalStorage();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -17,9 +17,66 @@ Bem-vindo ao repositório do projeto App de Delivery! Essa aplicação consiste 
 
 Na sua máquina você deve ter:
 
-- Node versão 16
 - Docker
 - Docker-compose versão >=1.29.2
+
+opcional 
+- Node versão 16
+
+---
+
+
+## Instalação do Docker
+
+Siga as instruções apropriadas para o sistema operacional que você está usando:
+
+- ### Windows:
+  - Faça o download do instalador do Docker para Windows [aqui](https://www.docker.com/products/docker-desktop).
+
+- ### macOS:
+  - Faça o download do instalador do Docker para macOS [aqui](https://www.docker.com/products/docker-desktop).
+
+- ### Linux:
+
+  - Para distribuições baseadas em Debian/Ubuntu, você pode seguir as instruções de instalação [aqui](https://docs.docker.com/engine/install/ubuntu/).
+
+  - Para distribuições baseadas em Fedora, você pode seguir as instruções de instalação [aqui](https://docs.docker.com/engine/install/fedora/).
+  
+  - Para outras distribuições Linux, consulte a documentação oficial do Docker para obter instruções específicas.
+
+---
+
+## Instalação do Docker Compose
+
+Certifique-se de ter o Docker Compose instalado na versão 1.29 ou superior. Siga as instruções abaixo:
+
+- ### Windows:
+
+  - O Docker Compose já é instalado junto com o Docker Desktop para Windows. Se você seguiu as instruções de instalação do Docker para Windows, o Docker Compose também deve estar disponível.
+
+- ### macOS:
+
+  - O Docker Compose já é instalado junto com o Docker Desktop para macOS. Se você seguiu as instruções de instalação do Docker para macOS, o Docker Compose também deve estar disponível.
+
+- ### Linux:
+  - Faça o download do executável do Docker Compose:
+    ```bash
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    ```
+
+  - Dê permissão de execução ao arquivo:
+    ```bash
+    sudo chmod +x /usr/local/bin/docker-compose
+    ```
+
+  - Verifique se a instalação foi bem-sucedida:
+    ```bash
+    docker-compose --version
+    ```
+
+Certifique-se de verificar se o Docker e o Docker Compose foram instalados corretamente executando os comandos docker --version e docker-compose --version no terminal. Ambos os comandos devem retornar as versões instaladas.
+
+---
 
 ## Instalação do Node.js
 
@@ -33,14 +90,7 @@ Para instalar o Node.js, você pode utilizar o NVM (Node Version Manager). Siga 
    nvm use 16.14
    nvm alias default 16.14
    ```
-
-## Instalação do Docker Compose
-
-Certifique-se de ter o Docker Compose instalado na versão 1.29 ou superior. Siga as instruções abaixo:
-
-- [Instruções de instalação do Docker Compose no Ubuntu](https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/module/94d0e996-1827-4fbc-bc24-c99fb592925b/section/5987fa2d-0d04-45b2-9d91-1c2ffce09862/day/2f1a5c4d-74b1-488a-8d9b-408682c93724/lesson/b883b81d-21f6-4b60-aa62-8508f6017ea0);
-- [Documentação oficial para atualizar o Docker Compose](https://docs.docker.com/compose/install/)
-- [Documentação oficial para desinstalar o Docker Compose](https://docs.docker.com/compose/install/#uninstallation)
+---
 
 </details>
 
@@ -56,17 +106,15 @@ Certifique-se de ter o Docker Compose instalado na versão 1.29 ou superior. Sig
   cd delivery-app
   ```
 
-2. Instale as dependências
+2. Inicializar o projeto
 
 - ```bash
-  npm install
+  scripts/start.sh
   ```
 
-3. Inicializar o projeto
+3. Acesso do projeto 
 
-- ```bash
-  npm start
-  ```
+- http://localhost:3000
 
 </details>
 
@@ -75,42 +123,42 @@ Certifique-se de ter o Docker Compose instalado na versão 1.29 ou superior. Sig
     <strong>🪛 Scripts Principais</strong>
   </summary><br>
 
-**Aqui estão os scripts principais definidos no arquivo package.json da raiz do projeto:**
+**Aqui estão os scripts principais definidos na raiz do projeto:**
 
-- `start`: Limpa as portas `3000` e `3001`, faz o build do Docker e inicia o **`banco de dados`**, **`backend`** e **`frontend`**
+- `start`: Limpa as portas `3000` , `3001` e `3002`, faz o build do Docker e inicia o **`banco de dados`**, **`backend`** e **`frontend`**
 
   ```bash
-  npm start
+  scripts/start.sh
   ```
 
 - `stop`: Para e deleta as aplicações em execução no `Docker`.;
 
   ```bash
-  npm stop
+  scripts/stop.sh
   ```
 
 - `logs`: Exibe os logs das aplicações em execução no `Docker`;
 
   ```bash
-  npm run logs
+  scripts/logs.sh
   ```
 
 - `db:start`: Executa os scripts do `Sequelize` para inicializar o **banco de dados**
 
   ```bash
-  npm run db:start
+  scripts/start-db.sh
   ```
 
 - `db:drop`: Executa os scripts do `Sequelize` para excluir o **banco de dados**
 
   ```bash
-  npm run db:drop
+  scripts/drop-db.sh
   ```
 
 - `db:reset`: Executa os scripts do `Sequelize` para restaurar o **banco de dados**
 
   ```bash
-  npm run db:reset
+  scripts/reset-db.sh
   ```
 
 </details>

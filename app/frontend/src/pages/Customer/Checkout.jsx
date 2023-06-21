@@ -9,9 +9,9 @@ import InputValidations from '../../utils/inputsValidations';
 import LocalStorage from '../../utils/localStorage';
 import iCart from '../../images/icons/iCart.svg';
 import iCheckout from '../../images/checkoutImage.png';
-import DefaultInput from '../../components/stylizedElement/DefaultInput';
-import BigButton from '../../components/stylizedElement/BigButton';
-import DefaultDropDown from '../../components/stylizedElement/DefaultDropDown';
+import DefaultInput from '../../components/Common/DefaultInput';
+import BigButton from '../../components/Common/BigButton';
+import DefaultDropDown from '../../components/Common/DefaultDropDown';
 
 function Checkout() {
   const { totalPricesGlobal } = useContext(Context);
@@ -30,7 +30,6 @@ function Checkout() {
   }, [addressValue, numberValue]);
 
   const handleOrder = async () => {
-    const authorization = LocalStorage.getToken();
     const timerSeconds = 1000;
 
     setConfirmPurchase(true);
@@ -45,16 +44,17 @@ function Checkout() {
     };
 
     try {
-      const response = await api.post('/sales', data, {
-        headers: { authorization },
-      });
+      const response = await api.postOrder(data);
+      if (typeof response !== 'object') {
+        throw new Error('Error in server');
+      }
+
       LocalStorage.removeALLProductsFromCart();
 
       setTimeout(() => {
         setConfirmPurchase(false);
+        nav(`/customer/orders/${response.id}`);
       }, timerSeconds);
-
-      nav(`/customer/orders/${response.data.id}`);
     } catch (error) {
       setConfirmPurchase(false);
       console.error(error);
@@ -62,9 +62,9 @@ function Checkout() {
   };
 
   const retrieveSellers = async () => {
-    const response = await api.get('/seller');
-    setSellers(response.data);
-    setSelectedSeller(response.data[0].id);
+    const data = await api.getAllSeller();
+    setSellers(data);
+    setSelectedSeller(data[0].id);
   };
 
   useEffect(() => {

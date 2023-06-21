@@ -1,41 +1,42 @@
 import React, { useState, useEffect } from 'react';
 
 import NavBar from '../../components/NavBar';
-import OrderCard from '../../components/OrderCard';
-import api from '../../services/api';
-import formatOrdersDate from '../../utils/formatOrdersData';
+import OrderCard from '../../components/TableOrders';
+import Api from '../../services/api';
+import dateOperations from '../../utils/dateOperations';
+import LocalStorage from '../../utils/localStorage';
+import OrdersImage from '../../images/ordersImage.png';
 
 function CustomerOrders() {
-  const [salesData, setSalesData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const id = localStorage.getItem('userId');
+  const [orders, setOrders] = useState([]);
+  const user = LocalStorage.getUser();
 
   const getAllSales = async () => {
     try {
-      const { data } = await api.get(`/customer/orders/${id}`);
-      formatOrdersDate(data);
+      const data = await Api.getSalesByUserId(user.id);
+      dateOperations.formatDDMMYYYY(data);
 
-      setSalesData(data);
-      setIsLoading(false);
+      setOrders(data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
-    getAllSales();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => { getAllSales(); }, []);
 
   return (
-    <>
+    <div className="flex flex-col">
       <NavBar type="main" />
-      {!isLoading
-        && <OrderCard
-          arrayOrders={ salesData }
-          type="customer"
-        />}
-    </>
+      <img
+        src={ OrdersImage }
+        alt="Orders"
+        className="w-[26rem] self-center
+      pb-10 pt-14 pointer-events-none select-none"
+      />
+      <div className="flex justify-center">
+        <OrderCard arrayOrders={ orders } type={ user.role } />
+      </div>
+    </div>
   );
 }
 

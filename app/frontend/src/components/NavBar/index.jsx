@@ -46,8 +46,6 @@ function NavBar({ type }) {
             </span>
             !
           </button>
-
-          <hr className="h-[2px] w-5/6 bg-default_white rounded-full" />
         </div>
 
         <button

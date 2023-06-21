@@ -1,5 +1,3 @@
-cd ./app
-
 kill -9 $(lsof -t -i:3000) &> /dev/null
 kill -9 $(lsof -t -i:3001) &> /dev/null
 kill -9 $(lsof -t -i:3002) &> /dev/null

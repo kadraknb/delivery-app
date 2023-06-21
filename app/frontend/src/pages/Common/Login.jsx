@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import api from '../services/api';
-import LocalStorage from '../utils/localStorage';
+import Api from '../../services/api';
+import LocalStorage from '../../utils/localStorage';
 
-import AccountErrorMessage from '../components/stylizedElement/AccountErrorMessage';
-import DefaultInput from '../components/stylizedElement/DefaultInput';
-import SmallButton from '../components/stylizedElement/SmallButton';
-import BigButton from '../components/stylizedElement/BigButton';
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
+import AccountErrorMessage from '../../components/Common/AccountErrorMessage';
+import DefaultInput from '../../components/Common/DefaultInput';
+import SmallButton from '../../components/Common/SmallButton';
+import BigButton from '../../components/Common/BigButton';
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -39,25 +39,28 @@ function Login() {
 
   const handleSubmit = async () => {
     try {
-      const { data } = await api.post('/login', {
-        email,
-        password,
-      });
-      console.log('🚀 ~ handleSubmit ~ data:', data);
+      const data = await Api.login(email, password);
 
-      if (data.role) {
-        LocalStorage.setLogin(data);
+      if (!data) {
+        throw new Error(`Não foi possível autenticar o usuário ${email}`);
       }
-      if (data.role === 'customer') {
+      LocalStorage.setLogin(data);
+
+      switch (data.role) {
+      case 'customer':
         navigate('/customer/products');
-      }
-      if (data.role === 'administrator') {
+        break;
+      case 'administrator':
         navigate('/admin/manage');
-      }
-      if (data.role === 'seller') {
+        break;
+      case 'seller':
         navigate('/seller/orders');
+        break;
+      default:
+        break;
       }
     } catch (error) {
+      console.error(error);
       setErrorMsg([true, `${error}`]);
     }
   };
