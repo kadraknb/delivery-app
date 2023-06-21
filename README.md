@@ -8,9 +8,8 @@ Bem-vindo ao repositório do projeto App de Delivery! Essa aplicação consiste 
 
 ---
 
-## Orientações
+# Orientações
 
-<br />
 
 <details>
 <summary><strong> ⚠️ Configurações mínimas para execução do projeto</strong></summary><br />
