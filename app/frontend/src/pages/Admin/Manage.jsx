@@ -32,8 +32,11 @@ function Manage() {
   };
 
   const deleteUser = async (id) => {
-    await Api.deleteUser(id);
-    getAllUsers();
+    const idProtegido = 3;
+    if (id > idProtegido) {
+      await Api.deleteUser(id);
+      getAllUsers();
+    }
   };
 
   useEffect(() => {
