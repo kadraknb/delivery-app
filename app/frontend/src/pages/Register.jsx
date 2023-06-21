@@ -78,6 +78,7 @@ function RegisterClient() {
             />
             <div>
               By creating a new account, you agree with our
+              {' '}
               {checkboxSpan}
               .
             </div>

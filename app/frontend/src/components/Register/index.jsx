@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import AccountErrorMessage from '../Common/AccountErrorMessage';
@@ -23,6 +24,7 @@ function Register({
   const [password, setPassword] = useState('');
   const [role, setSelectedRole] = useState(1);
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const nav = useNavigate();
 
   useEffect(() => {
     const enabledButton = InputValidations.validateRegister(email, password, name)
@@ -92,12 +94,13 @@ function Register({
           }) }
           disabled={ buttonDisabled }
         />
-
-        <SmallButton
-          button={ 0 }
-          content="Go back"
-          handleOnClick={ () => nav('/login') }
-        />
+        {type === 'common' && (
+          <SmallButton
+            button={ 0 }
+            content="Go back"
+            handleOnClick={ () => nav('/login') }
+          />
+        )}
       </div>
     </form>
   );
