@@ -20,9 +20,6 @@ Na sua máquina você deve ter:
 - Docker
 - Docker-compose versão >=1.29.2
 
-opcional 
-- Node versão 16
-
 ---
 
 
@@ -76,20 +73,6 @@ Certifique-se de ter o Docker Compose instalado na versão 1.29 ou superior. Sig
 
 Certifique-se de verificar se o Docker e o Docker Compose foram instalados corretamente executando os comandos docker --version e docker-compose --version no terminal. Ambos os comandos devem retornar as versões instaladas.
 
----
-
-## Instalação do Node.js
-
-Para instalar o Node.js, você pode utilizar o NVM (Node Version Manager). Siga as instruções abaixo:
-
-1. Instale o NVM, caso ainda não tenha:
-   - [Instruções de instalação do NVM](https://github.com/nvm-sh/nvm#installing-and-updating)
-2. Instale a versão 16.14.0 LTS do Node.js e defina como padrão:
-   ```bash
-   nvm install 16.14 --lts
-   nvm use 16.14
-   nvm alias default 16.14
-   ```
 ---
 
 </details>
