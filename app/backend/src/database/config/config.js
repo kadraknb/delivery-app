@@ -12,6 +12,7 @@ const options = {
   },
   logging: true,
 };
+console.log("🚀 ~ options:", options);
 
 module.exports = {
   development: {
