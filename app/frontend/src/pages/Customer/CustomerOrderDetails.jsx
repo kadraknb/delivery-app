@@ -17,6 +17,7 @@ function CustomerDetails() {
   const [order, setOrder] = useState([]);
   const [products, setProducts] = useState([]);
   const [seller, setSeller] = useState('');
+  console.log("🚀 ~ CustomerDetails ~ seller:", seller);
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
   const zerosLength = 5;

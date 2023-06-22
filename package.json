@@ -13,9 +13,11 @@
   },
   "scripts": {
     "start": "./scripts/start.sh",
+    "stop": "./scripts/stop.sh",
     "build": "./scripts/build.sh",
     "logs": "./scripts/logs.sh",
-    "stop": "./scripts/stop.sh",
+    "start:dev": "./scripts/start-dev.sh",
+    "stop:dev": "./scripts/stop-dev.sh",
     "db:start": "./scripts/start-db.sh",
     "db:drop": "./scripts/drop-db.sh",
     "db:reset": "./scripts/reset-db.sh"
