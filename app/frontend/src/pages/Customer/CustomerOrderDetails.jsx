@@ -12,27 +12,32 @@ import TableProducts from '../../components/TableProducts';
 import DefaultInput from '../../components/Common/DefaultInput';
 import BigButton from '../../components/Common/BigButton';
 import iOrder from '../../images/icons/orderDashboard_order.svg';
+import LocalStorage from '../../utils/localStorage';
 
 function CustomerDetails() {
   const [order, setOrder] = useState([]);
   const [products, setProducts] = useState([]);
-  const [seller, setSeller] = useState('');
-  console.log("🚀 ~ CustomerDetails ~ seller:", seller);
+  const [statusBigButton, setStatusBigButton] = useState({});
+  const [nameSeller, setNameSeller] = useState('');
+  const [isPageSeller, setIsPageSeller] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
   const zerosLength = 5;
 
   const retrieveOrder = async () => {
     const data = await Api.getSalesById(id);
+    const seller = await Api.getSellerBySellerId(data.order.sellerId);
+
     setProducts(data.products);
+    setIsPageSeller(data.order.sellerId === +LocalStorage.getUserID());
+    setNameSeller(seller.name);
     setOrder(data.order);
-    setSeller(await Api.getSellerBySellerId(data.order.sellerId));
   };
 
-  const changeState = async () => {
-    const data = await Api.changeStateOrders(order.id, 'Entregue');
+  const changeState = async (status) => {
+    const data = await Api.changeStateOrders(order.id, status);
     if (data === true) {
-      setOrder({ ...order, status: 'Entregue' });
+      setOrder({ ...order, status });
     }
   };
 
@@ -45,20 +50,42 @@ function CustomerDetails() {
     /* eslint-disable react-hooks/exhaustive-deps */
   }, []);
 
+  const getStatusBigButton = () => {
+    const status = [
+      'Pending',
+      'Preparing',
+      'In transit',
+      'Mark as Delivered',
+      'Delivered',
+    ];
+    const indexState = status.findIndex((arr) => order.status === arr);
+    let isDisabled = indexState !== 2;
+    let content = 'Mark as Delivered';
+    if (isPageSeller) {
+      isDisabled = indexState > 1;
+      content = status[indexState + 1];
+    }
+    setStatusBigButton({ isDisabled, content, status: status[indexState + 1] });
+  };
+
   useEffect(() => {
+    getStatusBigButton();
     if (products.length) {
       setIsLoading(false);
     }
-  }, [products]);
+  }, [order]);
 
   const createTableHeaders = () => {
-    const headers = ['Item', 'Description', 'Quantity', 'Unitary Price', 'Sub-Total'];
+    const headers = [
+      'Item',
+      'Description',
+      'Quantity',
+      'Unitary Price',
+      'Sub-Total',
+    ];
 
     return headers.map((head) => (
-      <th
-        className="text-default_white font-normal w-40"
-        key={ head }
-      >
+      <th className="text-default_white font-normal w-40" key={ head }>
         {head}
       </th>
     ));
@@ -67,9 +94,7 @@ function CustomerDetails() {
   const table = (
     <table className="w-full">
       <thead className="bg-default_black h-20">
-        <tr>
-          {createTableHeaders()}
-        </tr>
+        <tr>{createTableHeaders()}</tr>
       </thead>
       <tbody>
         <TableProducts
@@ -83,9 +108,7 @@ function CustomerDetails() {
 
   const mainContent = (
     <div>
-      <div
-        className="flex flex-col items-start w-9/12 mt-16 mx-auto"
-      >
+      <div className="flex flex-col items-start w-9/12 mt-16 mx-auto">
         <div className="flex items-end gap-2 mb-4">
           <img
             src={ iOrder }
@@ -106,12 +129,8 @@ function CustomerDetails() {
         border-default_light_gray mb-32 mt-16"
       >
         <div className="flex">
-          <div
-            className="w-full flex flex-col items-center justify-center"
-          >
-            <span className="text-3xl font-bold">
-              Purchase Details
-            </span>
+          <div className="w-full flex flex-col items-center justify-center">
+            <span className="text-3xl font-bold">Purchase Details</span>
 
             <div className="flex gap-6 mb-4 mt-8">
               <DefaultInput
@@ -126,7 +145,7 @@ function CustomerDetails() {
               <DefaultInput
                 title="Responsible Seller"
                 dataTestId="customer_order_details__element-order-details-label-seller-name"
-                placeholder={ seller }
+                placeholder={ nameSeller }
                 type="text"
                 size="small"
                 disabled
@@ -168,14 +187,14 @@ function CustomerDetails() {
               <span className="text-4xl">
                 R$
                 {' '}
-                { Number(order.totalPrice).toFixed(2).replace('.', ',')}
+                {Number(order.totalPrice).toFixed(2).replace('.', ',')}
               </span>
             </div>
             <BigButton
-              content="Mark as Delivered"
+              content={ statusBigButton.content }
               button={ 1 }
-              handleOnClick={ changeState }
-              disabled={ order.status !== 'Pendente' }
+              handleOnClick={ () => changeState(statusBigButton.status) }
+              disabled={ statusBigButton.isDisabled }
             />
           </div>
         </div>

@@ -54,7 +54,7 @@ describe('Testa o login do usuário vendedor', () => {
         deliveryAddress: "Rua gonçalves",
         deliveryNumber: "265",
         saleDate: "2023-03-14T13:12:47.000Z",
-        status: "Pendente"
+        status: "Pending"
       }
     ] }
 

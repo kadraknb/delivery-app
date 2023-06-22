@@ -6,7 +6,7 @@ const saleMock = {
   "deliveryAddress": "Rua. Dom Pedre",
   "deliveryNumber": "16",
   "saleDate": "2023-03-10T19:11:30.679Z",
-  "status": "Pendente"
+  "status": "Pending"
 }
 
 const SalesProductsMock = {
@@ -24,7 +24,7 @@ const salesMock = [
     "deliveryAddress": "Rua. Dom Pedre",
     "deliveryNumber": "16",
     "saleDate": "2023-03-10T19:11:30.000Z",
-    "status": "Pendente"
+    "status": "Pending"
   }
 ]
 

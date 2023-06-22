@@ -12,7 +12,7 @@ module.exports = class SalesService {
     const newSale = await this.model.create({
       ...sale,
       saleDate,
-      status: 'Pendente',
+      status: 'Pending',
     });
 
     await Promise.all(

@@ -43,7 +43,7 @@ describe('Testa o NavBar do usuário cliente', () => {
       "deliveryAddress": "Rua. Dom Pedre",
       "deliveryNumber": "16",
       "saleDate": "2023-03-14T22:32:55.798Z",
-      "status": "Pendente"
+      "status": "Pending"
     },
     status: 201 
     }
@@ -56,7 +56,7 @@ describe('Testa o NavBar do usuário cliente', () => {
       "deliveryAddress": "Rua gonçalves",
       "deliveryNumber": "265",
       "saleDate": "2023-03-14T13:12:47.000Z",
-      "status": "Pendente",
+      "status": "Pending",
       "products": [
         {
           "id": 1,

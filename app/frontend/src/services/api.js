@@ -83,7 +83,7 @@ export default class Api {
     try {
       const { data } = await api.get('/seller');
 
-      return data.find((i) => i.id === sellerId).name;
+      return data.find((i) => i.id === sellerId);
     } catch (error) {
       console.error(error);
     }
