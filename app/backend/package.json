@@ -12,7 +12,7 @@
     "db:start": "npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "db:drop": "npx sequelize-cli db:drop",
     "db:reset": "npm run db:drop && npm run db:start",
-    "prestart": "npm run db:start",
+    "posstart": "npm run db:start",
     "start": "node .",
     "predev": "npm run db:start",
     "dev": "nodemon .",

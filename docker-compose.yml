@@ -8,11 +8,8 @@ services:
       - 3000:3000
     platform: linux/x86_64
     working_dir: /app-frontend
-    volumes:
-      - ./app/frontend:/app-frontend
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     environment:
       - ESLINT_NO_DEV_ERRORS=true
       - SKIP_PREFLIGHT_CHECK=true
@@ -32,11 +29,8 @@ services:
       - 3001:3001
     platform: linux/x86_64
     working_dir: /app-backend
-    volumes:
-      - ./app/backend:/app-backend
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     environment:
       - APP_PORT=3001
       - JWT_SECRET=jwt_secret
