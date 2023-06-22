@@ -11,6 +11,7 @@ function SellerOrders() {
 
   const retrieveOrders = async () => {
     const data = await Api.getSalesBySellerId();
+    console.log("🚀 ~ retrieveOrders ~ data:", data);
     setOrders(data);
   };
 

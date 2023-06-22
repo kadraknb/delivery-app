@@ -14,6 +14,7 @@ function CustomerOrders() {
   const getAllSales = async () => {
     try {
       const data = await Api.getSalesByUserId(user.id);
+      console.log('🚀 ~ getAllSales ~ data:', data);
       dateOperations.formatDDMMYYYY(data);
 
       setOrders(data);

@@ -93,6 +93,7 @@ export default class Api {
     try {
       const { data } = await api.get(`/seller/orders/${userId}`);
 
+      console.log('🚀 ~ getSalesBySellerId= ~ data:', data);
       return data;
     } catch (error) {
       console.error(error);
